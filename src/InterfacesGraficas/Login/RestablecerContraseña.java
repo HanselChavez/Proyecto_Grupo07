@@ -14,8 +14,8 @@ public class RestablecerContraseña extends javax.swing.JFrame {
     /**
      * Creates new form RestablecerContraseña
      */
-    Ingreso padre;
-    public RestablecerContraseña(Ingreso padre) {
+    IniciarSesion padre;
+    public RestablecerContraseña(IniciarSesion padre) {
         initComponents();
         this.padre = padre;
     }
@@ -47,6 +47,10 @@ public class RestablecerContraseña extends javax.swing.JFrame {
         btnCancelar = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+<<<<<<< HEAD
+        setUndecorated(true);
+=======
+>>>>>>> 82b1bebf0855fea11d5b75c724e5fe6307bfa7c6
 
         jPanel1.setBackground(new java.awt.Color(12, 140, 233));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());

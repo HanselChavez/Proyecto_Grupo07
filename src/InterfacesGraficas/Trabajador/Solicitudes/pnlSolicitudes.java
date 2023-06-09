@@ -266,7 +266,12 @@ public class pnlSolicitudes extends javax.swing.JPanel {
 
     private void btnEnProcesoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnProcesoActionPerformed
         try {
+<<<<<<< HEAD
+            cantidad = this.servicio.listarSolicitudes(tablaSolicitudes,"2", 
+                    "","","",null);
+=======
             cantidad = this.servicio.listarSolicitudes(tablaSolicitudes,"2", "","");
+>>>>>>> 82b1bebf0855fea11d5b75c724e5fe6307bfa7c6
             estado = "2";
             labelColorTexto("En Proceso ("+cantidad+")",Color.ORANGE);
         } catch (SQLException ex) {
@@ -278,7 +283,12 @@ public class pnlSolicitudes extends javax.swing.JPanel {
 
     private void btnSoliRechazadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSoliRechazadasActionPerformed
         try {
+<<<<<<< HEAD
+            cantidad = this.servicio.listarSolicitudes(tablaSolicitudes,"5"
+                    ,"","","",null);
+=======
             cantidad = this.servicio.listarSolicitudes(tablaSolicitudes,"5", "","");
+>>>>>>> 82b1bebf0855fea11d5b75c724e5fe6307bfa7c6
             labelColorTexto("Canceladas ("+cantidad+")",Color.red);
             estado ="5";
         } catch (SQLException ex) {
@@ -290,7 +300,12 @@ public class pnlSolicitudes extends javax.swing.JPanel {
 
     private void btnSoliTodasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSoliTodasActionPerformed
         try {
+<<<<<<< HEAD
+            cantidad =  this.servicio.listarSolicitudes(tablaSolicitudes,"0"
+                    ,"!","","",null);
+=======
             cantidad =  this.servicio.listarSolicitudes(tablaSolicitudes,"0","!","");
+>>>>>>> 82b1bebf0855fea11d5b75c724e5fe6307bfa7c6
             estado ="0";
             negado="!";
          labelColorTexto("Todas ("+cantidad+")",Color.blue);
@@ -304,7 +319,12 @@ public class pnlSolicitudes extends javax.swing.JPanel {
     private void btnAprobadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAprobadasActionPerformed
       
         try {
+<<<<<<< HEAD
+            cantidad =  this.servicio.listarSolicitudes(tablaSolicitudes,"3"
+                    ,"","","",null);
+=======
             cantidad =  this.servicio.listarSolicitudes(tablaSolicitudes,"3","","");
+>>>>>>> 82b1bebf0855fea11d5b75c724e5fe6307bfa7c6
             labelColorTexto("Aprobadas ("+cantidad+")",Color.green);
             estado ="3";
         } catch (SQLException ex) {
@@ -328,7 +348,12 @@ public class pnlSolicitudes extends javax.swing.JPanel {
     private void txtBuscarsolicitudKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarsolicitudKeyReleased
         String buscar = txtBuscarsolicitud.getText();
         try {
+<<<<<<< HEAD
+            this.servicio.listarSolicitudes(tablaSolicitudes, estado, negado
+                    , buscar,"",null);
+=======
             this.servicio.listarSolicitudes(tablaSolicitudes, estado, negado, buscar);
+>>>>>>> 82b1bebf0855fea11d5b75c724e5fe6307bfa7c6
         } catch (SQLException ex) {
             Logger.getLogger(pnlSolicitudes.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -364,7 +389,12 @@ public class pnlSolicitudes extends javax.swing.JPanel {
     }
     
     public void listarPendientes(String buscar) throws SQLException {
+<<<<<<< HEAD
+        cantidad = this.servicio.listarSolicitudes(tablaSolicitudes,"1",""
+                ,buscar,"",null);
+=======
         cantidad = this.servicio.listarSolicitudes(tablaSolicitudes,"1","",buscar);
+>>>>>>> 82b1bebf0855fea11d5b75c724e5fe6307bfa7c6
         labelColorTexto("Pendientes ("+cantidad+")",Color.black);
     }
 

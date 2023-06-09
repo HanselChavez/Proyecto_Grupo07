@@ -1,3 +1,16 @@
+<<<<<<< HEAD
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/Users/KEVIN/Desktop/Git/Servico%20de%20Agua/src/InterfacesGraficas/Solicitante/PrincipalSolicitante.java</file>
+            <file>file:/C:/Users/KEVIN/Desktop/Git/Servico%20de%20Agua/src/InterfacesGraficas/Perfil/pnlPerfiles.java</file>
+            <file>file:/C:/Users/KEVIN/Desktop/Git/Servico%20de%20Agua/src/InterfacesGraficas/Trabajador/PrincipalTrabajador.java</file>
+        </group>
+    </open-files>
+</project-private>
+=======
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
@@ -5,3 +18,4 @@
         <group/>
     </open-files>
 </project-private>
+>>>>>>> 82b1bebf0855fea11d5b75c724e5fe6307bfa7c6

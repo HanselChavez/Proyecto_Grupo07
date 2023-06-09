@@ -17,8 +17,8 @@ public class CrearCuenta extends javax.swing.JFrame {
     /**
      * Creates new form CrearCuenta
      */
-    Ingreso login;
-    public CrearCuenta(Ingreso login) {
+    IniciarSesion login;
+    public CrearCuenta(IniciarSesion login) {
         initComponents();
         this.login= login;
     }
@@ -248,8 +248,12 @@ public class CrearCuenta extends javax.swing.JFrame {
 
     private void btnCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMouseClicked
         this.dispose();
+<<<<<<< HEAD
+        login.setVisible(true);        
+=======
         login.setVisible(true);
         
+>>>>>>> 82b1bebf0855fea11d5b75c724e5fe6307bfa7c6
     }//GEN-LAST:event_btnCancelarMouseClicked
 
     private void btnAceptarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAceptarMouseClicked
