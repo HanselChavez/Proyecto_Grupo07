@@ -13,11 +13,8 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import Utilidades.ServiciosUsuario;
-<<<<<<< HEAD
 import java.awt.event.KeyEvent;
 import java.io.IOException;
-=======
->>>>>>> 82b1bebf0855fea11d5b75c724e5fe6307bfa7c6
 import javax.swing.JOptionPane;
 import rojeru_san.complementos.RSEffectFade;
 
@@ -36,11 +33,7 @@ public class IniciarSesion extends javax.swing.JFrame {
         initComponents();
         inicializarVariables();
         initControlls();
-<<<<<<< HEAD
         RSEffectFade.setFadeWindowIn(this, 30,0.1f);
-=======
-        RSEffectFade.setFadeWindowIn(this, 30,0.05f);
->>>>>>> 82b1bebf0855fea11d5b75c724e5fe6307bfa7c6
     }
 
     /**
@@ -53,10 +46,6 @@ public class IniciarSesion extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-<<<<<<< HEAD
-=======
-        jLabel1 = new javax.swing.JLabel();
->>>>>>> 82b1bebf0855fea11d5b75c724e5fe6307bfa7c6
         btnMinimize = new javax.swing.JLabel();
         btnClose = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
@@ -70,30 +59,16 @@ public class IniciarSesion extends javax.swing.JFrame {
         btnVer = new javax.swing.JLabel();
         btnOcultar = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-<<<<<<< HEAD
         lblfaltauser = new javax.swing.JLabel();
         lblfaltacontra = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         btnIniciar = new RSMaterialComponent.RSButtonMaterialOne();
-=======
-        btnIniciarSesion = new javax.swing.JLabel();
-        lblfaltauser = new javax.swing.JLabel();
-        lblfaltacontra = new javax.swing.JLabel();
->>>>>>> 82b1bebf0855fea11d5b75c724e5fe6307bfa7c6
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocation(new java.awt.Point(0, 0));
         setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(12, 140, 233));
-<<<<<<< HEAD
-=======
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel1.setToolTipText("");
-        jLabel1.setName("btnShow"); // NOI18N
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(618, 315, -1, -1));
->>>>>>> 82b1bebf0855fea11d5b75c724e5fe6307bfa7c6
 
         btnMinimize.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/32wtminimize-sign.png"))); // NOI18N
         btnMinimize.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -102,10 +77,6 @@ public class IniciarSesion extends javax.swing.JFrame {
                 btnMinimizeMouseClicked(evt);
             }
         });
-<<<<<<< HEAD
-=======
-        jPanel1.add(btnMinimize, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 10, -1, -1));
->>>>>>> 82b1bebf0855fea11d5b75c724e5fe6307bfa7c6
 
         btnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/32wtclose.png"))); // NOI18N
         btnClose.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -114,10 +85,6 @@ public class IniciarSesion extends javax.swing.JFrame {
                 btnCloseMouseClicked(evt);
             }
         });
-<<<<<<< HEAD
-=======
-        jPanel1.add(btnClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 10, 32, 32));
->>>>>>> 82b1bebf0855fea11d5b75c724e5fe6307bfa7c6
 
         jPanel2.setBackground(new java.awt.Color(30, 30, 30));
 
@@ -189,23 +156,6 @@ public class IniciarSesion extends javax.swing.JFrame {
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/128wtuser.png"))); // NOI18N
 
-<<<<<<< HEAD
-=======
-        btnIniciarSesion.setBackground(new java.awt.Color(30, 30, 30));
-        btnIniciarSesion.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
-        btnIniciarSesion.setForeground(new java.awt.Color(255, 255, 255));
-        btnIniciarSesion.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnIniciarSesion.setText("Iniciar Sesion");
-        btnIniciarSesion.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 3));
-        btnIniciarSesion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnIniciarSesion.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnIniciarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnIniciarSesionMouseClicked(evt);
-            }
-        });
-
->>>>>>> 82b1bebf0855fea11d5b75c724e5fe6307bfa7c6
         lblfaltauser.setBackground(new java.awt.Color(255, 0, 0));
         lblfaltauser.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblfaltauser.setForeground(new java.awt.Color(255, 0, 0));
@@ -214,7 +164,6 @@ public class IniciarSesion extends javax.swing.JFrame {
         lblfaltacontra.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblfaltacontra.setForeground(new java.awt.Color(255, 0, 0));
 
-<<<<<<< HEAD
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
         btnIniciar.setBackground(new java.awt.Color(30, 30, 30));
@@ -246,13 +195,10 @@ public class IniciarSesion extends javax.swing.JFrame {
                 .addGap(4, 4, 4))
         );
 
-=======
->>>>>>> 82b1bebf0855fea11d5b75c724e5fe6307bfa7c6
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-<<<<<<< HEAD
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -337,7 +283,7 @@ public class IniciarSesion extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(50, 50, 50)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addGap(50, 50, 50))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -350,98 +296,16 @@ public class IniciarSesion extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(51, Short.MAX_VALUE))
         );
-=======
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(140, 140, 140)
-                .addComponent(jLabel2)
-                .addGap(142, 142, 142))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(75, 75, 75)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(lblfaltauser, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(txtContraseña)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnOcultar)
-                            .addComponent(btnVer))
-                        .addGap(36, 36, 36))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lblUser)
-                            .addComponent(txtUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 257, Short.MAX_VALUE)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(90, 90, 90)
-                                .addComponent(btnCrearCuenta))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(50, 50, 50)
-                                .addComponent(btnRecuperarContraseña))
-                            .addComponent(btnIniciarSesion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblfaltacontra, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblestado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(78, 78, 78))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(lblContraseña)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(48, 48, 48)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblUser)
-                .addGap(8, 8, 8)
-                .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblfaltauser, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblContraseña)
-                .addGap(8, 8, 8)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnOcultar)
-                    .addComponent(btnVer))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblfaltacontra, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblestado, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnIniciarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnCrearCuenta)
-                .addGap(13, 13, 13)
-                .addComponent(btnRecuperarContraseña)
-                .addContainerGap(42, Short.MAX_VALUE))
-        );
-
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, 410, 540));
->>>>>>> 82b1bebf0855fea11d5b75c724e5fe6307bfa7c6
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-<<<<<<< HEAD
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-=======
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 508, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 639, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
->>>>>>> 82b1bebf0855fea11d5b75c724e5fe6307bfa7c6
         );
 
         pack();
@@ -461,7 +325,6 @@ public class IniciarSesion extends javax.swing.JFrame {
         txtContraseña.setEchoChar('●');
     }//GEN-LAST:event_btnOcultarMouseClicked
 
-<<<<<<< HEAD
     private void btnCloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCloseMouseClicked
         
         try {        
@@ -501,9 +364,6 @@ public class IniciarSesion extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRecuperarContraseñaMouseClicked
 
     private void btnIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarActionPerformed
-=======
-    private void btnIniciarSesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIniciarSesionMouseClicked
->>>>>>> 82b1bebf0855fea11d5b75c724e5fe6307bfa7c6
         Usuario user ;
         String username = txtUsuario.getText();
         String password = txtContraseña.getText();
@@ -517,16 +377,12 @@ public class IniciarSesion extends javax.swing.JFrame {
         if(!username.equals("")&&!password.equals(""))
         {   try {  
                 if(userService.validarUsuario(username, password)){
-                    user = userService.cargarDatosSesion( username, password);
+                    user = userService.cargarDatosSesion( username);
                     lblestado.setForeground(Color.GREEN);                
                     lblestado.setText("Usuario autenticado"); 
                     abrirForms(user);  
-<<<<<<< HEAD
                     ocultarForm();
                     //cerrarForm();
-=======
-                    cerrarForm();
->>>>>>> 82b1bebf0855fea11d5b75c724e5fe6307bfa7c6
                 }
                 else{
                     lblestado.setForeground(Color.RED);
@@ -535,80 +391,26 @@ public class IniciarSesion extends javax.swing.JFrame {
             } catch (SQLException ex) {
                     Logger.getLogger(IniciarSesion.class.getName()).log(Level.SEVERE, null, ex);
                     JOptionPane.showMessageDialog(null, ex,"Error Iniciar",0);
-<<<<<<< HEAD
             } catch (IOException ex) {
                 Logger.getLogger(IniciarSesion.class.getName()).log(Level.SEVERE, null, ex);
             }
             
         }      
     }//GEN-LAST:event_btnIniciarActionPerformed
-=======
-            }
-            
-        }                
-    }//GEN-LAST:event_btnIniciarSesionMouseClicked
-
-    private void btnCloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCloseMouseClicked
-        
-        try {        
-            cerrarForm();
-        } catch (SQLException ex) {
-            Logger.getLogger(IniciarSesion.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, ex,"Error Close",0);
-        }
-    }//GEN-LAST:event_btnCloseMouseClicked
-
-    private void btnMinimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMinimizeMouseClicked
-        
-    }//GEN-LAST:event_btnMinimizeMouseClicked
-
-    private void txtUsuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsuarioKeyTyped
-        this.lblfaltauser.setText("");
-    }//GEN-LAST:event_txtUsuarioKeyTyped
-
-    private void txtContraseñaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtContraseñaKeyTyped
-        this.lblfaltacontra.setText("");
-    }//GEN-LAST:event_txtContraseñaKeyTyped
-
-    private void btnCrearCuentaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCrearCuentaMouseClicked
-        CrearCuenta crearcuenta = new CrearCuenta(this);
-        crearcuenta.setLocationRelativeTo(null);
-        crearcuenta.setVisible(true);
-        ocultarForm();
-    }//GEN-LAST:event_btnCrearCuentaMouseClicked
-
-    private void btnRecuperarContraseñaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRecuperarContraseñaMouseClicked
-        RestablecerContraseña restablecer = new RestablecerContraseña(this);
-        restablecer.setLocationRelativeTo(null);
-        restablecer.setVisible(true);
-        ocultarForm();
-    }//GEN-LAST:event_btnRecuperarContraseñaMouseClicked
->>>>>>> 82b1bebf0855fea11d5b75c724e5fe6307bfa7c6
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JLabel btnClose;
     private javax.swing.JLabel btnCrearCuenta;
-<<<<<<< HEAD
     private RSMaterialComponent.RSButtonMaterialOne btnIniciar;
-=======
-    private javax.swing.JLabel btnIniciarSesion;
->>>>>>> 82b1bebf0855fea11d5b75c724e5fe6307bfa7c6
     private javax.swing.JLabel btnMinimize;
     private javax.swing.JLabel btnOcultar;
     private javax.swing.JLabel btnRecuperarContraseña;
     private javax.swing.JLabel btnVer;
-<<<<<<< HEAD
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-=======
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
->>>>>>> 82b1bebf0855fea11d5b75c724e5fe6307bfa7c6
     private javax.swing.JLabel lblContraseña;
     private javax.swing.JLabel lblUser;
     private javax.swing.JLabel lblestado;
@@ -620,27 +422,22 @@ public class IniciarSesion extends javax.swing.JFrame {
    
     //Funciones 
     
-<<<<<<< HEAD
     public void abrirForms(Usuario user) throws SQLException, IOException {
-=======
-    public void abrirForms(Usuario user) throws SQLException {
->>>>>>> 82b1bebf0855fea11d5b75c724e5fe6307bfa7c6
                 
         switch (user.getRol()) {
             case 1:
-                PrincipalTrabajador pantallaTrabajador= new PrincipalTrabajador(user);
+                PrincipalTrabajador pantallaTrabajador =
+                        new PrincipalTrabajador(user,this);
                 pantallaTrabajador.setVisible(true);
                 break;
             case 2:
-                PrincipalSolicitante pantallaUsuario = new PrincipalSolicitante(user,this);
+                PrincipalSolicitante pantallaUsuario = 
+                        new PrincipalSolicitante(user,this);
                 pantallaUsuario.setVisible(true);
                 break;
             default:
-<<<<<<< HEAD
-                PrincipalAdmin pantallAdmin = new PrincipalAdmin(user,this);
-=======
-                PrincipalAdmin pantallAdmin = new PrincipalAdmin(user);
->>>>>>> 82b1bebf0855fea11d5b75c724e5fe6307bfa7c6
+                PrincipalAdmin pantallAdmin = 
+                        new PrincipalAdmin(user,this);
                 pantallAdmin.setVisible(true);
                 break;
         }
@@ -659,12 +456,8 @@ public class IniciarSesion extends javax.swing.JFrame {
     }
     public void cerrarForm() throws SQLException{      
         userService.cerrarConexion();
-<<<<<<< HEAD
         
         System.exit(0);
-=======
-        this.dispose();
->>>>>>> 82b1bebf0855fea11d5b75c724e5fe6307bfa7c6
     }     
     public void inicializarVariables() throws ClassNotFoundException, SQLException {            
    
@@ -675,14 +468,8 @@ public class IniciarSesion extends javax.swing.JFrame {
         btnOcultar.setVisible(false);
         lblfaltacontra.setText(null);
         lblfaltauser.setText(null);
-<<<<<<< HEAD
         txtContraseña.setText(null);
         txtUsuario.setText(null);
         lblestado.setText(null);
-=======
-        txtContraseña.setText("");
-        txtUsuario.setText("");
-        lblestado.setText("");
->>>>>>> 82b1bebf0855fea11d5b75c724e5fe6307bfa7c6
     } 
 }

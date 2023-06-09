@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -40,40 +39,3 @@ public class ConexionBaseDeDatos {
     }
    
 }
-=======
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package Config;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-
-/**
- *
- * @author Hansel Chavez
- */
-public class ConexionBaseDeDatos {
-    private Connection conexion ;
-   
-    public Connection getConexion() throws ClassNotFoundException,SQLException{
-        try{              
-
-            String url = "jdbc:sqlserver://localhost:1433;databaseName=WaterService";
-            String usuario = "sa";
-            String contraseña = "CARLOS3231234";
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            conexion= DriverManager.getConnection(url, usuario, contraseña);
-            return conexion;
-           
-        }catch(ClassNotFoundException | SQLException ex){
-            System.out.println("Error Abrir: "+ex.getMessage());
-        }
-        return null;
-    }
-   
-}
->>>>>>> 82b1bebf0855fea11d5b75c724e5fe6307bfa7c6

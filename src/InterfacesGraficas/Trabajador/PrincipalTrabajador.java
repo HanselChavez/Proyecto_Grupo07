@@ -6,9 +6,11 @@
 package InterfacesGraficas.Trabajador;
 
 import Entidades.*;
-import newscomponents.RSPanelEffect;
-import rojeru_san.complementos.RSEffectFade;
-import rojerusan.RSPanelsSlider;
+import InterfacesGraficas.Login.IniciarSesion;
+import Utilidades.Foto;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
@@ -21,14 +23,15 @@ public class PrincipalTrabajador extends javax.swing.JFrame {
      * Creates new form PrincipalTrabajador
      */
     Usuario user;
-  
-    public PrincipalTrabajador(Usuario user) {       
+    IniciarSesion padre;
+    public PrincipalTrabajador(Usuario user,IniciarSesion padre) 
+            throws IOException {       
         initComponents();
         this.user = user;      
-        this.setLocationRelativeTo(null);
-        RSEffectFade.setFadeWindowIn(this, 30,0.1f);
-        lblnombres.setText(user.getNombres());
-        lblapellidos.setText(user.getApellidos());
+        this.padre = padre;
+        this.setLocationRelativeTo(null);      
+        cargarUsuario();
+        this.pnlslider.setPanelNormal(pnlSolicitantes);
     }
 
     /**
@@ -54,7 +57,28 @@ public class PrincipalTrabajador extends javax.swing.JFrame {
         btnMinimize = new javax.swing.JLabel();
         btnClose = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        panslid = new newscomponents.RSPanelEffect();
+        pnlslider = new newscomponents.RSPanelEffect();
+        try {
+            pnlSolicitudes = new InterfacesGraficas.Trabajador.pnlSolicitudes();
+        } catch (java.lang.ClassNotFoundException e1) {
+            e1.printStackTrace();
+        } catch (java.sql.SQLException e2) {
+            e2.printStackTrace();
+        }
+        try {
+            pnlSolicitantes = new InterfacesGraficas.Trabajador.pnSolicitantes();
+        } catch (java.lang.ClassNotFoundException e1) {
+            e1.printStackTrace();
+        } catch (java.sql.SQLException e2) {
+            e2.printStackTrace();
+        }
+        try {
+            pnlPerfil = new InterfacesGraficas.Perfil.pnlPerfiles();
+        } catch (java.lang.ClassNotFoundException e1) {
+            e1.printStackTrace();
+        } catch (java.sql.SQLException e2) {
+            e2.printStackTrace();
+        }
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -177,21 +201,22 @@ public class PrincipalTrabajador extends javax.swing.JFrame {
         rSPanelGradiente1.setLayout(rSPanelGradiente1Layout);
         rSPanelGradiente1Layout.setHorizontalGroup(
             rSPanelGradiente1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btnUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(btnSolicitudes, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(btnRetroalimentacion, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(btnAvisos, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(btnPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, rSPanelGradiente1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(rSPanelGradiente1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(lblnombres, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
+                    .addComponent(lblapellidos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(25, 25, 25))
+            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(rSPanelGradiente1Layout.createSequentialGroup()
                 .addGroup(rSPanelGradiente1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, rSPanelGradiente1Layout.createSequentialGroup()
-                        .addGroup(rSPanelGradiente1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(lblnombres, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
-                            .addComponent(lblapellidos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(25, 25, 25))))
+                    .addComponent(btnUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSolicitudes, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnRetroalimentacion, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAvisos, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         rSPanelGradiente1Layout.setVerticalGroup(
             rSPanelGradiente1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -210,13 +235,11 @@ public class PrincipalTrabajador extends javax.swing.JFrame {
                 .addComponent(btnAvisos, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(btnPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addGroup(rSPanelGradiente1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(rSPanelGradiente1Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(127, 127, 127))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 7, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(97, 97, 97))
         );
 
         jPanel2.setBackground(new java.awt.Color(12, 140, 233));
@@ -242,7 +265,7 @@ public class PrincipalTrabajador extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(737, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnMinimize)
                 .addGap(8, 8, 8)
                 .addComponent(btnClose)
@@ -260,7 +283,21 @@ public class PrincipalTrabajador extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(0, 153, 255));
 
-        panslid.setBackground(new java.awt.Color(255, 255, 255));
+        pnlslider.setBackground(new java.awt.Color(255, 255, 255));
+
+        pnlSolicitudes.setName("pnlSolicitudes"); // NOI18N
+        pnlslider.add(pnlSolicitudes, "card2");
+
+        pnlSolicitantes.setName("pnlSolicitantes"); // NOI18N
+        pnlslider.add(pnlSolicitantes, "card3");
+
+        pnlPerfil.setName("pnlPerfil"); // NOI18N
+        pnlPerfil.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                pnlPerfilMouseMoved(evt);
+            }
+        });
+        pnlslider.add(pnlPerfil, "card4");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -268,14 +305,14 @@ public class PrincipalTrabajador extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(panslid, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
+                .addComponent(pnlslider, javax.swing.GroupLayout.DEFAULT_SIZE, 770, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(panslid, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(pnlslider, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -285,7 +322,7 @@ public class PrincipalTrabajador extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(1, 1, 1)
-                .addComponent(rSPanelGradiente1, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(rSPanelGradiente1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -312,24 +349,26 @@ public class PrincipalTrabajador extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCloseMouseClicked
 
     private void btnUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuariosActionPerformed
-        
+        if(!btnUsuarios.isSelected()){    
             btnUsuarios.setSelected(true);
             btnSolicitudes.setSelected(false);
             btnRetroalimentacion.setSelected(false);
             btnAvisos.setSelected(false);
             btnPerfil.setSelected(false);
-            //this.panslid.setPanelNormal(this.pnlUsuarios);  
+            this.pnlslider.setPanelNormal(this.pnlSolicitantes);  
+        }
         
     }//GEN-LAST:event_btnUsuariosActionPerformed
 
     private void btnSolicitudesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSolicitudesActionPerformed
-      
+        if(!btnSolicitudes.isSelected()){
             btnUsuarios.setSelected(false);
             btnSolicitudes.setSelected(true);
             btnRetroalimentacion.setSelected(false);
             btnAvisos.setSelected(false);
             btnPerfil.setSelected(false);
-            //this.panslid.setPanelNormal(this.pnlSolicitudes);     
+            this.pnlslider.setPanelNormal(this.pnlSolicitudes);    
+        } 
        
     }//GEN-LAST:event_btnSolicitudesActionPerformed
 
@@ -355,18 +394,34 @@ public class PrincipalTrabajador extends javax.swing.JFrame {
 
     private void btnPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPerfilActionPerformed
         if(!btnPerfil.isSelected()){
-            btnUsuarios.setSelected(false);
-            btnSolicitudes.setSelected(false);
-            btnRetroalimentacion.setSelected(false);
-            btnAvisos.setSelected(false);
-            btnPerfil.setSelected(true);
+            try {
+                btnUsuarios.setSelected(false);
+                btnSolicitudes.setSelected(false);
+                btnRetroalimentacion.setSelected(false);
+                btnAvisos.setSelected(false);
+                btnPerfil.setSelected(true);
+                pnlPerfil.cargarDatos(user, this,padre);
+                pnlPerfil.cargarPerfil();
+                this.pnlslider.setPanelNormal(pnlPerfil);
+            } catch (IOException ex) {
+                Logger.getLogger(PrincipalTrabajador.class.getName())
+                        .log(Level.SEVERE, null, ex);
+            }
          }
     }//GEN-LAST:event_btnPerfilActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        
         System.exit(0);
     }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void pnlPerfilMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlPerfilMouseMoved
+        try {
+            cargarUsuario();
+        } catch (IOException ex) {
+            Logger.getLogger(PrincipalTrabajador.class.getName())
+                    .log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_pnlPerfilMouseMoved
 
     
 
@@ -384,11 +439,19 @@ public class PrincipalTrabajador extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lblapellidos;
     private javax.swing.JLabel lblnombres;
-    private newscomponents.RSPanelEffect panslid;
+    private InterfacesGraficas.Perfil.pnlPerfiles pnlPerfil;
+    private InterfacesGraficas.Trabajador.pnSolicitantes pnlSolicitantes;
+    private InterfacesGraficas.Trabajador.pnlSolicitudes pnlSolicitudes;
+    private newscomponents.RSPanelEffect pnlslider;
     private rspanelgradiente.RSPanelGradiente rSPanelGradiente1;
     // End of variables declaration//GEN-END:variables
 
     private void cerrarForm() {
         System.exit(0);
+    }
+     public  void cargarUsuario() throws IOException {          
+        lblnombres.setText(user.getNombres());
+        lblapellidos.setText(user.getApellidos());
+                
     }
 }

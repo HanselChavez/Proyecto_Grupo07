@@ -7,20 +7,11 @@ package InterfacesGraficas.Solicitante;
 
 import Entidades.*;
 import InterfacesGraficas.Login.IniciarSesion;
-<<<<<<< HEAD
 import Utilidades.Foto;
-import Utilidades.ServiciosUsuario;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import rojeru_san.complementos.RSEffectFade;
-=======
-import Utilidades.ServiciosUsuario;
-import java.sql.SQLException;
->>>>>>> 82b1bebf0855fea11d5b75c724e5fe6307bfa7c6
-
-
 
 /**
  *
@@ -28,28 +19,15 @@ import java.sql.SQLException;
  */
 public class PrincipalSolicitante extends javax.swing.JFrame {
 
-<<<<<<< HEAD
     Usuario user;    
-    IniciarSesion login;
-=======
-    Usuario usuario;    
->>>>>>> 82b1bebf0855fea11d5b75c724e5fe6307bfa7c6
-    HistorialSolicitudes hSolicitudes;
-    ServiciosUsuario userService;
-    public PrincipalSolicitante(Usuario user,IniciarSesion padre ) throws SQLException {
-        initComponents(); 
-        this.setLocationRelativeTo(null);
-<<<<<<< HEAD
-        iniciarValores();
+    IniciarSesion padre;
+    public PrincipalSolicitante(Usuario user,IniciarSesion padre )
+            throws SQLException, IOException {
+        initComponents();       
         this.user = user;       
-        this.login = padre;
-        this.userService = padre.getUserService();
-        this.hSolicitudes = userService.getHSolicitudes(this.user);
-=======
-        this.usuario = user;          
-        this.userService = padre.getUserService();
-        this.hSolicitudes = userService.getHSolicitudes(this.usuario);
->>>>>>> 82b1bebf0855fea11d5b75c724e5fe6307bfa7c6
+        this.padre = padre;       
+        pnlSolicitudesUsuario.cargarUsuario(this.user);    
+        iniciarValores();
     }
 
     /**
@@ -68,17 +46,13 @@ public class PrincipalSolicitante extends javax.swing.JFrame {
         btnRetroalimentacion = new newscomponents.RSButtonGradientIcon_new();
         btnAvisos = new newscomponents.RSButtonGradientIcon_new();
         btnPerfil = new newscomponents.RSButtonGradientIcon_new();
-<<<<<<< HEAD
         lblnombres = new javax.swing.JLabel();
         lblapellidos = new javax.swing.JLabel();
         lblFotoPrincipal = new javax.swing.JLabel();
-=======
->>>>>>> 82b1bebf0855fea11d5b75c724e5fe6307bfa7c6
         jPanel1 = new javax.swing.JPanel();
         btnMinimize = new javax.swing.JLabel();
         btnClose = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-<<<<<<< HEAD
         panslid = new newscomponents.RSPanelEffect();
         try {
             pnlPerfiles = new InterfacesGraficas.Perfil.pnlPerfiles();
@@ -87,9 +61,27 @@ public class PrincipalSolicitante extends javax.swing.JFrame {
         } catch (java.sql.SQLException e2) {
             e2.printStackTrace();
         }
-=======
-        panelSlid = new rojerusan.RSPanelsSlider();
->>>>>>> 82b1bebf0855fea11d5b75c724e5fe6307bfa7c6
+        try {
+            pnlSolicitudesUsuario = new InterfacesGraficas.Solicitante.pnlSolicitudesUsuario();
+        } catch (java.lang.ClassNotFoundException e1) {
+            e1.printStackTrace();
+        } catch (java.sql.SQLException e2) {
+            e2.printStackTrace();
+        }
+        try {
+            pnlAvisosRecibidos = new InterfacesGraficas.Solicitante.pnlAvisosRecibidos();
+        } catch (java.lang.ClassNotFoundException e1) {
+            e1.printStackTrace();
+        } catch (java.sql.SQLException e2) {
+            e2.printStackTrace();
+        }
+        try {
+            pnlComentariosSolicitante = new InterfacesGraficas.Solicitante.pnlComentariosSolicitante();
+        } catch (java.lang.ClassNotFoundException e1) {
+            e1.printStackTrace();
+        } catch (java.sql.SQLException e2) {
+            e2.printStackTrace();
+        }
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -123,6 +115,11 @@ public class PrincipalSolicitante extends javax.swing.JFrame {
         btnSolicitudes.setIcons(rojeru_san.efectos.ValoresEnum.ICONS.DESCRIPTION);
         btnSolicitudes.setSelected(true);
         btnSolicitudes.setSizeIcon(40.0F);
+        btnSolicitudes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSolicitudesActionPerformed(evt);
+            }
+        });
 
         btnRetroalimentacion.setText("RETROALIMENTACION");
         btnRetroalimentacion.setColorPrimario(new java.awt.Color(0, 87, 151));
@@ -133,6 +130,11 @@ public class PrincipalSolicitante extends javax.swing.JFrame {
         btnRetroalimentacion.setIconTextGap(10);
         btnRetroalimentacion.setIcons(rojeru_san.efectos.ValoresEnum.ICONS.COMMENT);
         btnRetroalimentacion.setSizeIcon(40.0F);
+        btnRetroalimentacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRetroalimentacionActionPerformed(evt);
+            }
+        });
 
         btnAvisos.setText("AVISOS");
         btnAvisos.setColorPrimario(new java.awt.Color(0, 87, 151));
@@ -143,6 +145,11 @@ public class PrincipalSolicitante extends javax.swing.JFrame {
         btnAvisos.setIconTextGap(10);
         btnAvisos.setIcons(rojeru_san.efectos.ValoresEnum.ICONS.ANNOUNCEMENT);
         btnAvisos.setSizeIcon(40.0F);
+        btnAvisos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAvisosActionPerformed(evt);
+            }
+        });
 
         btnPerfil.setText("PERFIL");
         btnPerfil.setColorPrimario(new java.awt.Color(0, 87, 151));
@@ -154,7 +161,6 @@ public class PrincipalSolicitante extends javax.swing.JFrame {
         btnPerfil.setIcons(rojeru_san.efectos.ValoresEnum.ICONS.ACCOUNT_BOX);
         btnPerfil.setInheritsPopupMenu(true);
         btnPerfil.setSizeIcon(40.0F);
-<<<<<<< HEAD
         btnPerfil.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPerfilActionPerformed(evt);
@@ -174,8 +180,6 @@ public class PrincipalSolicitante extends javax.swing.JFrame {
         lblFotoPrincipal.setBackground(new java.awt.Color(255, 255, 255));
         lblFotoPrincipal.setForeground(new java.awt.Color(255, 255, 255));
         lblFotoPrincipal.setOpaque(true);
-=======
->>>>>>> 82b1bebf0855fea11d5b75c724e5fe6307bfa7c6
 
         javax.swing.GroupLayout rSPanelGradiente1Layout = new javax.swing.GroupLayout(rSPanelGradiente1);
         rSPanelGradiente1.setLayout(rSPanelGradiente1Layout);
@@ -183,7 +187,6 @@ public class PrincipalSolicitante extends javax.swing.JFrame {
             rSPanelGradiente1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(btnSolicitudes, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addComponent(btnRetroalimentacion, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-<<<<<<< HEAD
             .addComponent(btnAvisos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addComponent(btnPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -209,17 +212,6 @@ public class PrincipalSolicitante extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblapellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-=======
-            .addComponent(btnAvisos, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(btnPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-        rSPanelGradiente1Layout.setVerticalGroup(
-            rSPanelGradiente1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(rSPanelGradiente1Layout.createSequentialGroup()
-                .addGap(142, 142, 142)
->>>>>>> 82b1bebf0855fea11d5b75c724e5fe6307bfa7c6
                 .addComponent(btnSolicitudes, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(btnRetroalimentacion, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -227,21 +219,13 @@ public class PrincipalSolicitante extends javax.swing.JFrame {
                 .addComponent(btnAvisos, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(btnPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-<<<<<<< HEAD
                 .addGap(18, 18, 18)
-=======
-                .addGap(60, 60, 60)
->>>>>>> 82b1bebf0855fea11d5b75c724e5fe6307bfa7c6
                 .addGroup(rSPanelGradiente1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(rSPanelGradiente1Layout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-<<<<<<< HEAD
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-=======
-                .addContainerGap(168, Short.MAX_VALUE))
->>>>>>> 82b1bebf0855fea11d5b75c724e5fe6307bfa7c6
         );
 
         jPanel1.setBackground(new java.awt.Color(12, 140, 233));
@@ -267,11 +251,7 @@ public class PrincipalSolicitante extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-<<<<<<< HEAD
-                .addContainerGap(734, Short.MAX_VALUE)
-=======
-                .addContainerGap(738, Short.MAX_VALUE)
->>>>>>> 82b1bebf0855fea11d5b75c724e5fe6307bfa7c6
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnMinimize)
                 .addGap(8, 8, 8)
                 .addComponent(btnClose)
@@ -289,7 +269,6 @@ public class PrincipalSolicitante extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(0, 153, 255));
 
-<<<<<<< HEAD
         panslid.setBackground(new java.awt.Color(255, 255, 255));
 
         pnlPerfiles.setName("pnlPerfiles"); // NOI18N
@@ -298,26 +277,16 @@ public class PrincipalSolicitante extends javax.swing.JFrame {
                 pnlPerfilesMouseMoved(evt);
             }
         });
-        pnlPerfiles.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                pnlPerfilesMouseClicked(evt);
-            }
-        });
         panslid.add(pnlPerfiles, "card4");
-=======
-        panelSlid.setBackground(new java.awt.Color(255, 255, 255));
 
-        javax.swing.GroupLayout panelSlidLayout = new javax.swing.GroupLayout(panelSlid);
-        panelSlid.setLayout(panelSlidLayout);
-        panelSlidLayout.setHorizontalGroup(
-            panelSlidLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        panelSlidLayout.setVerticalGroup(
-            panelSlidLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
->>>>>>> 82b1bebf0855fea11d5b75c724e5fe6307bfa7c6
+        pnlSolicitudesUsuario.setName("pnlSolicitudesUsuario"); // NOI18N
+        panslid.add(pnlSolicitudesUsuario, "card3");
+
+        pnlAvisosRecibidos.setName("pnlAvisosRecibidos"); // NOI18N
+        panslid.add(pnlAvisosRecibidos, "card4");
+
+        pnlComentariosSolicitante.setName("pnlComentariosSolicitante"); // NOI18N
+        panslid.add(pnlComentariosSolicitante, "card5");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -325,22 +294,14 @@ public class PrincipalSolicitante extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-<<<<<<< HEAD
                 .addComponent(panslid, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-=======
-                .addComponent(panelSlid, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
->>>>>>> 82b1bebf0855fea11d5b75c724e5fe6307bfa7c6
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-<<<<<<< HEAD
                 .addComponent(panslid, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-=======
-                .addComponent(panelSlid, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
->>>>>>> 82b1bebf0855fea11d5b75c724e5fe6307bfa7c6
                 .addContainerGap())
         );
 
@@ -378,29 +339,79 @@ public class PrincipalSolicitante extends javax.swing.JFrame {
         cerrarForm();
     }//GEN-LAST:event_btnSalirMouseClicked
 
-<<<<<<< HEAD
     private void pnlPerfilesMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlPerfilesMouseMoved
         try {
+            
             cargarUsuario();
         } catch (IOException ex) {
             Logger.getLogger(PrincipalSolicitante.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_pnlPerfilesMouseMoved
 
-    private void pnlPerfilesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlPerfilesMouseClicked
-      
-    }//GEN-LAST:event_pnlPerfilesMouseClicked
-
     private void btnPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPerfilActionPerformed
-        btnSolicitudes.setSelected(false);
-        btnAvisos.setSelected(false);  
-        btnRetroalimentacion.setSelected(false);
-        btnPerfil.setSelected(true);            
-        this.panslid.setPanelNormal(pnlPerfiles);    
+        try {
+            if(!btnPerfil.isSelected()){
+                pnlPerfiles.cargarDatos(user, this,padre);
+                pnlPerfiles.cargarPerfil();
+                btnSolicitudes.setSelected(false);
+                btnAvisos.setSelected(false);
+                btnPerfil.setSelected(true);
+                btnRetroalimentacion.setSelected(false);
+                pnlPerfiles.cargarDatos(user, this, padre);    
+                this.panslid.setPanelNormal(pnlPerfiles);        
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(PrincipalSolicitante.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnPerfilActionPerformed
 
-=======
->>>>>>> 82b1bebf0855fea11d5b75c724e5fe6307bfa7c6
+    private void btnSolicitudesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSolicitudesActionPerformed
+        try {
+            if(!btnSolicitudes.isSelected()){
+                btnSolicitudes.setSelected(true);
+                btnAvisos.setSelected(false);
+                btnRetroalimentacion.setSelected(false);
+                btnPerfil.setSelected(false);
+                pnlSolicitudesUsuario.cargarUsuario(user);
+                this.panslid.setPanelNormal(pnlSolicitudesUsuario);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PrincipalSolicitante.class.getName())
+                    .log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnSolicitudesActionPerformed
+
+    private void btnAvisosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAvisosActionPerformed
+        try {
+            if(!btnAvisos.isSelected()){
+                btnSolicitudes.setSelected(false);
+                btnAvisos.setSelected(true);
+                btnRetroalimentacion.setSelected(false);
+                btnPerfil.setSelected(false);
+                pnlAvisosRecibidos.actualizarLista("");
+                this.panslid.setPanelNormal(pnlAvisosRecibidos);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PrincipalSolicitante.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_btnAvisosActionPerformed
+
+    private void btnRetroalimentacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRetroalimentacionActionPerformed
+         try {
+            if(!btnRetroalimentacion.isSelected()){
+                btnSolicitudes.setSelected(false);
+                btnAvisos.setSelected(false);
+                btnRetroalimentacion.setSelected(true);
+                btnPerfil.setSelected(false);
+                pnlComentariosSolicitante.cargarUsuario(user);
+                this.panslid.setPanelNormal(pnlComentariosSolicitante);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PrincipalSolicitante.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnRetroalimentacionActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private newscomponents.RSButtonGradientIcon_new btnAvisos;
@@ -413,39 +424,34 @@ public class PrincipalSolicitante extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JSeparator jSeparator1;
-<<<<<<< HEAD
     private javax.swing.JLabel lblFotoPrincipal;
     private javax.swing.JLabel lblapellidos;
     private javax.swing.JLabel lblnombres;
     private newscomponents.RSPanelEffect panslid;
+    private InterfacesGraficas.Solicitante.pnlAvisosRecibidos pnlAvisosRecibidos;
+    private InterfacesGraficas.Solicitante.pnlComentariosSolicitante pnlComentariosSolicitante;
     private InterfacesGraficas.Perfil.pnlPerfiles pnlPerfiles;
-=======
-    private rojerusan.RSPanelsSlider panelSlid;
->>>>>>> 82b1bebf0855fea11d5b75c724e5fe6307bfa7c6
+    private InterfacesGraficas.Solicitante.pnlSolicitudesUsuario pnlSolicitudesUsuario;
     private rspanelgradiente.RSPanelGradiente rSPanelGradiente1;
     // End of variables declaration//GEN-END:variables
     
-    public void cerrarForm(){
+    private void cerrarForm(){
         System.exit(0);
     }
 
-<<<<<<< HEAD
-    private void cargarUsuario() throws IOException {
-         
+    public void cargarUsuario() throws IOException {         
         lblnombres.setText(user.getNombres());
         lblapellidos.setText(user.getApellidos());
-        Foto.cargarFoto(lblFotoPrincipal, user.getFoto());
-        pnlPerfiles.cargarDatos(user, this,login);
-        pnlPerfiles.cargarPerfil();  
-
+        Foto.cargarFoto(lblFotoPrincipal, user.getFoto());   
     }
-    public void iniciarValores() {
+    public void iniciarValores() throws IOException {
         this.setLocationRelativeTo(null);
-        RSEffectFade.setFadeWindowIn(this, 30,0.1f);
-        //this.panslid.setPanelNormal(this.pnlSolicitudes);
+        //RSEffectFade.setFadeWindowIn(this, 30,0.1f);
+        this.panslid.setPanelNormal(this.pnlSolicitudesUsuario);
+        lblnombres.setText(user.getNombres());
+        lblapellidos.setText(user.getApellidos());
+        Foto.cargarFoto(lblFotoPrincipal, user.getFoto());    
     }
 
 
-=======
->>>>>>> 82b1bebf0855fea11d5b75c724e5fe6307bfa7c6
 }
