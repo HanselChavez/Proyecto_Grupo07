@@ -138,13 +138,19 @@ public class ServiciosUsuario {
     }
     private ResultSet getRetroalimentacion(String idUsuario,String tipo
             ,String buscar) throws SQLException{
-        this.sqlQuery = "select * from "+tipo+" where idUsuario ='"+idUsuario+"'";
+        this.sqlQuery = "select * from "+tipo; 
+        if(!idUsuario.equals(""))
+            this.sqlQuery +=" where idUsuario ='"+idUsuario+"'";
+        if(!idUsuario.equals("")&&!"".equals(buscar))
+            this.sqlQuery +=" AND";
+        else if(idUsuario.equals(""))
+            this.sqlQuery +="where ";        
         if(!"".equals(buscar)){
             if("Sugerencia".equals(tipo))
-                this.sqlQuery+= " AND (idSugerencia LIKE '"+buscar+"%'"
+                this.sqlQuery+= "(idSugerencia LIKE '"+buscar+"%'"
                         + " OR idSugerencia LIKE '%"+buscar+"%')";
             else 
-                this.sqlQuery+= " AND (idReclamo LIKE '"+buscar+"%'"
+                this.sqlQuery+= "(idReclamo LIKE '"+buscar+"%'"
                         + " OR idReclamo LIKE '%"+buscar+"%')";                
         }
         ResultSet rs = bdSelect.executeQuery(sqlQuery); 

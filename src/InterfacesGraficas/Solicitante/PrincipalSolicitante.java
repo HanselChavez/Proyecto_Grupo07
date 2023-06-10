@@ -76,7 +76,7 @@ public class PrincipalSolicitante extends javax.swing.JFrame {
             e2.printStackTrace();
         }
         try {
-            pnlComentariosSolicitante = new InterfacesGraficas.Solicitante.pnlComentariosSolicitante();
+            pnlComentariosSolicitantes = new InterfacesGraficas.Solicitante.pnlComentariosSolicitantes();
         } catch (java.lang.ClassNotFoundException e1) {
             e1.printStackTrace();
         } catch (java.sql.SQLException e2) {
@@ -285,8 +285,8 @@ public class PrincipalSolicitante extends javax.swing.JFrame {
         pnlAvisosRecibidos.setName("pnlAvisosRecibidos"); // NOI18N
         panslid.add(pnlAvisosRecibidos, "card4");
 
-        pnlComentariosSolicitante.setName("pnlComentariosSolicitante"); // NOI18N
-        panslid.add(pnlComentariosSolicitante, "card5");
+        pnlComentariosSolicitantes.setName("pnlComentariosSolicitantes"); // NOI18N
+        panslid.add(pnlComentariosSolicitantes, "card5");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -398,17 +398,17 @@ public class PrincipalSolicitante extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAvisosActionPerformed
 
     private void btnRetroalimentacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRetroalimentacionActionPerformed
-         try {
-            if(!btnRetroalimentacion.isSelected()){
+        if(!btnRetroalimentacion.isSelected()){
+            try {
                 btnSolicitudes.setSelected(false);
                 btnAvisos.setSelected(false);
                 btnRetroalimentacion.setSelected(true);
                 btnPerfil.setSelected(false);
-                pnlComentariosSolicitante.cargarUsuario(user);
-                this.panslid.setPanelNormal(pnlComentariosSolicitante);
+                pnlComentariosSolicitantes.cargarUsuario(user);
+                this.panslid.setPanelNormal(pnlComentariosSolicitantes);
+            } catch (SQLException ex) {
+                Logger.getLogger(PrincipalSolicitante.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(PrincipalSolicitante.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnRetroalimentacionActionPerformed
 
@@ -429,7 +429,7 @@ public class PrincipalSolicitante extends javax.swing.JFrame {
     private javax.swing.JLabel lblnombres;
     private newscomponents.RSPanelEffect panslid;
     private InterfacesGraficas.Solicitante.pnlAvisosRecibidos pnlAvisosRecibidos;
-    private InterfacesGraficas.Solicitante.pnlComentariosSolicitante pnlComentariosSolicitante;
+    private InterfacesGraficas.Solicitante.pnlComentariosSolicitantes pnlComentariosSolicitantes;
     private InterfacesGraficas.Perfil.pnlPerfiles pnlPerfiles;
     private InterfacesGraficas.Solicitante.pnlSolicitudesUsuario pnlSolicitudesUsuario;
     private rspanelgradiente.RSPanelGradiente rSPanelGradiente1;
