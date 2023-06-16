@@ -9,15 +9,9 @@ import java.awt.Color;
 import InterfacesGraficas.Trabajador.*;
 import InterfacesGraficas.Admin.*;
 import Entidades.Usuario;
-import static Main.ServicioDeAgua.mensaje;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import Utilidades.ServiciosUsuario;
-import javax.swing.JOptionPane;
 import rojeru_san.complementos.RSEffectFade;
-
-
 
 
 /**
@@ -30,7 +24,7 @@ public class IniciarSesion extends javax.swing.JFrame {
     
     public IniciarSesion() throws ClassNotFoundException, SQLException {
         initComponents();
-        inicializarVariables();
+        inicializarVariable();
         initControlls();
         RSEffectFade.setFadeWindowIn(this, 30,0.1f);
     }
@@ -345,6 +339,7 @@ public class IniciarSesion extends javax.swing.JFrame {
 
     private void btnCrearCuentaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCrearCuentaMouseClicked
         CrearCuenta crearcuenta = new CrearCuenta(this);
+        crearcuenta.cargarServicio(userService);
         crearcuenta.setLocationRelativeTo(null);
         crearcuenta.setVisible(true);
         ocultarForm();
@@ -448,8 +443,7 @@ public class IniciarSesion extends javax.swing.JFrame {
     public void cerrarForm(){      
         System.exit(0);
     }     
-    public void inicializarVariables() throws ClassNotFoundException, SQLException {            
-   
+    public void inicializarVariable() throws ClassNotFoundException, SQLException {            
         this.userService = new ServiciosUsuario();        
     } 
     private void initControlls() {

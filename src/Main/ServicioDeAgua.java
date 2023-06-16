@@ -15,8 +15,7 @@ import java.sql.SQLException;
  */
 public class ServicioDeAgua {
 
-    /**
-     * @param args the command line arguments
+    /**     
      * @throws java.lang.ClassNotFoundException
      * @throws java.sql.SQLException
      */

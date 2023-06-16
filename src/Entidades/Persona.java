@@ -5,6 +5,8 @@
  */
 package Entidades;
 
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -57,6 +59,14 @@ public class Persona {
 
     public void setFechaNac(Date fechaNac) {
         this.fechaNac = fechaNac;
+    }
+    public void setFechaNacString(String fecha){
+        try {
+            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");   
+            this.fechaNac = dateFormat.parse(fecha);
+        } catch (ParseException ex) {
+            System.out.println("No se pudo convertir el string en fecha");
+        }
     }
 
     public String getDireccion() {

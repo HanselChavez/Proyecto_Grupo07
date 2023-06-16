@@ -312,5 +312,14 @@ public class ServiciosUsuario {
                     .log(Level.SEVERE, null, ex);
         }
     }   
+
+    public boolean validarUserName(String text) throws SQLException {
+        this.sqlQuery = "select Count(username) as 'Cantidad' "
+                + "from Usuario where username = '"+text+"'";
+        ResultSet rs = bdSelect.executeQuery(this.sqlQuery); 
+        rs.next();
+        int i =rs.getInt("Cantidad");
+        return i < 1;
+    }
    
 }
