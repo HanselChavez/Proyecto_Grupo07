@@ -9,12 +9,11 @@ import java.awt.Color;
 import InterfacesGraficas.Trabajador.*;
 import InterfacesGraficas.Admin.*;
 import Entidades.Usuario;
+import static Main.ServicioDeAgua.mensaje;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import Utilidades.ServiciosUsuario;
-import java.awt.event.KeyEvent;
-import java.io.IOException;
 import javax.swing.JOptionPane;
 import rojeru_san.complementos.RSEffectFade;
 
@@ -87,6 +86,7 @@ public class IniciarSesion extends javax.swing.JFrame {
         });
 
         jPanel2.setBackground(new java.awt.Color(30, 30, 30));
+        jPanel2.setMinimumSize(new java.awt.Dimension(355, 536));
 
         lblUser.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         lblUser.setForeground(new java.awt.Color(255, 255, 255));
@@ -282,7 +282,7 @@ public class IniciarSesion extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(50, 50, 50)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(50, 50, 50))
         );
         jPanel1Layout.setVerticalGroup(
@@ -293,7 +293,7 @@ public class IniciarSesion extends javax.swing.JFrame {
                     .addComponent(btnMinimize)
                     .addComponent(btnClose))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(51, Short.MAX_VALUE))
         );
 
@@ -326,13 +326,7 @@ public class IniciarSesion extends javax.swing.JFrame {
     }//GEN-LAST:event_btnOcultarMouseClicked
 
     private void btnCloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCloseMouseClicked
-        
-        try {        
-            cerrarForm();
-        } catch (SQLException ex) {
-            Logger.getLogger(IniciarSesion.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, ex,"Error Close",0);
-        }
+        cerrarForm();       
     }//GEN-LAST:event_btnCloseMouseClicked
 
     private void btnMinimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMinimizeMouseClicked
@@ -381,19 +375,16 @@ public class IniciarSesion extends javax.swing.JFrame {
                     lblestado.setForeground(Color.GREEN);                
                     lblestado.setText("Usuario autenticado"); 
                     abrirForms(user);  
-                    ocultarForm();
-                    //cerrarForm();
+                    ocultarForm();                    
                 }
                 else{
                     lblestado.setForeground(Color.RED);
                     lblestado.setText("Las credenciales no son correctas.");
                 } 
             } catch (SQLException ex) {
-                    Logger.getLogger(IniciarSesion.class.getName()).log(Level.SEVERE, null, ex);
-                    JOptionPane.showMessageDialog(null, ex,"Error Iniciar",0);
-            } catch (IOException ex) {
-                Logger.getLogger(IniciarSesion.class.getName()).log(Level.SEVERE, null, ex);
-            }
+                   // mensaje.cargarDatos("Iniciar Sesion", "La conexion a "
+                            //+ "la base de datos se encuentra cerrada",1);
+            } 
             
         }      
     }//GEN-LAST:event_btnIniciarActionPerformed
@@ -421,8 +412,8 @@ public class IniciarSesion extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
    
     //Funciones 
-    
-    public void abrirForms(Usuario user) throws SQLException, IOException {
+   
+    public void abrirForms(Usuario user) {
                 
         switch (user.getRol()) {
             case 1:
@@ -443,7 +434,7 @@ public class IniciarSesion extends javax.swing.JFrame {
         }
     }
     
-    public ServiciosUsuario getUserService(){
+    public ServiciosUsuario getServicioUsuario(){
         return this.userService;
     }
     public void ocultarForm() {
@@ -454,9 +445,7 @@ public class IniciarSesion extends javax.swing.JFrame {
         initControlls();
         this.setVisible(true);
     }
-    public void cerrarForm() throws SQLException{      
-        userService.cerrarConexion();
-        
+    public void cerrarForm(){      
         System.exit(0);
     }     
     public void inicializarVariables() throws ClassNotFoundException, SQLException {            

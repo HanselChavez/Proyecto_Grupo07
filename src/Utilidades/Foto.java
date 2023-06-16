@@ -17,13 +17,12 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
- * @author chave
+ * @author Hansel Chavez
  */
 public class Foto {
 
-   
-    public static void subirFoto(JLabel lblfoto,JPanel padre) throws IOException{
-         // Crear el JFileChooser
+    public static void subirFotoArchivo(JLabel lblfoto,JPanel padre) throws IOException{
+        // Crear el JFileChooser
         JFileChooser fileChooser = new JFileChooser();
         FileNameExtensionFilter filtro = new FileNameExtensionFilter
         ("JPG y PNG","jpg","png");
@@ -33,27 +32,22 @@ public class Foto {
         if (seleccion == JFileChooser.APPROVE_OPTION) {
             // Obtener el archivo seleccionado
             File archivo = fileChooser.getSelectedFile();
-
             // Cargar la imagen
-            BufferedImage imagen;           
-            imagen = ImageIO.read(archivo);            
-
+            BufferedImage imagen = ImageIO.read(archivo);  
             // Redimensionar la imagen al tamaño del Label
-            if (imagen != null) {
-               
+            if (imagen != null) {               
                 // Establecer la imagen redimensionada en el JLabel
-                lblfoto.setIcon( redimensionarImagen(imagen, lblfoto));
+                lblfoto.setIcon(redimensionarImagen(imagen, lblfoto));
             }
         } 
     }
-
-    public static ImageIcon redimensionarImagen(BufferedImage imagen, JLabel lblfoto) {
+    private static ImageIcon redimensionarImagen(BufferedImage imagen, JLabel lblfoto) {
         Image imagenRedimensionada = imagen.getScaledInstance(lblfoto.getWidth()
                 , lblfoto.getHeight(), Image.SCALE_SMOOTH);
         
         return new ImageIcon(imagenRedimensionada);
     }
-    public static byte[] obtenerFoto(JLabel lblfoto) throws IOException{          
+    public static byte[] obtenerFotoLabel(JLabel lblfoto) throws IOException{          
             
             // Crear un objeto BufferedImage para almacenar la imagen del JLabel
             BufferedImage image = new BufferedImage(lblfoto.getWidth()
@@ -77,27 +71,18 @@ public class Foto {
             baos.close();
             return imageBytes;
     }
-    public static void cargarFoto(JLabel lblfoto , byte [] imagen)
+    public static void cargarFotoLabel(JLabel lblfoto , byte [] imagen)
             throws IOException{
         if(imagen!=null){        
             BufferedImage image = convertByteArrayToImage(imagen);
             lblfoto.setIcon(redimensionarImagen(image, lblfoto));       
-        }
-        
+        }        
     }
-     private static BufferedImage convertByteArrayToImage(byte[] imageBytes) 
+    private static BufferedImage convertByteArrayToImage(byte[] imageBytes) 
              throws IOException {
         ByteArrayInputStream bais = new ByteArrayInputStream(imageBytes);
         return ImageIO.read(bais);
-    }
-     
-    private static byte[] convertImageToByteArray(BufferedImage image)
-            throws IOException {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        ImageIO.write(image, "jpg", baos);
-        return baos.toByteArray();
-    }
-        
+    }        
 }
    
     

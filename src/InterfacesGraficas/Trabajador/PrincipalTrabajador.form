@@ -132,6 +132,7 @@
             <Property name="colorSecundarioHover" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="0" green="99" red="ff" type="rgb"/>
             </Property>
+            <Property name="focusPainted" type="boolean" value="false"/>
             <Property name="horizontalAlignment" type="int" value="2"/>
             <Property name="iconTextGap" type="int" value="10"/>
             <Property name="icons" type="rojeru_san.efectos.ValoresEnum$ICONS" editor="org.netbeans.modules.form.editors.EnumEditor">
@@ -164,6 +165,7 @@
             <Property name="colorSecundarioHover" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="0" green="99" red="ff" type="rgb"/>
             </Property>
+            <Property name="focusPainted" type="boolean" value="false"/>
             <Property name="horizontalAlignment" type="int" value="2"/>
             <Property name="iconTextGap" type="int" value="10"/>
             <Property name="icons" type="rojeru_san.efectos.ValoresEnum$ICONS" editor="org.netbeans.modules.form.editors.EnumEditor">
@@ -194,6 +196,7 @@
             <Property name="colorSecundarioHover" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="0" green="99" red="ff" type="rgb"/>
             </Property>
+            <Property name="focusPainted" type="boolean" value="false"/>
             <Property name="horizontalAlignment" type="int" value="2"/>
             <Property name="iconTextGap" type="int" value="10"/>
             <Property name="icons" type="rojeru_san.efectos.ValoresEnum$ICONS" editor="org.netbeans.modules.form.editors.EnumEditor">
@@ -223,6 +226,7 @@
             <Property name="colorSecundarioHover" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="0" green="99" red="ff" type="rgb"/>
             </Property>
+            <Property name="focusPainted" type="boolean" value="false"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Roboto Bold" size="13" style="1"/>
             </Property>
@@ -255,6 +259,7 @@
             <Property name="colorSecundarioHover" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="0" green="99" red="ff" type="rgb"/>
             </Property>
+            <Property name="focusPainted" type="boolean" value="false"/>
             <Property name="horizontalAlignment" type="int" value="2"/>
             <Property name="iconTextGap" type="int" value="10"/>
             <Property name="icons" type="rojeru_san.efectos.ValoresEnum$ICONS" editor="org.netbeans.modules.form.editors.EnumEditor">
@@ -284,6 +289,7 @@
             <Property name="colorSecundarioHover" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="0" green="99" red="ff" type="rgb"/>
             </Property>
+            <Property name="focusPainted" type="boolean" value="false"/>
             <Property name="horizontalAlignment" type="int" value="2"/>
             <Property name="iconTextGap" type="int" value="10"/>
             <Property name="icons" type="rojeru_san.efectos.ValoresEnum$ICONS" editor="org.netbeans.modules.form.editors.EnumEditor">
@@ -399,7 +405,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="pnlslider" pref="770" max="32767" attributes="0"/>
+                  <Component id="pnlslider" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -424,9 +430,9 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.DesignCardLayout"/>
           <SubComponents>
-            <Component class="InterfacesGraficas.Trabajador.pnlSolicitudes" name="pnlSolicitudes">
+            <Component class="InterfacesGraficas.Trabajador.pnSolicitantes" name="pnlSolicitantes">
               <Properties>
-                <Property name="name" type="java.lang.String" value="pnlSolicitudes" noResource="true"/>
+                <Property name="name" type="java.lang.String" value="pnlSolicitantes" noResource="true"/>
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
@@ -434,9 +440,9 @@
                 </Constraint>
               </Constraints>
             </Component>
-            <Component class="InterfacesGraficas.Trabajador.pnSolicitantes" name="pnlSolicitantes">
+            <Component class="InterfacesGraficas.Trabajador.pnlAvisosEnviados" name="pnlAvisosEnviados">
               <Properties>
-                <Property name="name" type="java.lang.String" value="pnlSolicitantes" noResource="true"/>
+                <Property name="name" type="java.lang.String" value="pnlAvisosEnviados" noResource="true"/>
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
@@ -444,16 +450,33 @@
                 </Constraint>
               </Constraints>
             </Component>
+            <Component class="InterfacesGraficas.Trabajador.pnlComentarios" name="pnlComentarios">
+              <Properties>
+                <Property name="name" type="java.lang.String" value="pnlComentarios" noResource="true"/>
+              </Properties>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
+                  <CardConstraints cardName="card4"/>
+                </Constraint>
+              </Constraints>
+            </Component>
             <Component class="InterfacesGraficas.Perfil.pnlPerfiles" name="pnlPerfil">
               <Properties>
                 <Property name="name" type="java.lang.String" value="pnlPerfil" noResource="true"/>
               </Properties>
-              <Events>
-                <EventHandler event="mouseMoved" listener="java.awt.event.MouseMotionListener" parameters="java.awt.event.MouseEvent" handler="pnlPerfilMouseMoved"/>
-              </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
-                  <CardConstraints cardName="card4"/>
+                  <CardConstraints cardName="card6"/>
+                </Constraint>
+              </Constraints>
+            </Component>
+            <Component class="InterfacesGraficas.Trabajador.pnlSolicitudes" name="pnlSolicitudes">
+              <Properties>
+                <Property name="name" type="java.lang.String" value="pnlSolicitudes" noResource="true"/>
+              </Properties>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
+                  <CardConstraints cardName="card6"/>
                 </Constraint>
               </Constraints>
             </Component>

@@ -5,9 +5,8 @@
  */
 package InterfacesGraficas.Trabajador;
 
-
 import Entidades.Mensaje;
-import Entidades.Usuario;
+import static Main.ServicioDeAgua.mensaje;
 import Utilidades.ServiciosUsuario;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -25,17 +24,13 @@ public class pnlComentarios extends javax.swing.JPanel {
     /**
      * Creates new form pnlComentariosSolicitante
      */
-    private Usuario user;
+  
     List<Mensaje> listaRetro ;
     ServiciosUsuario servicio;
     String tipo;
     int cod;   
-    public pnlComentarios() throws ClassNotFoundException, SQLException {
-        initComponents();
-        tipo = "Sugerencia";    
-        this.servicio = new ServiciosUsuario();
-        this.pnlSliderRetro.setPanelNormal(pnlTablaRetro);
-        btnVolver.setVisible(false);
+    public pnlComentarios() {
+        initComponents();       
     }
 
     /**
@@ -184,18 +179,17 @@ public class pnlComentarios extends javax.swing.JPanel {
                         .addComponent(btnSugerencias, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnReclamos, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 126, Short.MAX_VALUE)
-                        .addComponent(txtBuscarComentario, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(25, 25, 25))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 115, Short.MAX_VALUE)
+                        .addComponent(txtBuscarComentario, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnlTablaRetroLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnVisualizarRetro, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(45, 45, 45))))
+                        .addComponent(btnVisualizarRetro, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(36, 36, 36))
             .addGroup(pnlTablaRetroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(pnlTablaRetroLayout.createSequentialGroup()
                     .addGap(20, 20, 20)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 750, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(21, Short.MAX_VALUE)))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 718, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(33, Short.MAX_VALUE)))
         );
         pnlTablaRetroLayout.setVerticalGroup(
             pnlTablaRetroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -219,26 +213,21 @@ public class pnlComentarios extends javax.swing.JPanel {
 
         pnlVisualizar.setBackground(new java.awt.Color(255, 255, 255));
         pnlVisualizar.setName("pnlVisualizar"); // NOI18N
-        pnlVisualizar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblestado.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
         lblestado.setText("Visualizar Comentario");
-        pnlVisualizar.add(lblestado, new org.netbeans.lib.awtextra.AbsoluteConstraints(67, 56, 231, -1));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(37, 45, 223));
         jLabel4.setText("Comentario");
-        pnlVisualizar.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 210, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(37, 45, 223));
         jLabel2.setText("Fecha :");
-        pnlVisualizar.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 150, 58, 40));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(37, 45, 223));
-        jLabel3.setText("ID Comentario");
-        pnlVisualizar.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 110, -1, 40));
+        jLabel3.setText("ID Comentario: ");
 
         txtcontenido.setColumns(20);
         txtcontenido.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -252,29 +241,83 @@ public class pnlComentarios extends javax.swing.JPanel {
         txtcontenido.setSelectionColor(new java.awt.Color(204, 204, 204));
         jScrollPane4.setViewportView(txtcontenido);
 
-        pnlVisualizar.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(67, 236, 614, 180));
-
         lblFecha.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        pnlVisualizar.add(lblFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 150, 100, 32));
 
         lblIDRetro.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        pnlVisualizar.add(lblIDRetro, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 120, 100, 30));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(37, 45, 223));
         jLabel5.setText("Tipo: ");
-        pnlVisualizar.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 150, -1, 40));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(37, 45, 223));
-        jLabel6.setText("ID Usuario");
-        pnlVisualizar.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 110, -1, 40));
+        jLabel6.setText("ID Usuario:");
 
         lblTipo.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        pnlVisualizar.add(lblTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 160, 200, 30));
 
         lblIdUsuario.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        pnlVisualizar.add(lblIdUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 120, 90, 30));
+
+        javax.swing.GroupLayout pnlVisualizarLayout = new javax.swing.GroupLayout(pnlVisualizar);
+        pnlVisualizar.setLayout(pnlVisualizarLayout);
+        pnlVisualizarLayout.setHorizontalGroup(
+            pnlVisualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlVisualizarLayout.createSequentialGroup()
+                .addGroup(pnlVisualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlVisualizarLayout.createSequentialGroup()
+                        .addGap(67, 67, 67)
+                        .addComponent(lblestado, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlVisualizarLayout.createSequentialGroup()
+                        .addGap(70, 70, 70)
+                        .addComponent(jLabel4))
+                    .addGroup(pnlVisualizarLayout.createSequentialGroup()
+                        .addGap(67, 67, 67)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 614, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlVisualizarLayout.createSequentialGroup()
+                        .addGap(70, 70, 70)
+                        .addGroup(pnlVisualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlVisualizarLayout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addGap(12, 12, 12)
+                                .addComponent(lblIDRetro, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(pnlVisualizarLayout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addGap(9, 9, 9)
+                                .addComponent(lblTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(29, 29, 29)
+                        .addGroup(pnlVisualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlVisualizarLayout.createSequentialGroup()
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(pnlVisualizarLayout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addGap(9, 9, 9)
+                                .addComponent(lblIdUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(90, 90, 90))
+        );
+        pnlVisualizarLayout.setVerticalGroup(
+            pnlVisualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlVisualizarLayout.createSequentialGroup()
+                .addGap(56, 56, 56)
+                .addComponent(lblestado)
+                .addGap(30, 30, 30)
+                .addGroup(pnlVisualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblIdUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblIDRetro, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlVisualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlVisualizarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblFecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(lblTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20)
+                .addComponent(jLabel4)
+                .addGap(7, 7, 7)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
         pnlSliderRetro.add(pnlVisualizar, "card2");
 
@@ -301,56 +344,44 @@ public class pnlComentarios extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(43, 43, 43))
+                .addGap(34, 34, 34))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(pnlSliderRetro, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnVolver, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(18, 18, 18))
+                .addComponent(btnVolver, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtBuscarComentarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarComentarioKeyReleased
-        try {
-            actualizarLista(txtBuscarComentario.getText());
-        } catch (SQLException ex) {
-            Logger.getLogger(pnlComentarios.class
-                    .getName()).log(Level.SEVERE, null, ex);
-        }
-        
+        actualizarLista(txtBuscarComentario.getText()); 
     }//GEN-LAST:event_txtBuscarComentarioKeyReleased
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-       
         limpiarEntradas();
         this.pnlSliderRetro.setPanelNormal(pnlTablaRetro);
         btnVolver.setVisible(false);
     }//GEN-LAST:event_btnVolverActionPerformed
 
     private void btnSugerenciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSugerenciasActionPerformed
-        try {
+        if(!btnSugerencias.isSelected()){
             btnSugerencias.setSelected(true);
             btnReclamos.setSelected(false);
             this.tipo = "Sugerencia";
             actualizarLista("");
-        } catch (SQLException ex) {
-            Logger.getLogger(pnlComentarios.class.getName())
-                    .log(Level.SEVERE, null, ex);
         }
+       
     }//GEN-LAST:event_btnSugerenciasActionPerformed
 
     private void btnReclamosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReclamosActionPerformed
-        try {
+        if(!btnReclamos.isSelected()){
             btnSugerencias.setSelected(false);
             btnReclamos.setSelected(true);
             this.tipo = "Reclamo";
             actualizarLista("");
-        } catch (SQLException ex) {
-            Logger.getLogger(pnlComentarios.class.getName())
-                    .log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnReclamosActionPerformed
 
@@ -364,8 +395,9 @@ public class pnlComentarios extends javax.swing.JPanel {
             this.pnlSliderRetro.setPanelNormal(pnlVisualizar);
             btnVolver.setVisible(true);
         }
-        else{        
-            JOptionPane.showMessageDialog(null,"Seleccione un comentario de la lista");
+        else{     
+            mensaje.cargarDatos("Visualizar Aviso"
+                    ,"Seleccione un comentario de la lista.", 1);   
         }
     }//GEN-LAST:event_btnVisualizarRetroActionPerformed
 
@@ -394,16 +426,15 @@ public class pnlComentarios extends javax.swing.JPanel {
     private RSMaterialComponent.RSTextFieldMaterialIcon txtBuscarComentario;
     private javax.swing.JTextArea txtcontenido;
     // End of variables declaration//GEN-END:variables
-     public void cargarUsuario(Usuario user) throws SQLException{
-        this.user = user;        
-        listaRetro = new ArrayList<>();
-        actualizarLista("");       
-    } 
-
-    private void actualizarLista(String buscar) throws SQLException {       
-        listaRetro = new ArrayList<>();
-        this.servicio.listarRetroAlimentacion(tablaComentarios,"",buscar
-                ,this.tipo,listaRetro);
+    public void actualizarLista(String buscar) {       
+        try {
+            listaRetro = new ArrayList<>();
+            this.servicio.listarRetroAlimentacion(tablaComentarios,"",buscar
+                    ,this.tipo,listaRetro,2);
+        } catch (SQLException ex) {
+            mensaje.cargarDatos("Error al actualizar lista"
+                    ,"No es posible cargar los registros de la lista.", 1); 
+        }
     }
     private void limpiarEntradas(){
         lblTipo.setText("");
@@ -417,8 +448,13 @@ public class pnlComentarios extends javax.swing.JPanel {
         lblIDRetro.setText(mensaje.getCod());
         lblIdUsuario.setText(mensaje.getNombreUsuario());
         txtcontenido.setText(mensaje.getContenido());      
-        lblFecha.setText(mensaje.getFecha().toString());
-     
+        lblFecha.setText(mensaje.getFecha().toString());     
     }
-
+    public void cargarServicio(ServiciosUsuario servicio){
+        this.servicio = servicio;        
+        tipo = "Sugerencia";   
+        this.pnlSliderRetro.setPanelNormal(pnlTablaRetro);
+        btnVolver.setVisible(false);
+        actualizarLista("");
+    }
 }

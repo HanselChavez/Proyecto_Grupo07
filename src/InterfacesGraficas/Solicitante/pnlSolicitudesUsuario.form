@@ -88,7 +88,7 @@
                               </Group>
                               <EmptySpace max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="btnEliminarHistorial" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btnEliminarHist" alignment="1" min="-2" max="-2" attributes="0"/>
                                   <Component id="btnCancelarSol" alignment="1" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -115,7 +115,7 @@
                               <Component id="btnEditarSolicitud" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
-                              <Component id="btnEliminarHistorial" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnEliminarHist" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="btnCancelarSol" min="-2" max="-2" attributes="0"/>
                           </Group>
@@ -240,7 +240,7 @@
                 <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtBuscarsolicitudKeyReleased"/>
               </Events>
             </Component>
-            <Component class="RSMaterialComponent.RSButtonMaterialIconOne" name="btnEliminarHistorial">
+            <Component class="RSMaterialComponent.RSButtonMaterialIconOne" name="btnEliminarHist">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="cc" green="cc" red="cc" type="rgb"/>
@@ -263,7 +263,7 @@
                 <Property name="paddingLeft" type="int" value="15"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEliminarHistorialActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEliminarHistActionPerformed"/>
               </Events>
             </Component>
             <Component class="RSMaterialComponent.RSButtonMaterialIconOne" name="btnNuevaSolicitud">

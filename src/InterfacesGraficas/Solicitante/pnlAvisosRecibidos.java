@@ -5,27 +5,22 @@
  */
 package InterfacesGraficas.Solicitante;
 import Entidades.*;
+import Main.ServicioDeAgua;
 import Utilidades.ServiciosUsuario;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 
 /**
  *
  * @author chave
  */
 public class pnlAvisosRecibidos extends javax.swing.JPanel {
-
-    private final ServiciosUsuario servicio;
+    private ServiciosUsuario servicio;
     private List<Mensaje> listaAviso ;
-    public pnlAvisosRecibidos() throws ClassNotFoundException, SQLException {
-        initComponents();       
-        this.servicio = new ServiciosUsuario();
-        //actualizarLista("");
-       btnVolver.setVisible(false);
+    public pnlAvisosRecibidos() {
+        initComponents();      
+        btnVolver.setVisible(false);
     }
 
 /**
@@ -328,7 +323,6 @@ public class pnlAvisosRecibidos extends javax.swing.JPanel {
 
     private void btnVisualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVisualizarActionPerformed
         int indice = tablaAvisos.getSelectedRow();
-        
         if(indice!=-1){
             Mensaje aviso = listaAviso.get(indice);            
             llenarCampos(aviso);
@@ -337,20 +331,14 @@ public class pnlAvisosRecibidos extends javax.swing.JPanel {
         }
         else
         {
-            JOptionPane.showMessageDialog(null, "Selecciones un aviso de "
-                    + "la lista");
+            ServicioDeAgua.mensaje.cargarDatos("Visualizar Aviso"
+                   ,"Seleccione un registro de la lista", 1);           
         }
     }//GEN-LAST:event_btnVisualizarActionPerformed
 
     private void txtBuscarAvisoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarAvisoKeyReleased
-        try {
-            String buscar = txtBuscarAviso.getText();            
-            actualizarLista(buscar);
-        } catch (SQLException ex) {
-            Logger.getLogger(pnlAvisosRecibidos.class.getName())
-                    .log(Level.SEVERE, null, ex);
-        }
-      
+        String buscar = txtBuscarAviso.getText();            
+        actualizarLista(buscar);      
     }//GEN-LAST:event_txtBuscarAvisoKeyReleased
 
 
@@ -375,20 +363,30 @@ public class pnlAvisosRecibidos extends javax.swing.JPanel {
     private necesario.TextField txtfecha;
     private necesario.TextField txtnombreT;
     // End of variables declaration//GEN-END:variables
-    public void actualizarLista(String buscar) throws SQLException{
-        this.listaAviso = new ArrayList<>();
-        servicio.listarAvisos(tablaAvisos,buscar,listaAviso);
+    private void actualizarLista(String buscar){
+        try {
+            this.listaAviso = new ArrayList<>();
+            servicio.listarAvisos(tablaAvisos,buscar,listaAviso);
+        } catch (SQLException ex) {
+            ServicioDeAgua.mensaje.cargarDatos("Actualizar Lista"
+                   ,"No ha sido posible cargar los registros a la lista.", 1);     
+        }
     }
-    public void llenarCampos(Mensaje aviso){
+    private void llenarCampos(Mensaje aviso){
         txtcontenidoAviso.setText(aviso.getContenido());
         lblCodigo.setText(aviso.getCod());
         txtnombreT.setText(aviso.getNombreUsuario());
         txtfecha.setText(aviso.getFecha().toString());        
     }
-    public void limpiarCampos(){
+    private void limpiarCampos(){
         txtcontenidoAviso.setText("");
         lblCodigo.setText("");
         txtnombreT.setText("");
         txtfecha.setText("");
+    }
+
+    public void cargarServicio(ServiciosUsuario servicioUsuario) {
+        this.servicio = servicioUsuario;
+        actualizarLista("");
     }
 }

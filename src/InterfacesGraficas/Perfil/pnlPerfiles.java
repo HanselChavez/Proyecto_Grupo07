@@ -8,6 +8,7 @@ package InterfacesGraficas.Perfil;
 
 import Entidades.Usuario;
 import InterfacesGraficas.Login.IniciarSesion;
+import Main.ServicioDeAgua;
 import Utilidades.Foto;
 import Utilidades.ServiciosUsuario;
 import java.io.IOException;
@@ -15,13 +16,12 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 
 
 
 /**
  *
- * @author chave
+ * @author Hansel Chavez
  */
 public class pnlPerfiles extends javax.swing.JPanel {
 
@@ -32,9 +32,8 @@ public class pnlPerfiles extends javax.swing.JPanel {
     ServiciosUsuario servicio;
     JFrame padre;
     IniciarSesion login;
-    public pnlPerfiles() throws ClassNotFoundException, SQLException {                
-        initComponents();        
-        this.servicio = new ServiciosUsuario();
+    public pnlPerfiles(){                
+        initComponents();   
         this.pnlSlider.setPanelNormal(pnlPerfil);
         btnVolver.setVisible(false);
     }
@@ -363,6 +362,11 @@ public class pnlPerfiles extends javax.swing.JPanel {
         txtNuevaContra.setDisabledTextColor(new java.awt.Color(37, 45, 223));
         txtNuevaContra.setName("txtNuevaContra"); // NOI18N
         txtNuevaContra.setPlaceholder("Nueva Contraseña");
+        txtNuevaContra.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNuevaContraKeyTyped(evt);
+            }
+        });
 
         jLabel23.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
         jLabel23.setForeground(new java.awt.Color(37, 45, 223));
@@ -587,6 +591,7 @@ public class pnlPerfiles extends javax.swing.JPanel {
         txtDireccion1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         txtDireccion1.setLineWrap(true);
         txtDireccion1.setRows(5);
+        txtDireccion1.setTabSize(1);
         txtDireccion1.setWrapStyleWord(true);
         txtDireccion1.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2), javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1)));
         txtDireccion1.setDisabledTextColor(new java.awt.Color(0, 0, 0));
@@ -769,11 +774,12 @@ public class pnlPerfiles extends javax.swing.JPanel {
         this.pnlSlider.setPanelNormal(pnlPerfil);
         btnVolver.setVisible(false);
         btnCerrarSesion.setVisible(true);
+        limpiarInputs();
     }//GEN-LAST:event_btnVolverActionPerformed
 
     private void btnActualizarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarDatosActionPerformed
-         btnVolver.setVisible(true);
-         txtIdUsuario1.setText(this.user.getDni());
+        btnVolver.setVisible(true);
+        txtIdUsuario1.setText(this.user.getDni());
         btnCerrarSesion.setVisible(false);
         this.pnlSlider.setPanelNormal(pnlActualizarDatos);
     }//GEN-LAST:event_btnActualizarDatosActionPerformed
@@ -792,32 +798,32 @@ public class pnlPerfiles extends javax.swing.JPanel {
             && !txtConfirmar.getText().isEmpty()
             && !txtNuevaContra.getText().isEmpty()){
             try {
-                if(validarContraseña()){              
-                    servicio.actualizarContraseña(contraseñaNueva,user.getDni());               
-                    JOptionPane.showMessageDialog(null,"Se cambio la "
-                            + "contraseña correctamente"); 
-                    limpiarInputs();
+                if(validarContraseña()){      
+                    servicio.actualizarContraseña(contraseñaNueva,user.getDni());                    
+                    ServicioDeAgua.mensaje.cargarDatos("Cambiar Contraseña"
+                    ,"Se cambio la contraseña correctamente", 1);
+                    btnVolver.doClick();                  
                 }
-                else
-                    JOptionPane.showMessageDialog(null, "La contraseña "
-                            + "ingresada no es correcta"); 
+                else                   
+                    ServicioDeAgua.mensaje.cargarDatos("Cambiar Contraseña"
+                        ,"La contraseña ingresada no es correcta", 1);
             } catch (SQLException ex) {
-                Logger.getLogger(pnlPerfiles.class.getName()).log(Level.SEVERE
-                        , null, ex);
+                ServicioDeAgua.mensaje.cargarDatos("Error al cambiar Contraseña"
+                        ,"No es posible cambiar la contraseña", 1);
             }
         }
         else
-             JOptionPane.showMessageDialog(null, "Completa todos los campos");
+            ServicioDeAgua.mensaje.cargarDatos("Cambiar Contraseña"
+                        ,"Completa todos los campos", 1);
     }//GEN-LAST:event_btnGuardarContraseñaActionPerformed
 
     private void btnFotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFotoActionPerformed
         try {      
             lblFoto.setIcon(null);
-            Foto.subirFoto(lblFoto,this);
-             
-            
+            Foto.subirFotoArchivo(lblFoto,this);           
         } catch (IOException ex) {
-            Logger.getLogger(pnlPerfiles.class.getName()).log(Level.SEVERE, null, ex);
+            ServicioDeAgua.mensaje.cargarDatos("Subir Foto"
+                        ,"No es posible subir la foto ", 1);
         }
     }//GEN-LAST:event_btnFotoActionPerformed
 
@@ -827,28 +833,27 @@ public class pnlPerfiles extends javax.swing.JPanel {
                 .isEmpty()&& !txtApellidoMaterno.getText().isEmpty()
                 &&!txtNuevoCorreo.getText().isEmpty()&&
                 !txtNuevoTelefono.getText().isEmpty()&& 
-                !txtDireccion1.getText().isEmpty()){            
-            try {
-                user.setFoto(Foto.obtenerFoto(lblFoto)); 
+                !txtDireccion1.getText().isEmpty()){    
+            try { 
+                user.setFoto(Foto.obtenerFotoLabel(lblFoto));
                 setDatosUsuario();
-                this.servicio.actualizarUsuario(user,user.getDni());
+                this.servicio.actualizarUsuario(user);
                 cargarPerfil();
-                JOptionPane.showMessageDialog(null, "Datos Actualizados");
-                limpiarInputs();
-            } catch (SQLException | IOException ex) {
-                Logger.getLogger(pnlPerfiles.class.getName()).log(Level.SEVERE, null, ex);
+                ServicioDeAgua.mensaje.cargarDatos("Actualizar Datos"
+                        ,"Los datos se han guardado correctamente.", 1);
+                btnVolver.doClick();                
+            } catch (IOException | SQLException ex) {
+                ServicioDeAgua.mensaje.cargarDatos("Erro al Actualizar Datos"
+                        ,"No es posible guardar los datos ingresados.", 1);
             }
-        
         }else
-             JOptionPane.showMessageDialog(null, "Completa todos los campos.");
+             ServicioDeAgua.mensaje.cargarDatos("Actualizar Datos"
+                        ,"Completa todos los campos", 1);
     }//GEN-LAST:event_btnGuardarActionPerformed
     private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
         login.setVisible(true);
         padre.dispose();        
     }//GEN-LAST:event_btnCerrarSesionActionPerformed
-    public void cerrarConexion() throws SQLException{
-        this.servicio.cerrarConexion();
-    }
     private void txtConfirmarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtConfirmarKeyReleased
         if(!txtNuevaContra.getText().equals(txtConfirmar.getText()))
             lbldesigualdad.setText("Las contraseñas no son iguales.");
@@ -862,6 +867,10 @@ public class pnlPerfiles extends javax.swing.JPanel {
         else
             lbldesigualdad.setText("");
     }//GEN-LAST:event_txtConfirmarKeyTyped
+
+    private void txtNuevaContraKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNuevaContraKeyTyped
+        lbldesigualdad.setText("");
+    }//GEN-LAST:event_txtNuevaContraKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -924,24 +933,30 @@ public class pnlPerfiles extends javax.swing.JPanel {
     private necesario.TextField txtTelefono;
     // End of variables declaration//GEN-END:variables
 
-    public void cargarDatos(Usuario user,JFrame padre,IniciarSesion login){
+    public void cargarDatos(Usuario user,JFrame padre,IniciarSesion login) {
         this.user = user;
         this.login = login;
         this.padre = padre;
+        this.servicio = login.getServicioUsuario();
+        cargarPerfil();
     }      
     public Usuario getUsuario(){
         return this.user;
     }   
-    public void cargarPerfil() throws IOException {    
-        txtNombres.setText(user.getNombres());
-        txtApellidos.setText(user.getApellidos());
-        txtCorreo.setText(user.getCorreo());
-        txtIdUsuario.setText(user.getDni());
-        txtTelefono.setText(user.getCelular());
-        txtFechaNac.setText(user.getFechaString());
-        txtDireccion.setText(user.getDireccion());
-        if(user.getFoto()!=null)
-            Foto.cargarFoto(lblfotoP,user.getFoto());
+    public void cargarPerfil() {    
+        try {
+            txtNombres.setText(user.getNombres());
+            txtApellidos.setText(user.getApellidos());
+            txtCorreo.setText(user.getCorreo());
+            txtIdUsuario.setText(user.getDni());
+            txtTelefono.setText(user.getCelular());
+            txtFechaNac.setText(user.getFechaString());
+            txtDireccion.setText(user.getDireccion());
+            if(user.getFoto()!=null)
+                Foto.cargarFotoLabel(lblfotoP,user.getFoto());
+        } catch (IOException ex) {
+            Logger.getLogger(pnlPerfiles.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     private boolean validarContraseña() { 
         boolean valido = false;
@@ -964,16 +979,20 @@ public class pnlPerfiles extends javax.swing.JPanel {
         txtConfirmar.setText("");
         lblFoto.setIcon(null);
     }
-    public void setDatosUsuario() throws IOException {        
-        user.setDni(user.getDni());
-        user.setNombres(txtNombre1.getText()
-                , txtSegundoNombre.getText());
-        user.setApellidos(txtApellidoPaterno.getText()
-                , txtApellidoMaterno.getText());
-        user.setCelular(txtNuevoTelefono.getText());
-        user.setCorreo(txtNuevoCorreo.getText());
-        user.setDireccion(txtDireccion1.getText());
-        user.setFechaNac(rsNuevaFecha.getDatoFecha());
-        user.setFoto(Foto.obtenerFoto(lblFoto));       
+    public void setDatosUsuario() {        
+        try {
+            user.setDni(user.getDni());
+            user.setNombres(txtNombre1.getText()
+                    , txtSegundoNombre.getText());
+            user.setApellidos(txtApellidoPaterno.getText()
+                    , txtApellidoMaterno.getText());
+            user.setCelular(txtNuevoTelefono.getText());
+            user.setCorreo(txtNuevoCorreo.getText());
+            user.setDireccion(txtDireccion1.getText());
+            user.setFechaNac(rsNuevaFecha.getDatoFecha());       
+            user.setFoto(Foto.obtenerFotoLabel(lblFoto));
+        } catch (IOException ex) {
+            Logger.getLogger(pnlPerfiles.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

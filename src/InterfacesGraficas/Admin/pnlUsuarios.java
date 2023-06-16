@@ -6,18 +6,15 @@
 package InterfacesGraficas.Admin;
 
 import Entidades.Usuario;
+import Main.ServicioDeAgua;
 import Utilidades.ServiciosUsuario;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JOptionPane;
-
 
 /**
  *
- * @author chave
+ * @author Hansel Chavez
  */
 public class pnlUsuarios extends javax.swing.JPanel {
 
@@ -25,16 +22,14 @@ public class pnlUsuarios extends javax.swing.JPanel {
      * Creates new form principal
      */
     private int cantidad;
-    private final ServiciosUsuario servicio ;
+    private ServiciosUsuario servicio ;
     private String rol ;
     private List<Usuario> listaTrabajadores ;
     private List<Usuario> listaSolicitantes;
-    public pnlUsuarios() throws ClassNotFoundException, SQLException {
+    public pnlUsuarios()  {
         initComponents();          
-        this.rol = "1";
-        this.servicio =new ServiciosUsuario();       
-        btnVolver.setVisible(false);
-        llenarTrabajadores();
+        this.rol = "1";      
+        btnVolver.setVisible(false);        
     }
     
     /**
@@ -67,7 +62,7 @@ public class pnlUsuarios extends javax.swing.JPanel {
         lblUsuarios1 = new javax.swing.JLabel();
         btnTrabajadores = new RSMaterialComponent.RSButtonMaterialIconOne();
         btnSolicitantes = new RSMaterialComponent.RSButtonMaterialIconOne();
-        btnEditarEstado = new RSMaterialComponent.RSButtonMaterialIconOne();
+        btnEditarRol = new RSMaterialComponent.RSButtonMaterialIconOne();
         btnVolver = new RSMaterialComponent.RSButtonMaterialIconOne();
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -328,19 +323,19 @@ public class pnlUsuarios extends javax.swing.JPanel {
             }
         });
 
-        btnEditarEstado.setBackground(new java.awt.Color(204, 204, 204));
-        btnEditarEstado.setText("Editar Rol");
-        btnEditarEstado.setBackgroundHover(new java.awt.Color(0, 108, 255));
-        btnEditarEstado.setForegroundIcon(new java.awt.Color(0, 0, 0));
-        btnEditarEstado.setForegroundIconHover(new java.awt.Color(0, 0, 0));
-        btnEditarEstado.setForegroundText(new java.awt.Color(0, 0, 0));
-        btnEditarEstado.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnEditarEstado.setIconTextGap(29);
-        btnEditarEstado.setIcons(rojeru_san.efectos.ValoresEnum.ICONS.EDIT);
-        btnEditarEstado.setPaddingLeft(15);
-        btnEditarEstado.addActionListener(new java.awt.event.ActionListener() {
+        btnEditarRol.setBackground(new java.awt.Color(204, 204, 204));
+        btnEditarRol.setText("Editar Rol");
+        btnEditarRol.setBackgroundHover(new java.awt.Color(0, 108, 255));
+        btnEditarRol.setForegroundIcon(new java.awt.Color(0, 0, 0));
+        btnEditarRol.setForegroundIconHover(new java.awt.Color(0, 0, 0));
+        btnEditarRol.setForegroundText(new java.awt.Color(0, 0, 0));
+        btnEditarRol.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnEditarRol.setIconTextGap(29);
+        btnEditarRol.setIcons(rojeru_san.efectos.ValoresEnum.ICONS.EDIT);
+        btnEditarRol.setPaddingLeft(15);
+        btnEditarRol.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditarEstadoActionPerformed(evt);
+                btnEditarRolActionPerformed(evt);
             }
         });
 
@@ -378,7 +373,7 @@ public class pnlUsuarios extends javax.swing.JPanel {
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addGap(10, 10, 10)
-                        .addComponent(btnEditarEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnEditarRol, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18))))
@@ -394,30 +389,25 @@ public class pnlUsuarios extends javax.swing.JPanel {
                 .addComponent(panelSlider, javax.swing.GroupLayout.PREFERRED_SIZE, 421, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnEditarEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEditarRol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnVolver, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnTrabajadoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTrabajadoresActionPerformed
-        btnSolicitantes.setSelected(false);
-        btnTrabajadores.setSelected(true); 
-        try {            
+        if(!btnTrabajadores.isSelected()){  
+            btnSolicitantes.setSelected(false);
+            btnTrabajadores.setSelected(true); 
             llenarTrabajadores();
-        } catch (SQLException ex) {
-            Logger.getLogger(pnlUsuarios.class.getName()).log(Level.SEVERE, null, ex);
-        }                
+        }                       
     }//GEN-LAST:event_btnTrabajadoresActionPerformed
     private void btnSolicitantesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSolicitantesActionPerformed
-        btnSolicitantes.setSelected(true);
-        btnTrabajadores.setSelected(false);
-         try {                
+        if(!btnSolicitantes.isSelected()){        
+            btnSolicitantes.setSelected(true);
+            btnTrabajadores.setSelected(false);                  
             llenarSolicitantes();
-        } catch (SQLException ex) {
-            Logger.getLogger(pnlUsuarios.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
+        }              
     }//GEN-LAST:event_btnSolicitantesActionPerformed
     private void txtBuscarusuKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarusuKeyReleased
         String buscar = txtBuscarusu.getText();        
@@ -433,45 +423,42 @@ public class pnlUsuarios extends javax.swing.JPanel {
                         rol, buscar, listaTrabajadores,1);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(pnlUsuarios.class.getName()).log(Level.SEVERE, null, ex);
+            ServicioDeAgua.mensaje.cargarDatos("Buscar Usuarios"
+                ,"Ocurrio un error al buscar el usuario: "+buscar,1);
         }
     }//GEN-LAST:event_txtBuscarusuKeyReleased
 
-    private void btnEditarEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarEstadoActionPerformed
+    private void btnEditarRolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarRolActionPerformed
         int i = tablaUsuarios.getSelectedRow();
         if(i != -1){        
             if(btnTrabajadores.isSelected())
                 llenarpnlEditar(listaTrabajadores,i);
             else 
-                llenarpnlEditar(listaSolicitantes, i);
-            
+                llenarpnlEditar(listaSolicitantes, i);            
             this.panelSlider.setPanelNormal(this.pnlEditarRol);  
-            btnEditarEstado.setVisible(false);
+            btnEditarRol.setVisible(false);
             btnVolver.setVisible(true);
             btnTrabajadores.setVisible(false);
             btnSolicitantes.setVisible(false);
         }
         else{
-            
+            ServicioDeAgua.mensaje.cargarDatos("Editar Rol","Seleccione un "
+                    + "usuario de la lista",1);
         
         }
         
-    }//GEN-LAST:event_btnEditarEstadoActionPerformed
+    }//GEN-LAST:event_btnEditarRolActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-        btnEditarEstado.setVisible(true);
+        btnEditarRol.setVisible(true);
         this.panelSlider.setPanelNormal(this.pnlTabla);  
         btnTrabajadores.setVisible(true);
         btnVolver.setVisible(false);
-        btnSolicitantes.setVisible(true);
-        try {
-            if(btnSolicitantes.isSelected())         
-                llenarSolicitantes();            
-            else            
-                llenarTrabajadores();
-        } catch (SQLException ex) {
-            Logger.getLogger(pnlUsuarios.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        btnSolicitantes.setVisible(true);        
+        if(btnSolicitantes.isSelected())         
+            llenarSolicitantes();            
+        else            
+            llenarTrabajadores();
         
     }//GEN-LAST:event_btnVolverActionPerformed
 
@@ -486,20 +473,21 @@ public class pnlUsuarios extends javax.swing.JPanel {
                 rolNuevo=3;break;
         }
         try {
-         
-            JOptionPane.showMessageDialog(null, "El rol del Usuario "+
-                    txtIdUsuario.getText()+" a sido actualizado"
-                    , "Actualizar Roles", HEIGHT);          
-            servicio.actualizarRol(txtIdUsuario.getText(),rolNuevo);            
+            servicio.actualizarRol(txtIdUsuario.getText(),rolNuevo);  
+            ServicioDeAgua.mensaje.cargarDatos("Actualizar Rol", "El rol del"
+                    + " usuario "+ txtIdUsuario.getText()+" a sido actualizado"
+                    , 1);                    
+            btnVolver.doClick();
         } catch (SQLException ex) {
-             
+            ServicioDeAgua.mensaje.cargarDatos("Actualizar Rol", "Ocurrio un error"
+                + " al momento de actualizar el rol. Intentelo de nuevo..", 1);                    
         }
     }//GEN-LAST:event_btnActualizarActionPerformed
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private RSMaterialComponent.RSButtonMaterialIconOne btnActualizar;
-    private RSMaterialComponent.RSButtonMaterialIconOne btnEditarEstado;
+    private RSMaterialComponent.RSButtonMaterialIconOne btnEditarRol;
     private RSMaterialComponent.RSButtonMaterialIconOne btnSolicitantes;
     private RSMaterialComponent.RSButtonMaterialIconOne btnTrabajadores;
     private RSMaterialComponent.RSButtonMaterialIconOne btnVolver;
@@ -522,21 +510,30 @@ public class pnlUsuarios extends javax.swing.JPanel {
     private necesario.TextField txtNombres;
     private necesario.TextField txtRolActual;
     // End of variables declaration//GEN-END:variables
-     public void llenarTrabajadores() throws SQLException {
-        listaTrabajadores = new ArrayList<>();       
-        cantidad=this.servicio.listarUsuarios(tablaUsuarios,"1",""
-                ,listaTrabajadores,1);
-        lblUsuarios.setText("Trabajadores ("+cantidad+")");
-        rol = "1";
+     public void llenarTrabajadores() {
+        try {
+            listaTrabajadores = new ArrayList<>();
+            cantidad=this.servicio.listarUsuarios(tablaUsuarios,"1",""
+                    ,listaTrabajadores,1);
+            lblUsuarios.setText("Trabajadores ("+cantidad+")");
+            rol = "1";
+        } catch (SQLException ex) {
+            ServicioDeAgua.mensaje.cargarDatos("Lista de Trabajadores"
+                    ,"No se pudo cargar la lista de trabajadores", 1);
+        }
     }
-    public void llenarSolicitantes() throws SQLException {
-        listaSolicitantes = new ArrayList<>();
-        cantidad= this.servicio.listarUsuarios(tablaUsuarios,"2",""
-                ,listaSolicitantes,1);
-        lblUsuarios.setText("Solicitantes ("+cantidad+")");
-        rol = "2";
+    public void llenarSolicitantes()  {
+        try {
+            listaSolicitantes = new ArrayList<>();
+            cantidad= this.servicio.listarUsuarios(tablaUsuarios,"2",""
+                    ,listaSolicitantes,1);
+            lblUsuarios.setText("Solicitantes ("+cantidad+")");
+            rol = "2";
+        } catch (SQLException ex) {
+            ServicioDeAgua.mensaje.cargarDatos("Lista de Solicitante"
+                    ,"No se pudo cargar la lista de solicitantes",1);
+        }
     }
-
     private void llenarpnlEditar(List<Usuario> lista,int i) {
         txtNombres.setText(lista.get(i).getNombres());
         txtApellidos.setText(lista.get(i).getApellidos());
@@ -553,8 +550,8 @@ public class pnlUsuarios extends javax.swing.JPanel {
         txtIdUsuario.setText(lista.get(i).getDni());
         
     }
-     public void cerrarConexion() throws SQLException{
-        this.servicio.cerrarConexion();
+    public void cargarServicio(ServiciosUsuario servicio){
+        this.servicio = servicio;
+        llenarTrabajadores();
     }
-
 }

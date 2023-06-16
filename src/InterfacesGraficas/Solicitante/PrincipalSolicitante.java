@@ -7,27 +7,21 @@ package InterfacesGraficas.Solicitante;
 
 import Entidades.*;
 import InterfacesGraficas.Login.IniciarSesion;
+import Main.ServicioDeAgua;
 import Utilidades.Foto;
 import java.io.IOException;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
- * @author chave
+ * @author HanselChavez
  */
 public class PrincipalSolicitante extends javax.swing.JFrame {
 
     Usuario user;    
     IniciarSesion padre;
-    public PrincipalSolicitante(Usuario user,IniciarSesion padre )
-            throws SQLException, IOException {
-        initComponents();       
-        this.user = user;       
-        this.padre = padre;       
-        pnlSolicitudesUsuario.cargarUsuario(this.user);    
-        iniciarValores();
+    public PrincipalSolicitante(Usuario user,IniciarSesion padre ){
+        initComponents(); 
+        iniciarValores(user,padre);
     }
 
     /**
@@ -54,34 +48,10 @@ public class PrincipalSolicitante extends javax.swing.JFrame {
         btnClose = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         panslid = new newscomponents.RSPanelEffect();
-        try {
-            pnlPerfiles = new InterfacesGraficas.Perfil.pnlPerfiles();
-        } catch (java.lang.ClassNotFoundException e1) {
-            e1.printStackTrace();
-        } catch (java.sql.SQLException e2) {
-            e2.printStackTrace();
-        }
-        try {
-            pnlSolicitudesUsuario = new InterfacesGraficas.Solicitante.pnlSolicitudesUsuario();
-        } catch (java.lang.ClassNotFoundException e1) {
-            e1.printStackTrace();
-        } catch (java.sql.SQLException e2) {
-            e2.printStackTrace();
-        }
-        try {
-            pnlAvisosRecibidos = new InterfacesGraficas.Solicitante.pnlAvisosRecibidos();
-        } catch (java.lang.ClassNotFoundException e1) {
-            e1.printStackTrace();
-        } catch (java.sql.SQLException e2) {
-            e2.printStackTrace();
-        }
-        try {
-            pnlComentariosSolicitantes = new InterfacesGraficas.Solicitante.pnlComentariosSolicitantes();
-        } catch (java.lang.ClassNotFoundException e1) {
-            e1.printStackTrace();
-        } catch (java.sql.SQLException e2) {
-            e2.printStackTrace();
-        }
+        pnlPerfil = new InterfacesGraficas.Perfil.pnlPerfiles();
+        pnlSolicitudesUsuario = new InterfacesGraficas.Solicitante.pnlSolicitudesUsuario();
+        pnlAvisosRecibidos = new InterfacesGraficas.Solicitante.pnlAvisosRecibidos();
+        pnlComentariosSolicitante = new InterfacesGraficas.Solicitante.pnlComentariosSolicitantes();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -95,6 +65,7 @@ public class PrincipalSolicitante extends javax.swing.JFrame {
         btnSalir.setColorPrimarioHover(new java.awt.Color(0, 176, 73));
         btnSalir.setColorSecundario(new java.awt.Color(12, 140, 233));
         btnSalir.setColorSecundarioHover(new java.awt.Color(0, 176, 73));
+        btnSalir.setFocusPainted(false);
         btnSalir.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnSalir.setIconTextGap(10);
         btnSalir.setIcons(rojeru_san.efectos.ValoresEnum.ICONS.SETTINGS_POWER);
@@ -110,6 +81,7 @@ public class PrincipalSolicitante extends javax.swing.JFrame {
         btnSolicitudes.setColorPrimarioHover(new java.awt.Color(0, 176, 73));
         btnSolicitudes.setColorSecundario(new java.awt.Color(12, 140, 233));
         btnSolicitudes.setColorSecundarioHover(new java.awt.Color(0, 176, 73));
+        btnSolicitudes.setFocusPainted(false);
         btnSolicitudes.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnSolicitudes.setIconTextGap(10);
         btnSolicitudes.setIcons(rojeru_san.efectos.ValoresEnum.ICONS.DESCRIPTION);
@@ -126,6 +98,7 @@ public class PrincipalSolicitante extends javax.swing.JFrame {
         btnRetroalimentacion.setColorPrimarioHover(new java.awt.Color(0, 176, 73));
         btnRetroalimentacion.setColorSecundario(new java.awt.Color(12, 140, 233));
         btnRetroalimentacion.setColorSecundarioHover(new java.awt.Color(0, 176, 73));
+        btnRetroalimentacion.setFocusPainted(false);
         btnRetroalimentacion.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnRetroalimentacion.setIconTextGap(10);
         btnRetroalimentacion.setIcons(rojeru_san.efectos.ValoresEnum.ICONS.COMMENT);
@@ -141,6 +114,7 @@ public class PrincipalSolicitante extends javax.swing.JFrame {
         btnAvisos.setColorPrimarioHover(new java.awt.Color(0, 176, 73));
         btnAvisos.setColorSecundario(new java.awt.Color(12, 140, 233));
         btnAvisos.setColorSecundarioHover(new java.awt.Color(0, 176, 73));
+        btnAvisos.setFocusPainted(false);
         btnAvisos.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnAvisos.setIconTextGap(10);
         btnAvisos.setIcons(rojeru_san.efectos.ValoresEnum.ICONS.ANNOUNCEMENT);
@@ -156,6 +130,7 @@ public class PrincipalSolicitante extends javax.swing.JFrame {
         btnPerfil.setColorPrimarioHover(new java.awt.Color(0, 176, 73));
         btnPerfil.setColorSecundario(new java.awt.Color(12, 140, 233));
         btnPerfil.setColorSecundarioHover(new java.awt.Color(0, 176, 73));
+        btnPerfil.setFocusPainted(false);
         btnPerfil.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnPerfil.setIconTextGap(10);
         btnPerfil.setIcons(rojeru_san.efectos.ValoresEnum.ICONS.ACCOUNT_BOX);
@@ -271,22 +246,22 @@ public class PrincipalSolicitante extends javax.swing.JFrame {
 
         panslid.setBackground(new java.awt.Color(255, 255, 255));
 
-        pnlPerfiles.setName("pnlPerfiles"); // NOI18N
-        pnlPerfiles.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+        pnlPerfil.setName("pnlPerfil"); // NOI18N
+        pnlPerfil.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
-                pnlPerfilesMouseMoved(evt);
+                pnlPerfilMouseMoved(evt);
             }
         });
-        panslid.add(pnlPerfiles, "card4");
+        panslid.add(pnlPerfil, "card5");
 
         pnlSolicitudesUsuario.setName("pnlSolicitudesUsuario"); // NOI18N
-        panslid.add(pnlSolicitudesUsuario, "card3");
+        panslid.add(pnlSolicitudesUsuario, "card5");
 
         pnlAvisosRecibidos.setName("pnlAvisosRecibidos"); // NOI18N
-        panslid.add(pnlAvisosRecibidos, "card4");
+        panslid.add(pnlAvisosRecibidos, "card5");
 
-        pnlComentariosSolicitantes.setName("pnlComentariosSolicitantes"); // NOI18N
-        panslid.add(pnlComentariosSolicitantes, "card5");
+        pnlComentariosSolicitante.setName("pnlComentariosSolicitante"); // NOI18N
+        panslid.add(pnlComentariosSolicitante, "card5");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -339,78 +314,53 @@ public class PrincipalSolicitante extends javax.swing.JFrame {
         cerrarForm();
     }//GEN-LAST:event_btnSalirMouseClicked
 
-    private void pnlPerfilesMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlPerfilesMouseMoved
-        try {
-            
-            cargarUsuario();
-        } catch (IOException ex) {
-            Logger.getLogger(PrincipalSolicitante.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_pnlPerfilesMouseMoved
-
     private void btnPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPerfilActionPerformed
-        try {
-            if(!btnPerfil.isSelected()){
-                pnlPerfiles.cargarDatos(user, this,padre);
-                pnlPerfiles.cargarPerfil();
-                btnSolicitudes.setSelected(false);
-                btnAvisos.setSelected(false);
-                btnPerfil.setSelected(true);
-                btnRetroalimentacion.setSelected(false);
-                pnlPerfiles.cargarDatos(user, this, padre);    
-                this.panslid.setPanelNormal(pnlPerfiles);        
-            }
-        } catch (IOException ex) {
-            Logger.getLogger(PrincipalSolicitante.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        if(!btnPerfil.isSelected()){               
+            btnSolicitudes.setSelected(false);
+            btnAvisos.setSelected(false);
+            btnPerfil.setSelected(true);
+            btnRetroalimentacion.setSelected(false);
+            pnlPerfil.cargarDatos(user, this, padre);    
+            this.panslid.setPanelNormal(pnlPerfil);        
+        }       
     }//GEN-LAST:event_btnPerfilActionPerformed
 
     private void btnSolicitudesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSolicitudesActionPerformed
-        try {
-            if(!btnSolicitudes.isSelected()){
-                btnSolicitudes.setSelected(true);
-                btnAvisos.setSelected(false);
-                btnRetroalimentacion.setSelected(false);
-                btnPerfil.setSelected(false);
-                pnlSolicitudesUsuario.cargarUsuario(user);
-                this.panslid.setPanelNormal(pnlSolicitudesUsuario);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(PrincipalSolicitante.class.getName())
-                    .log(Level.SEVERE, null, ex);
-        }
+        if(!btnSolicitudes.isSelected()){
+            btnSolicitudes.setSelected(true);
+            btnAvisos.setSelected(false);
+            btnRetroalimentacion.setSelected(false);
+            btnPerfil.setSelected(false);
+            pnlSolicitudesUsuario.cargarValores(user,padre.getServicioUsuario());
+            this.panslid.setPanelNormal(pnlSolicitudesUsuario);
+        }        
     }//GEN-LAST:event_btnSolicitudesActionPerformed
 
     private void btnAvisosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAvisosActionPerformed
-        try {
-            if(!btnAvisos.isSelected()){
-                btnSolicitudes.setSelected(false);
-                btnAvisos.setSelected(true);
-                btnRetroalimentacion.setSelected(false);
-                btnPerfil.setSelected(false);
-                pnlAvisosRecibidos.actualizarLista("");
-                this.panslid.setPanelNormal(pnlAvisosRecibidos);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(PrincipalSolicitante.class.getName()).log(Level.SEVERE, null, ex);
+        if(!btnAvisos.isSelected()){
+            btnSolicitudes.setSelected(false);
+            btnAvisos.setSelected(true);
+            btnRetroalimentacion.setSelected(false);
+            btnPerfil.setSelected(false);
+            pnlAvisosRecibidos.cargarServicio(padre.getServicioUsuario());            
+            this.panslid.setPanelNormal(pnlAvisosRecibidos);
         }
-        
     }//GEN-LAST:event_btnAvisosActionPerformed
 
     private void btnRetroalimentacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRetroalimentacionActionPerformed
-        if(!btnRetroalimentacion.isSelected()){
-            try {
-                btnSolicitudes.setSelected(false);
-                btnAvisos.setSelected(false);
-                btnRetroalimentacion.setSelected(true);
-                btnPerfil.setSelected(false);
-                pnlComentariosSolicitantes.cargarUsuario(user);
-                this.panslid.setPanelNormal(pnlComentariosSolicitantes);
-            } catch (SQLException ex) {
-                Logger.getLogger(PrincipalSolicitante.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        if(!btnRetroalimentacion.isSelected()){            
+            btnSolicitudes.setSelected(false);
+            btnAvisos.setSelected(false);
+            btnRetroalimentacion.setSelected(true);
+            btnPerfil.setSelected(false);
+            pnlComentariosSolicitante.cargarUsuario(user,padre.getServicioUsuario());
+            this.panslid.setPanelNormal(pnlComentariosSolicitante);            
         }
     }//GEN-LAST:event_btnRetroalimentacionActionPerformed
+
+    private void pnlPerfilMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlPerfilMouseMoved
+        cargarUsuario();
+    }//GEN-LAST:event_pnlPerfilMouseMoved
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -429,8 +379,8 @@ public class PrincipalSolicitante extends javax.swing.JFrame {
     private javax.swing.JLabel lblnombres;
     private newscomponents.RSPanelEffect panslid;
     private InterfacesGraficas.Solicitante.pnlAvisosRecibidos pnlAvisosRecibidos;
-    private InterfacesGraficas.Solicitante.pnlComentariosSolicitantes pnlComentariosSolicitantes;
-    private InterfacesGraficas.Perfil.pnlPerfiles pnlPerfiles;
+    private InterfacesGraficas.Solicitante.pnlComentariosSolicitantes pnlComentariosSolicitante;
+    private InterfacesGraficas.Perfil.pnlPerfiles pnlPerfil;
     private InterfacesGraficas.Solicitante.pnlSolicitudesUsuario pnlSolicitudesUsuario;
     private rspanelgradiente.RSPanelGradiente rSPanelGradiente1;
     // End of variables declaration//GEN-END:variables
@@ -439,18 +389,24 @@ public class PrincipalSolicitante extends javax.swing.JFrame {
         System.exit(0);
     }
 
-    public void cargarUsuario() throws IOException {         
-        lblnombres.setText(user.getNombres());
-        lblapellidos.setText(user.getApellidos());
-        Foto.cargarFoto(lblFotoPrincipal, user.getFoto());   
+    public void cargarUsuario() {         
+        try {
+            lblnombres.setText(user.getNombres());
+            lblapellidos.setText(user.getApellidos());   
+            Foto.cargarFotoLabel(lblFotoPrincipal, user.getFoto());
+        } catch (IOException ex) {
+            ServicioDeAgua.mensaje.cargarDatos("Error al cargar foto"
+                   ,"No ha sido posible cargar la foto del Usuario", 1);
+        }
     }
-    public void iniciarValores() throws IOException {
+    public void iniciarValores(Usuario user,IniciarSesion padre) {       
         this.setLocationRelativeTo(null);
+        this.user = user;       
+        this.padre = padre;  
         //RSEffectFade.setFadeWindowIn(this, 30,0.1f);
+        pnlSolicitudesUsuario.cargarValores(this.user,padre.getServicioUsuario());    
         this.panslid.setPanelNormal(this.pnlSolicitudesUsuario);
-        lblnombres.setText(user.getNombres());
-        lblapellidos.setText(user.getApellidos());
-        Foto.cargarFoto(lblFotoPrincipal, user.getFoto());    
+        cargarUsuario();
     }
 
 

@@ -53,15 +53,15 @@ public class CrearCuenta extends javax.swing.JFrame {
         txtContraseña = new javax.swing.JPasswordField();
         txtCodigo = new javax.swing.JTextField();
         btnMinimize = new javax.swing.JLabel();
-        labelIcon1 = new necesario.LabelIcon();
         btnClose = new javax.swing.JLabel();
         lblfoto = new javax.swing.JLabel();
         btnSeleccionarFoto = new javax.swing.JLabel();
         btnAceptar = new javax.swing.JLabel();
         btnBuscarDni = new javax.swing.JLabel();
-        btnSeleccionarUbicacion = new javax.swing.JLabel();
         btbEnviarCodigo = new javax.swing.JLabel();
         btnCancelar = new javax.swing.JLabel();
+        lblcontraseña1 = new javax.swing.JLabel();
+        txtuserName = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -115,7 +115,6 @@ public class CrearCuenta extends javax.swing.JFrame {
 
         txtDireccion.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         txtDireccion.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 10, 2, 2));
-        txtDireccion.setEnabled(false);
         jPanel1.add(txtDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 410, 300, 32));
 
         lblnombres.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
@@ -140,19 +139,19 @@ public class CrearCuenta extends javax.swing.JFrame {
         lblcontraseña.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         lblcontraseña.setForeground(new java.awt.Color(255, 255, 255));
         lblcontraseña.setText("Contraseña");
-        jPanel1.add(lblcontraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 450, -1, -1));
+        jPanel1.add(lblcontraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 460, -1, -1));
 
         txtCelular.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         txtCelular.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 10, 2, 2));
-        jPanel1.add(txtCelular, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 400, 300, 32));
+        jPanel1.add(txtCelular, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 480, 300, 32));
 
         lblCelular.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         lblCelular.setForeground(new java.awt.Color(255, 255, 255));
         lblCelular.setText("Celular");
-        jPanel1.add(lblCelular, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 370, -1, 20));
+        jPanel1.add(lblCelular, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 450, -1, 20));
 
         txtContraseña.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 10, 2, 2));
-        jPanel1.add(txtContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 480, 300, 30));
+        jPanel1.add(txtContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 490, 300, 30));
 
         txtCodigo.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         txtCodigo.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 10, 2, 2));
@@ -160,12 +159,6 @@ public class CrearCuenta extends javax.swing.JFrame {
 
         btnMinimize.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/32wtminimize-sign.png"))); // NOI18N
         jPanel1.add(btnMinimize, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 10, -1, -1));
-
-        labelIcon1.setForeground(new java.awt.Color(255, 255, 255));
-        labelIcon1.setFontSize(30.0F);
-        labelIcon1.setIcons(rojeru_san.efectos.ValoresEnum.ICONS.LOCATION_ON);
-        labelIcon1.setPreferredSize(new java.awt.Dimension(35, 35));
-        jPanel1.add(labelIcon1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 480, 30, 30));
 
         btnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/32wtclose.png"))); // NOI18N
         jPanel1.add(btnClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 10, -1, -1));
@@ -182,12 +175,13 @@ public class CrearCuenta extends javax.swing.JFrame {
         btnSeleccionarFoto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel1.add(btnSeleccionarFoto, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 110, 180, 40));
 
+        btnAceptar.setBackground(new java.awt.Color(0, 153, 0));
         btnAceptar.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         btnAceptar.setForeground(new java.awt.Color(255, 255, 255));
         btnAceptar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnAceptar.setText("Aceptar");
-        btnAceptar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 3));
         btnAceptar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAceptar.setOpaque(true);
         btnAceptar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnAceptarMouseClicked(evt);
@@ -203,34 +197,36 @@ public class CrearCuenta extends javax.swing.JFrame {
         btnBuscarDni.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel1.add(btnBuscarDni, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 100, 100, 40));
 
-        btnSeleccionarUbicacion.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
-        btnSeleccionarUbicacion.setForeground(new java.awt.Color(255, 255, 255));
-        btnSeleccionarUbicacion.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnSeleccionarUbicacion.setText("Seleccionar Ubicación");
-        btnSeleccionarUbicacion.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 3));
-        btnSeleccionarUbicacion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jPanel1.add(btnSeleccionarUbicacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 470, 270, 50));
-
+        btbEnviarCodigo.setBackground(new java.awt.Color(47, 47, 213));
         btbEnviarCodigo.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         btbEnviarCodigo.setForeground(new java.awt.Color(255, 255, 255));
         btbEnviarCodigo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btbEnviarCodigo.setText("Enviar Código");
-        btbEnviarCodigo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 3));
         btbEnviarCodigo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btbEnviarCodigo.setOpaque(true);
         jPanel1.add(btbEnviarCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 240, 230, 40));
 
+        btnCancelar.setBackground(new java.awt.Color(227, 17, 59));
         btnCancelar.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         btnCancelar.setForeground(new java.awt.Color(255, 255, 255));
         btnCancelar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnCancelar.setText("Cancelar");
-        btnCancelar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 3));
         btnCancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCancelar.setOpaque(true);
         btnCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnCancelarMouseClicked(evt);
             }
         });
         jPanel1.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 560, 250, 40));
+
+        lblcontraseña1.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        lblcontraseña1.setForeground(new java.awt.Color(255, 255, 255));
+        lblcontraseña1.setText("Nombre de Usuario");
+        jPanel1.add(lblcontraseña1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 370, -1, -1));
+
+        txtuserName.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 10, 2, 2));
+        jPanel1.add(txtuserName, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 400, 300, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -265,15 +261,14 @@ public class CrearCuenta extends javax.swing.JFrame {
     private javax.swing.JLabel btnClose;
     private javax.swing.JLabel btnMinimize;
     private javax.swing.JLabel btnSeleccionarFoto;
-    private javax.swing.JLabel btnSeleccionarUbicacion;
     private javax.swing.JPanel jPanel1;
-    private necesario.LabelIcon labelIcon1;
     private javax.swing.JLabel lblApellidos;
     private javax.swing.JLabel lblCelular;
     private javax.swing.JLabel lblCodigo;
     private javax.swing.JLabel lblDireccion;
     private javax.swing.JLabel lblFechaNac;
     private javax.swing.JLabel lblcontraseña;
+    private javax.swing.JLabel lblcontraseña1;
     private javax.swing.JLabel lblcorreo;
     private javax.swing.JLabel lblcrearCuenta;
     private javax.swing.JLabel lbldni;
@@ -288,5 +283,6 @@ public class CrearCuenta extends javax.swing.JFrame {
     private javax.swing.JTextField txtDni;
     private javax.swing.JTextField txtFechaNacimiento;
     private javax.swing.JTextField txtNombres;
+    private javax.swing.JPasswordField txtuserName;
     // End of variables declaration//GEN-END:variables
 }

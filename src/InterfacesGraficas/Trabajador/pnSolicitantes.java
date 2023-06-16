@@ -6,34 +6,26 @@
 package InterfacesGraficas.Trabajador;
 
 import Entidades.Usuario;
+import static Main.ServicioDeAgua.mensaje;
 import Utilidades.Foto;
 import Utilidades.ServiciosUsuario;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JOptionPane;
-
-
 /**
  *
- * @author chave
+ * @author Hansel Chavez
  */
 public class pnSolicitantes extends javax.swing.JPanel {
 
     /**
      * Creates new form principal
      */
-    private final ServiciosUsuario servicio ;
+    private ServiciosUsuario servicio ;
     private List<Usuario> listaSolicitantes ;
-    public pnSolicitantes() throws ClassNotFoundException, SQLException {
-        initComponents();        
-        this.listaSolicitantes = new ArrayList<>();  
-        this.servicio =new ServiciosUsuario();    
-        llenarSolicitantes("");
-        btnVolver.setVisible(false);
+    public pnSolicitantes(){
+        initComponents();       
     }  
     
     /**
@@ -153,14 +145,16 @@ public class pnSolicitantes extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(pnlTablaUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 729, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlTablaUsuariosLayout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(Solcitantes, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtBuscarDni, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnlTablaUsuariosLayout.createSequentialGroup()
-                        .addComponent(btnVerInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGroup(pnlTablaUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlTablaUsuariosLayout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(Solcitantes, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnVerInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlTablaUsuariosLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(txtBuscarDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         pnlTablaUsuariosLayout.setVerticalGroup(
@@ -408,20 +402,17 @@ public class pnSolicitantes extends javax.swing.JPanel {
 
     private void btnVerInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerInfoActionPerformed
         int i =tablaUSolicitantes.getSelectedRow();
-        try {
-            if(i !=-1){    
-                Usuario user = listaSolicitantes.get(i);
-                cargarDatos(user);
-                this.pnlSlider.setPanelNormal(pnlInfoUsuario);
-                btnVolver.setVisible(true);
-            }else{
-
-                JOptionPane.showMessageDialog(null,"Seleccione un usuario de "
-                        + "la lista.");
-            }
-        } catch (IOException ex) {
-                Logger.getLogger(pnSolicitantes.class.getName()).log(Level.SEVERE, null, ex);
-        }               
+       
+        if(i !=-1){    
+            Usuario user = listaSolicitantes.get(i);
+            cargarDatos(user);
+            this.pnlSlider.setPanelNormal(pnlInfoUsuario);
+            btnVolver.setVisible(true);
+        }else{
+            mensaje.cargarDatos("Visualizar Información"
+               ,"Seleccione un usuario de la lista", 1);                 
+        }
+                     
     }//GEN-LAST:event_btnVerInfoActionPerformed
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
         this.pnlSlider.setPanelNormal(pnlTablaUsuarios);
@@ -456,19 +447,24 @@ public class pnSolicitantes extends javax.swing.JPanel {
     private necesario.TextField txtNombres;
     private necesario.TextField txtTelefono;
     // End of variables declaration//GEN-END:variables
-  
-    public void llenarSolicitantes(String buscar){
+    public void cargarServicio(ServiciosUsuario servicio){
+        this.servicio = servicio;
+        this.listaSolicitantes = new ArrayList<>();     
+        llenarSolicitantes("");
+        btnVolver.setVisible(false);
+    }
+    private void llenarSolicitantes(String buscar){
         listaSolicitantes = new ArrayList<>();
         try {
             this.servicio.listarUsuarios(tablaUSolicitantes,"2"
                     ,buscar,listaSolicitantes,2);           
         } catch (SQLException ex) {
-            Logger.getLogger(pnSolicitantes.class.getName())
-                    .log(Level.SEVERE, null, ex);
+            mensaje.cargarDatos("Error al actualizar lista de Usuarios"
+                   ,"No es posible cargar los registros.", 1); 
         }
     
     }
-    public void cargarDatos(Usuario user) throws IOException {    
+    private void cargarDatos(Usuario user){    
         txtNombres.setText(user.getNombres());
         txtApellidos.setText(user.getApellidos());
         txtCorreo.setText(user.getCorreo());
@@ -476,10 +472,16 @@ public class pnSolicitantes extends javax.swing.JPanel {
         txtTelefono.setText(user.getCelular());
         txtFechaNac.setText(user.getFechaString());
         txtDireccion.setText(user.getDireccion());
-        if(user.getFoto()!=null)
-            Foto.cargarFoto(lblFotoS,user.getFoto());
+       
+        try{ 
+            if(user.getFoto()!=null)
+                Foto.cargarFotoLabel(lblFotoS,user.getFoto());
+        } catch (IOException ex) {
+            mensaje.cargarDatos("Cargar foto"
+                   ,"No es posible guarda la foto ingresada.", 1);  
+        }
     }
-    public void limpiarInputs() {
+    private void limpiarInputs() {
         txtNombres.setText("");
         txtApellidos.setText("");
         txtCorreo.setText("");

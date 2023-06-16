@@ -6,20 +6,16 @@
 package InterfacesGraficas.Solicitante;
 
 import Entidades.Mensaje;
-import Entidades.Mensaje;
 import Entidades.Usuario;
-import Entidades.Usuario;
+import Main.ServicioDeAgua;
 import Utilidades.ServiciosUsuario;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 
 /**
  *
- * @author chave
+ * @author Hansel Chavez
  */
 public class pnlComentariosSolicitantes extends javax.swing.JPanel {
 
@@ -31,14 +27,10 @@ public class pnlComentariosSolicitantes extends javax.swing.JPanel {
     ServiciosUsuario servicio;
     String tipo;
     int cod;   
-    public pnlComentariosSolicitantes() throws ClassNotFoundException, SQLException {
+    public pnlComentariosSolicitantes() {
         initComponents();
-        tipo = "Sugerencia";
-        lblFecha2.setVisible(false);
-        this.servicio = new ServiciosUsuario();
-        this.pnlSliderRetro.setPanelNormal(pnlTablaRetro);
-        btnVolver.setVisible(false);
     }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -335,12 +327,9 @@ public class pnlComentariosSolicitantes extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtBuscarRetroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarRetroKeyReleased
-        try {
-            actualizarLista(txtBuscarRetro.getText());
-        } catch (SQLException ex) {
-            Logger.getLogger(pnlComentariosSolicitante.class
-                    .getName()).log(Level.SEVERE, null, ex);
-        }
+       
+        actualizarLista(txtBuscarRetro.getText());
+      
         
     }//GEN-LAST:event_txtBuscarRetroKeyReleased
 
@@ -352,27 +341,23 @@ public class pnlComentariosSolicitantes extends javax.swing.JPanel {
     }//GEN-LAST:event_btnVolverActionPerformed
 
     private void btnSugerenciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSugerenciasActionPerformed
-        try {
+        if(!btnSugerencias.isSelected()){
             btnSugerencias.setSelected(true);
             btnReclamos.setSelected(false);
             this.tipo = "Sugerencia";
             actualizarLista("");
-        } catch (SQLException ex) {
-            Logger.getLogger(pnlComentariosSolicitante.class.getName())
-                    .log(Level.SEVERE, null, ex);
         }
+       
     }//GEN-LAST:event_btnSugerenciasActionPerformed
 
     private void btnReclamosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReclamosActionPerformed
-        try {
+        if(!btnReclamos.isSelected()){
             btnSugerencias.setSelected(false);
             btnReclamos.setSelected(true);
             this.tipo = "Reclamo";
             actualizarLista("");
-        } catch (SQLException ex) {
-            Logger.getLogger(pnlComentariosSolicitante.class.getName())
-                    .log(Level.SEVERE, null, ex);
         }
+       
     }//GEN-LAST:event_btnReclamosActionPerformed
 
     private void btnGenerarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarActionPerformed
@@ -390,8 +375,9 @@ public class pnlComentariosSolicitantes extends javax.swing.JPanel {
             this.pnlSliderRetro.setPanelNormal(pnlGenerar);
             btnVolver.setVisible(true);
         }
-        else{        
-            JOptionPane.showMessageDialog(null,"Seleccione un comentario de la lista");
+        else{  
+            ServicioDeAgua.mensaje.cargarDatos("Visualizar "+tipo
+                   ,"Seleccione un registro de la lista", 1);  
         }
     }//GEN-LAST:event_btnVisualizarRetroActionPerformed
 
@@ -400,20 +386,23 @@ public class pnlComentariosSolicitantes extends javax.swing.JPanel {
             String tipoRetro = cbxTipo.getSelectedItem().toString();
             String contenido = txtcontenidoRetro.getText();
             if(!contenido.isEmpty()){                
-                cod= servicio.getCodigo(tipoRetro,user.getDni());                        
+                cod = servicio.getCodigo(tipoRetro,user.getDni());                        
                 servicio.insertarRetroalimentacion(cod,tipoRetro,contenido
                         ,user.getDni());
                 
                 actualizarLista("");
-                JOptionPane.showMessageDialog(null,"Se agrego correctamente el "
-                        + "comentario");
+                ServicioDeAgua.mensaje.cargarDatos("Generar "+tipo
+                   ,"Se ha generado el comentario correctamente.", 1);  
+                btnVolver.doClick();
             }
             else{
-                JOptionPane.showMessageDialog(null,"Completa el campo comentario");
+               ServicioDeAgua.mensaje.cargarDatos("Generar "+tipo
+                   ,"Completa el campo vacio.", 1);  
             }
            
         } catch (SQLException ex) {
-            Logger.getLogger(pnlComentariosSolicitante.class.getName()).log(Level.SEVERE, null, ex);
+            ServicioDeAgua.mensaje.cargarDatos("Error al generar "+tipo
+                   ,"No se pudo genera el comentario.", 1);  
         }
     }//GEN-LAST:event_btnAceptarGenerarActionPerformed
 
@@ -441,16 +430,29 @@ public class pnlComentariosSolicitantes extends javax.swing.JPanel {
     private RSMaterialComponent.RSTextFieldMaterialIcon txtBuscarRetro;
     private javax.swing.JTextArea txtcontenidoRetro;
     // End of variables declaration//GEN-END:variables
-     public void cargarUsuario(Usuario user) throws SQLException{
-        this.user = user;        
-        listaRetro = new ArrayList<>();
-        actualizarLista("");       
+     public void cargarUsuario(Usuario user,ServiciosUsuario servicio) {   
+        this.servicio = servicio;
+        this.user = user;
+        listaRetro = new ArrayList<>();       
+        iniciarValores();            
+        actualizarLista("");
+        this.pnlSliderRetro.setPanelNormal(pnlTablaRetro);        
     } 
-
-    private void actualizarLista(String buscar) throws SQLException {       
-        listaRetro = new ArrayList<>();
-        this.servicio.listarRetroAlimentacion(tablaRetro,user.getDni(),buscar
-                ,this.tipo,listaRetro);
+     
+    private void iniciarValores() {
+        tipo = "Sugerencia";
+        lblFecha2.setVisible(false);       
+        btnVolver.setVisible(false);
+    }
+    private void actualizarLista(String buscar){       
+        try {
+            listaRetro = new ArrayList<>();
+            this.servicio.listarRetroAlimentacion(tablaRetro,user.getDni(),buscar
+                    ,this.tipo,listaRetro,1);
+        } catch (SQLException ex) {
+            ServicioDeAgua.mensaje.cargarDatos("Error al Actualizar Lista "
+                   ,"No se pudo actualizar los registros de la lista.", 1);  
+        }
     }
     private void limpiarEntradas(){
         lblestado.setText("Generar Comentario");

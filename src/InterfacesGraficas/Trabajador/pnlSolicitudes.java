@@ -7,22 +7,19 @@ package InterfacesGraficas.Trabajador;
 
 
 import Entidades.Solicitud;
+import static Main.ServicioDeAgua.mensaje;
 import Utilidades.ServiciosUsuario;
 import java.awt.Color;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JOptionPane;
-
 
 /**
  *
- * @author chave
+ * @author Hansel Chavez
  */
 public class pnlSolicitudes extends javax.swing.JPanel {
-    private final ServiciosUsuario servicio ;
+    private ServiciosUsuario servicio ;
     private int cantidad;
     private String estado ;
     private String negado;
@@ -34,17 +31,9 @@ public class pnlSolicitudes extends javax.swing.JPanel {
      * @throws java.sql.SQLException
      */
     List<Solicitud> listaSolicitudes;
-    public pnlSolicitudes() throws ClassNotFoundException, SQLException {
-        initComponents();
-        reemplazarVariables("1","","Pendientes ",Color.BLACK);
-        btnVolver.setVisible(false);       
-        servicio =new ServiciosUsuario();     
-        listarSolicitudes("",nombre,estado,color);
-    }
-
-   
-
-    
+    public pnlSolicitudes(){
+        initComponents(); 
+    }   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -505,74 +494,43 @@ public class pnlSolicitudes extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEnProcesoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnProcesoActionPerformed
-        try { 
-            reemplazarVariables("2","","En Proceso ",Color.ORANGE);
-            listarSolicitudes("",nombre,estado,color);
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(pnlSolicitudes.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        reemplazarVariables("2","","En Proceso ",Color.ORANGE);
+        listarSolicitudes("",nombre,estado,color);
         seleccionarFalse();
         btnEnProceso.setSelected(true);
     }//GEN-LAST:event_btnEnProcesoActionPerformed
 
     private void btnSoliRechazadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSoliRechazadasActionPerformed
-        try {
-            reemplazarVariables("4","","Rechazadas ",Color.red);
-            listarSolicitudes("",nombre,estado,color);            
-        } catch (SQLException ex) {
-            Logger.getLogger(pnlSolicitudes.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        reemplazarVariables("4","","Rechazadas ",Color.red);
+        listarSolicitudes("",nombre,estado,color);   
         seleccionarFalse();
         btnSoliRechazadas.setSelected(true);
     }//GEN-LAST:event_btnSoliRechazadasActionPerformed
 
     private void btnSoliTodasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSoliTodasActionPerformed
-        try {                         
-            reemplazarVariables("0","!","Todas ",Color.blue);
-            listarSolicitudes("",nombre,estado,color);     
-           
-        } catch (SQLException ex) {
-            Logger.getLogger(pnlSolicitudes.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        reemplazarVariables("0","!","Todas ",Color.blue);
+        listarSolicitudes("",nombre,estado,color);     
         seleccionarFalse();
         btnSoliTodas.setSelected(true);
     }//GEN-LAST:event_btnSoliTodasActionPerformed
 
     private void btnAprobadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAprobadasActionPerformed
-      
-        try {            
-           
-            reemplazarVariables("3","","Aprobadas ",Color.green);
-            listarSolicitudes("",nombre,estado,color);              
-        } catch (SQLException ex) {
-            Logger.getLogger(pnlSolicitudes.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        reemplazarVariables("3","","Aprobadas ",Color.green);
+        listarSolicitudes("",nombre,estado,color);      
         seleccionarFalse();
         btnAprobadas.setSelected(true);
     }//GEN-LAST:event_btnAprobadasActionPerformed
 
     private void btnPendienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPendienteActionPerformed
-        
-        try {    
-            
-            reemplazarVariables("1","","Pendientes ",Color.BLACK);
-            listarSolicitudes("",nombre,estado,color);
-        } catch (SQLException ex) {
-            Logger.getLogger(pnlSolicitudes.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        reemplazarVariables("1","","Pendientes ",Color.BLACK);
+        listarSolicitudes("",nombre,estado,color);        
         seleccionarFalse();
         btnPendiente.setSelected(true);
     }//GEN-LAST:event_btnPendienteActionPerformed
 
     private void txtBuscarsolicitudKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarsolicitudKeyReleased
-        String buscar = txtBuscarsolicitud.getText();
-        try {   
-            listarSolicitudes(buscar,nombre,estado,color);
-        } catch (SQLException ex) {
-            Logger.getLogger(pnlSolicitudes.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
+        String buscar = txtBuscarsolicitud.getText();       
+        listarSolicitudes(buscar,nombre,estado,color);
     }//GEN-LAST:event_txtBuscarsolicitudKeyReleased
 
     private void btnVerInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerInfoActionPerformed
@@ -588,25 +546,20 @@ public class pnlSolicitudes extends javax.swing.JPanel {
             btnVolver.setVisible(true);
             this.pnlSlider.setPanelNormal(pnlVerProcesar);
         }
-        else{        
-            JOptionPane.showMessageDialog(null,"Seleccione un comentario de la lista");
+        else{      
+            mensaje.cargarDatos("Visualizar Informacion"
+               ,"Seleccione un registro de la lista", 1);  
         }
        
 
     }//GEN-LAST:event_btnVerInfoActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-        try {
-            lblEstaVP.setText("Procesar Solicitud");
-            this.pnlSlider.setPanelNormal(pnlTablaSolcitudes);
-            btnVolver.setVisible(false);
-            btnProcesar.setVisible(true);
-            listarSolicitudes("",nombre, estado, color);
-            //if(btnAprobadas.isSelected())
-        } catch (SQLException ex) {
-            Logger.getLogger(pnlSolicitudes.class.getName()).log(Level.SEVERE, null, ex);
-        }
-            
+        lblEstaVP.setText("Procesar Solicitud");
+        this.pnlSlider.setPanelNormal(pnlTablaSolcitudes);
+        btnVolver.setVisible(false);
+        btnProcesar.setVisible(true);
+        listarSolicitudes("",nombre, estado, color);             
     }//GEN-LAST:event_btnVolverActionPerformed
 
     private void btnProcesarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcesarActionPerformed
@@ -622,15 +575,15 @@ public class pnlSolicitudes extends javax.swing.JPanel {
                 btnProcesar.setVisible(false);
                 this.pnlSlider.setPanelNormal(pnlVerProcesar);
             }
-            else{        
-                JOptionPane.showMessageDialog(null,"La solicitud seleccionada "
-                    + "ha sido cancelada por el usuario, "
-                    + "no es posible procesarla.");
+            else{      
+                mensaje.cargarDatos("Procesar Solicitud"
+               ,"La solicitud seleccionada ha sido cancelada por el usuario, "
+                    + "no es posible procesarla.", 1);  
             }        
         }
         else{        
-            JOptionPane.showMessageDialog(null,"Seleccione una solicitud "
-                    + "para procesarla.");
+            mensaje.cargarDatos("Procesar Solicitud"
+               ,"Seleccione una solicitud de la lista", 1); 
         }
     }//GEN-LAST:event_btnProcesarActionPerformed
 
@@ -639,13 +592,13 @@ public class pnlSolicitudes extends javax.swing.JPanel {
             String idSoli=lblIdSolicitud.getText();
             String idUser = lblIdUser.getText();
             int idEstado = cbxEstado.getSelectedIndex()+1;
-            servicio.actualizarEstadoSolicitud(idSoli,idUser,idEstado);           
-            JOptionPane.showMessageDialog(null,"Se ha cambiado el estado de la"
-                   + " solicitud correctamente.");
-            this.pnlSlider.setPanelNormal(pnlTablaSolcitudes);
-            btnVolver.setVisible(false);
+            servicio.actualizarEstadoSolicitud(idSoli,idUser,idEstado);    
+            mensaje.cargarDatos("Guardar Solicitud"
+               ,"Se ha cambiado el estado de la solicitud correctamente.", 1);            
+            btnVolver.doClick();            
         } catch (SQLException ex) {
-            Logger.getLogger(pnlSolicitudes.class.getName()).log(Level.SEVERE, null, ex);
+            mensaje.cargarDatos("Error al guardar Solicitud"
+               ,"No ha sido posible guardar los cambios.", 1);   
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
     
@@ -683,7 +636,12 @@ public class pnlSolicitudes extends javax.swing.JPanel {
     private javax.swing.JTextArea txtmotivo;
     // End of variables declaration//GEN-END:variables
   
-  
+    public void cargarServicio(ServiciosUsuario servicio){
+        this.servicio = servicio;
+        reemplazarVariables("1","","Pendientes ",Color.BLACK);
+        btnVolver.setVisible(false);   
+        listarSolicitudes("",nombre,estado,color);
+    }
     public void seleccionarFalse(){
         btnEnProceso.setSelected(false);
         btnPendiente.setSelected(false);
@@ -703,11 +661,16 @@ public class pnlSolicitudes extends javax.swing.JPanel {
         this.color = color;
     }
     public void listarSolicitudes(String buscar,String texto,String estate,Color color)
-            throws SQLException {   
-        listaSolicitudes = new ArrayList<>();
-        cantidad = this.servicio.listarSolicitudes(tablaSolicitudes,estate,negado
-                ,buscar,"",listaSolicitudes);
-        labelColorTexto(texto+"("+cantidad+")",color);
+      {   
+        try {
+            listaSolicitudes = new ArrayList<>();
+            cantidad = this.servicio.listarSolicitudes(tablaSolicitudes,estate,negado
+                    ,buscar,"",listaSolicitudes);
+            labelColorTexto(texto+"("+cantidad+")",color);
+        } catch (SQLException ex) {
+            mensaje.cargarDatos("Error al actualizar lista"
+              ,"No ha sido posible mostrar los registros.", 1); 
+        }
     }
     
     private void llenarDatos(Solicitud solicitud) {

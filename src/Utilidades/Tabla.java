@@ -174,21 +174,37 @@ public class Tabla {
     }
 
     static void llenarTablaRetroAlimentacion(ResultSet rs, RSTableMetroCustom tabla
-            , String buscar, List<Mensaje> lista,String tipo) throws SQLException {
+            , String buscar, List<Mensaje> lista,String tipo,int modo) throws SQLException {
          DefaultTableModel modeloTabla = (DefaultTableModel) tabla.getModel();
         while(modeloTabla.getRowCount()>0){
             modeloTabla.removeRow(0);        
         }       
-        String datos []= new String[3];        
-        while(rs.next()){              
-            datos[0] = rs.getString("id"+tipo);
-            datos[1] = rs.getString("contenido"+tipo);
-            datos[2] = rs.getDate("fecha"+tipo).toString();       
-            Mensaje comentario = new Mensaje(datos[0],tipo
-                    ,datos[1], rs.getDate("fecha"+tipo));            
-            lista.add(comentario);
-            modeloTabla.addRow(datos);        
-        }   
+        String [] datos= new String[3];   
+        if(modo == 1){
+            while(rs.next()){              
+                datos[0] = rs.getString("id"+tipo);
+                datos[1] = rs.getString("contenido"+tipo);
+                datos[2] = rs.getDate("fecha"+tipo).toString();       
+                Mensaje comentario = new Mensaje(datos[0],tipo
+                        ,datos[1], rs.getDate("fecha"+tipo));            
+                lista.add(comentario);
+                modeloTabla.addRow(datos);        
+            }   
+        }else
+        {
+            datos = new String[4]; 
+            while(rs.next()){              
+                datos[0] = rs.getString("id"+tipo);
+                datos[1] = rs.getString("idUsuario");
+                datos[2] = rs.getString("contenido"+tipo);  
+                datos[3] = rs.getDate("fecha"+tipo).toString();
+                Mensaje comentario = new Mensaje(datos[0],tipo
+                        ,datos[2], rs.getDate("fecha"+tipo));  
+                comentario.setNombreUsuario(datos[1]);
+                lista.add(comentario);
+                modeloTabla.addRow(datos);        
+            }  
+        }
 
 
     }

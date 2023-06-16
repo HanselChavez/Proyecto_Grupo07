@@ -8,16 +8,16 @@ package InterfacesGraficas.Solicitante;
 import Entidades.HistorialSolicitudes;
 import Entidades.Solicitud;
 import Entidades.Usuario;
+import Main.ServicioDeAgua;
+import static Main.ServicioDeAgua.mensaje;
 import Utilidades.ServiciosUsuario;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.concurrent.CountDownLatch;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import rojeru_san.efectos.ValoresEnum;
-
-
-
 
 /**
  *
@@ -28,13 +28,12 @@ public class pnlSolicitudesUsuario extends javax.swing.JPanel {
     /**
      * Creates new form pnlSolicitudesUsuario
      */
-    private final ServiciosUsuario servicio ;  
+    private ServiciosUsuario servicio ;  
     private int id;
     private Usuario user;
     private HistorialSolicitudes hSolicitudes;
-    public pnlSolicitudesUsuario() throws ClassNotFoundException, SQLException {
-        initComponents();        
-        servicio =new ServiciosUsuario();
+    public pnlSolicitudesUsuario(){
+        initComponents();   
         ocultarLabels();
         btnVolver.setVisible(false);
     }
@@ -54,7 +53,7 @@ public class pnlSolicitudesUsuario extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaSolicitudes = new RSMaterialComponent.RSTableMetroCustom();
         txtBuscarsolicitud = new RSMaterialComponent.RSTextFieldMaterialIcon();
-        btnEliminarHistorial = new RSMaterialComponent.RSButtonMaterialIconOne();
+        btnEliminarHist = new RSMaterialComponent.RSButtonMaterialIconOne();
         btnNuevaSolicitud = new RSMaterialComponent.RSButtonMaterialIconOne();
         btnCancelarSol = new RSMaterialComponent.RSButtonMaterialIconOne();
         btnEditarSolicitud = new RSMaterialComponent.RSButtonMaterialIconOne();
@@ -126,18 +125,18 @@ public class pnlSolicitudesUsuario extends javax.swing.JPanel {
             }
         });
 
-        btnEliminarHistorial.setBackground(new java.awt.Color(204, 204, 204));
-        btnEliminarHistorial.setText("Eliminar Historial");
-        btnEliminarHistorial.setBackgroundHover(new java.awt.Color(225, 25, 25));
-        btnEliminarHistorial.setForegroundIcon(new java.awt.Color(0, 0, 0));
-        btnEliminarHistorial.setForegroundText(new java.awt.Color(0, 0, 0));
-        btnEliminarHistorial.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnEliminarHistorial.setIconTextGap(29);
-        btnEliminarHistorial.setIcons(rojeru_san.efectos.ValoresEnum.ICONS.DELETE);
-        btnEliminarHistorial.setPaddingLeft(15);
-        btnEliminarHistorial.addActionListener(new java.awt.event.ActionListener() {
+        btnEliminarHist.setBackground(new java.awt.Color(204, 204, 204));
+        btnEliminarHist.setText("Eliminar Historial");
+        btnEliminarHist.setBackgroundHover(new java.awt.Color(225, 25, 25));
+        btnEliminarHist.setForegroundIcon(new java.awt.Color(0, 0, 0));
+        btnEliminarHist.setForegroundText(new java.awt.Color(0, 0, 0));
+        btnEliminarHist.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnEliminarHist.setIconTextGap(29);
+        btnEliminarHist.setIcons(rojeru_san.efectos.ValoresEnum.ICONS.DELETE);
+        btnEliminarHist.setPaddingLeft(15);
+        btnEliminarHist.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEliminarHistorialActionPerformed(evt);
+                btnEliminarHistActionPerformed(evt);
             }
         });
 
@@ -207,7 +206,7 @@ public class pnlSolicitudesUsuario extends javax.swing.JPanel {
                             .addComponent(btnNuevaSolicitud, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(pnlHSolicitudLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnEliminarHistorial, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnEliminarHist, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnCancelarSol, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(21, Short.MAX_VALUE))
         );
@@ -227,7 +226,7 @@ public class pnlSolicitudesUsuario extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnEditarSolicitud, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnlHSolicitudLayout.createSequentialGroup()
-                        .addComponent(btnEliminarHistorial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnEliminarHist, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnCancelarSol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -378,14 +377,8 @@ public class pnlSolicitudesUsuario extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtBuscarsolicitudKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarsolicitudKeyReleased
-        String buscar = txtBuscarsolicitud.getText();
-        try {
-            actualizarLista(buscar);
-        } catch (SQLException ex) {
-            Logger.getLogger(pnlSolicitudesUsuario.class.getName())
-                    .log(Level.SEVERE, null, ex);
-        }
-
+        String buscar = txtBuscarsolicitud.getText();       
+        actualizarLista(buscar);       
     }//GEN-LAST:event_txtBuscarsolicitudKeyReleased
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
@@ -402,8 +395,7 @@ public class pnlSolicitudesUsuario extends javax.swing.JPanel {
         btnAceptarEditar.setIcons(ValoresEnum.ICONS.CHECK);
         btnVolver.setVisible(true);
         txtdireccion.setText(user.getDireccion());
-        this.pnlSliderSolicitud.setPanelNormal(pnlNuevaSolicitud);
-        
+        this.pnlSliderSolicitud.setPanelNormal(pnlNuevaSolicitud);        
     }//GEN-LAST:event_btnNuevaSolicitudActionPerformed
 
     private void btnEditarSolicitudActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarSolicitudActionPerformed
@@ -428,58 +420,69 @@ public class pnlSolicitudesUsuario extends javax.swing.JPanel {
         }else{
             JOptionPane.showMessageDialog(null,"Seleccione una solicitud de la"
                     + " lista para editarla.");
-        }
-           
+        }           
     }//GEN-LAST:event_btnEditarSolicitudActionPerformed
 
-    private void btnEliminarHistorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarHistorialActionPerformed
-        System.out.println(hSolicitudes.getListaDeSolicitudes().size());
-        
-        if(hSolicitudes.getListaDeSolicitudes().size()>0){        
-            int opcion = JOptionPane.showConfirmDialog(null,"¿Estás seguro de continuar?"
-                    , "Confirmación", JOptionPane.YES_NO_OPTION);
-            if (opcion == JOptionPane.YES_OPTION) {
-                try {
-                    servicio.eliminarSolicitudesUsuario(this.user.getDni());
-                    JOptionPane.showMessageDialog(null,"El historial de solicitudes"
-                            + "ha sido eliminado correctamente.");
-                    actualizarLista("");
-                } catch (SQLException ex) {
-                    Logger.getLogger(pnlSolicitudesUsuario.class.getName())
-                            .log(Level.SEVERE, null, ex);
+  
+    private void btnEliminarHistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarHistActionPerformed
+        Thread t1= new Thread(() -> {
+            if(hSolicitudes.getListaDeSolicitudes().size()>0){
+                mensaje.cargarDatos("Confirmacion","¿Estas seguro de "
+                        + "continuar?", 2);
+                boolean respuesta = mensaje.getRespuesta();
+                if (respuesta) {
+                    try {
+                        servicio.eliminarSolicitudesUsuario(user.getDni());
+                        actualizarLista("");
+                        Thread.sleep(500);
+                        mensaje.cargarDatos("Eliminar Historial",
+                                "El historial de solicitudes ha sido eliminado"
+                                        + " correctamente",1);                                  
+                    } catch (SQLException | InterruptedException ex) {
+                        mensaje.cargarDatos("Error al eliminar Historial",
+                                "No ha sido posible borrar el historial.",1);
+                    }
+                }else{
+                    mensaje.cargarDatos("Eliminar Historial",
+                            "Se canceló la acción de borrar el historial.",1);
                 }
-            } 
-        }     
-        else{
-            JOptionPane.showMessageDialog(null,"El historial de solicitudes"
-                            + " se encuentra vacio.");
-        }
-    }//GEN-LAST:event_btnEliminarHistorialActionPerformed
+            }
+            else{
+                mensaje.cargarDatos("Eliminar Historial"
+                        ,"El historial de solicitudes se encuentra vacio.", 1);
+            }
+        });
+        t1.start();        
+    }//GEN-LAST:event_btnEliminarHistActionPerformed
 
     private void btnCancelarSolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarSolActionPerformed
-        int indice = tablaSolicitudes.getSelectedRow();
+        int indice = tablaSolicitudes.getSelectedRow();        
         Solicitud solicitud;        
         if(indice!= -1){
             solicitud = hSolicitudes.getListaDeSolicitudes().get(indice);
             if("Pendiente".equals(solicitud.getEstado().getNombre()))
             {
                 try {
-                    servicio.cancelarSolicitud(solicitud.getCodigo(),user.getDni());
-                    JOptionPane.showMessageDialog(null
-                            ,"La solicitud a sido cancelada.");
+                    servicio.cancelarSolicitud(solicitud.getCodigo()
+                            ,user.getDni());
                     actualizarLista("");
-                } catch (SQLException ex) {
-                    Logger.getLogger(pnlSolicitudesUsuario.class.getName())
-                            .log(Level.SEVERE, null, ex);
+                    mensaje.cargarDatos("Cancelar Solicitud",
+                            "Se canceló la solicitud N°"+solicitud.getCodigo()
+                            ,1);                    
+                } catch (SQLException ex) {                   
+                    mensaje.cargarDatos("Error al cancelar Solicitud",
+                            "No ha sido posible cancelar la solicitud.",1); 
                 }                
             }
             else{
-                 JOptionPane.showMessageDialog(null,"La solicitud ya ha sido "
-                         + "procesada, no es posible cancelarla");
+                mensaje.cargarDatos("Error al cancelar Solicitud",
+                    "La solicitud ya ha sido procesada, no es posible"
+                    + "cancelarla",1);                 
             }
         }
         else{
-            JOptionPane.showMessageDialog(null,"Debe seleccionar una solicitud");            
+            mensaje.cargarDatos("Cancelar Solicitud",
+                    "Seleccione un registro de la lista",1);          
         }
     }//GEN-LAST:event_btnCancelarSolActionPerformed
 
@@ -488,30 +491,31 @@ public class pnlSolicitudesUsuario extends javax.swing.JPanel {
             if(btnAceptarEditar.getText().equals("Aceptar")){           
                 if(validarCampo()){                                    
                     servicio.insertarSolicitud(txtMotivo.getText(),user.getDni(),id);
-                    JOptionPane.showMessageDialog(null, "La solcitud ha sido enviada"
-                        + " correctamente");    
+                    mensaje.cargarDatos("Generar Nueva Solicitud",
+                    "La solicitud ha sido enviada correctamente.",1);    
+                    btnVolver.doClick();
                     id++;
                 }
                 else
-                    JOptionPane.showMessageDialog(null, "Completa el todos los campos");
+                    mensaje.cargarDatos("Generar Nueva Solicitud",
+                    "Completa todos los campos.",1);  
             }
             else if(btnAceptarEditar.getText().equals("Guardar")){
                 if(validarCampo()){
-                    servicio.editarSolicitud(lblcodigo.getText(),
+                    servicio.actualizarSolicitud(lblcodigo.getText(),
                             txtMotivo.getText(),user.getDni());
-                     JOptionPane.showMessageDialog(null, "La solcitud ha sido "
-                             + "editada correctamente");    
-                    ocultarLabels();
-                    this.pnlSliderSolicitud.setPanelNormal(pnlHSolicitud);
+                    mensaje.cargarDatos("Editar Solicitud",
+                    "La solicitud ha sido editada correctamente.",1);                      
+                    btnVolver.doClick();
                     
                 }else
-                    JOptionPane.showMessageDialog(null, "Completa todos los campos");
+                    mensaje.cargarDatos("Editar Solicitud",
+                    "Completa todos los campos.",1);  
             }
-            actualizarLista("");
-            limpiarCampos();
+            actualizarLista("");            
         } catch (SQLException ex) {
-                Logger.getLogger(pnlSolicitudesUsuario.class.getName())
-                .log(Level.SEVERE, null, ex);
+            mensaje.cargarDatos("Error al Guardar Solicitud",
+                    "No ha sido posible guardar los cambios",1);  
         }
     }//GEN-LAST:event_btnAceptarEditarActionPerformed
 
@@ -520,7 +524,7 @@ public class pnlSolicitudesUsuario extends javax.swing.JPanel {
     private RSMaterialComponent.RSButtonMaterialIconOne btnAceptarEditar;
     private RSMaterialComponent.RSButtonMaterialIconOne btnCancelarSol;
     private RSMaterialComponent.RSButtonMaterialIconOne btnEditarSolicitud;
-    private RSMaterialComponent.RSButtonMaterialIconOne btnEliminarHistorial;
+    private RSMaterialComponent.RSButtonMaterialIconOne btnEliminarHist;
     private RSMaterialComponent.RSButtonMaterialIconOne btnNuevaSolicitud;
     private RSMaterialComponent.RSButtonMaterialIconOne btnVolver;
     private javax.swing.JLabel jLabel2;
@@ -540,39 +544,44 @@ public class pnlSolicitudesUsuario extends javax.swing.JPanel {
     private javax.swing.JTextArea txtMotivo;
     private javax.swing.JTextField txtdireccion;
     // End of variables declaration//GEN-END:variables
-    public void cargarUsuario(Usuario user) throws SQLException{
+    public void cargarValores(Usuario user,ServiciosUsuario servicio) {
         this.user = user;  
+        this.servicio = servicio;
         hSolicitudes = new HistorialSolicitudes(user);
         actualizarLista("");  
         this.id = hSolicitudes.getListaDeSolicitudes().size()+1;
 
     } 
-    public void ocultarLabels(){
-        
+    private void ocultarLabels(){        
         lblcod.setVisible(false);
         lblcodigo.setVisible(false);
     }
-    public void mostrarLabels(){
+    private void mostrarLabels(){
         lblcod.setVisible(true);
         lblcodigo.setVisible(true);
     }
-    public void limpiarCampos(){        
+    private void limpiarCampos(){        
         txtMotivo.setText("");
     }
-    public void llenarDatos(Solicitud solicitud){
+    private void llenarDatos(Solicitud solicitud){
         mostrarLabels();
         lblcodigo.setText(solicitud.getCodigo());
         txtMotivo.setText(solicitud.getDescripcion());        
         txtdireccion.setText(user.getDireccion());
     }
-    public boolean validarCampo(){
+    private boolean validarCampo(){
         return !"".equals(txtMotivo.getText());
     }
 
-    private void actualizarLista(String buscar) throws SQLException { 
-        hSolicitudes.setListaDeSolicitudes(new ArrayList<>());        
-        this.servicio.listarSolicitudes(tablaSolicitudes, "", ""
-                , buscar,user.getDni(),hSolicitudes.getListaDeSolicitudes());   
+    private void actualizarLista(String buscar) { 
+        try {
+            hSolicitudes.setListaDeSolicitudes(new ArrayList<>());
+            this.servicio.listarSolicitudes(tablaSolicitudes, "", ""   
+                    , buscar,user.getDni(),hSolicitudes.getListaDeSolicitudes());
+        } catch (SQLException ex) {
+            mensaje.cargarDatos("Error al Actualizar Lista",
+                "No ha sido posible cargar los registros.",1);        
+        }
    
 
     }

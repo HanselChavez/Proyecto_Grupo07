@@ -37,7 +37,7 @@
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
-                      <Component id="btnEditarEstado" min="-2" pref="156" max="-2" attributes="0"/>
+                      <Component id="btnEditarRol" min="-2" pref="156" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="btnVolver" min="-2" pref="141" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
@@ -58,7 +58,7 @@
               <Component id="panelSlider" min="-2" pref="421" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="btnEditarEstado" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnEditarRol" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnVolver" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
@@ -538,7 +538,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSolicitantesActionPerformed"/>
       </Events>
     </Component>
-    <Component class="RSMaterialComponent.RSButtonMaterialIconOne" name="btnEditarEstado">
+    <Component class="RSMaterialComponent.RSButtonMaterialIconOne" name="btnEditarRol">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="cc" green="cc" red="cc" type="rgb"/>
@@ -564,7 +564,7 @@
         <Property name="paddingLeft" type="int" value="15"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEditarEstadoActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEditarRolActionPerformed"/>
       </Events>
     </Component>
     <Component class="RSMaterialComponent.RSButtonMaterialIconOne" name="btnVolver">
