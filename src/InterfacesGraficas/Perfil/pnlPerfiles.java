@@ -36,6 +36,7 @@ public class pnlPerfiles extends javax.swing.JPanel {
         initComponents();   
         this.pnlSlider.setPanelNormal(pnlPerfil);
         btnVolver.setVisible(false);
+        btnOcultar.setVisible(false);
     }
 
     /**
@@ -69,15 +70,17 @@ public class pnlPerfiles extends javax.swing.JPanel {
         btnCambiarContra = new RSMaterialComponent.RSButtonMaterialIconOne();
         btnActualizarDatos = new RSMaterialComponent.RSButtonMaterialIconOne();
         pnlCambiarContra = new javax.swing.JPanel();
-        txtConfirmar = new necesario.TextField();
         jLabel21 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
         txtContraseñaActual = new necesario.TextField();
-        txtNuevaContra = new necesario.TextField();
         jLabel23 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
         btnGuardarContraseña = new RSMaterialComponent.RSButtonMaterialIconOne();
         lbldesigualdad = new javax.swing.JLabel();
+        btnVer = new javax.swing.JLabel();
+        btnOcultar = new javax.swing.JLabel();
+        txtNuevaContra = new javax.swing.JPasswordField();
+        txtConfirmar = new javax.swing.JPasswordField();
         pnlActualizarDatos = new javax.swing.JPanel();
         txtNombre1 = new necesario.TextField();
         txtSegundoNombre = new necesario.TextField();
@@ -329,20 +332,6 @@ public class pnlPerfiles extends javax.swing.JPanel {
         pnlCambiarContra.setBackground(new java.awt.Color(255, 255, 255));
         pnlCambiarContra.setName("pnlCambiarContra"); // NOI18N
 
-        txtConfirmar.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2), javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1)));
-        txtConfirmar.setForeground(new java.awt.Color(0, 0, 0));
-        txtConfirmar.setDisabledTextColor(new java.awt.Color(37, 45, 223));
-        txtConfirmar.setName("txtConfirmar"); // NOI18N
-        txtConfirmar.setPlaceholder("Confirmar Contraseña");
-        txtConfirmar.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtConfirmarKeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtConfirmarKeyTyped(evt);
-            }
-        });
-
         jLabel21.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
         jLabel21.setForeground(new java.awt.Color(37, 45, 223));
         jLabel21.setText("Confirmar Contraseña");
@@ -355,18 +344,7 @@ public class pnlPerfiles extends javax.swing.JPanel {
         txtContraseñaActual.setForeground(new java.awt.Color(0, 0, 0));
         txtContraseñaActual.setDisabledTextColor(new java.awt.Color(37, 45, 223));
         txtContraseñaActual.setName("txtContraseñaActual"); // NOI18N
-        txtContraseñaActual.setPlaceholder("Contraseña Actual");
-
-        txtNuevaContra.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2), javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1)));
-        txtNuevaContra.setForeground(new java.awt.Color(0, 0, 0));
-        txtNuevaContra.setDisabledTextColor(new java.awt.Color(37, 45, 223));
-        txtNuevaContra.setName("txtNuevaContra"); // NOI18N
-        txtNuevaContra.setPlaceholder("Nueva Contraseña");
-        txtNuevaContra.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtNuevaContraKeyTyped(evt);
-            }
-        });
+        txtContraseñaActual.setPlaceholder("");
 
         jLabel23.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
         jLabel23.setForeground(new java.awt.Color(37, 45, 223));
@@ -396,29 +374,73 @@ public class pnlPerfiles extends javax.swing.JPanel {
         lbldesigualdad.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lbldesigualdad.setForeground(new java.awt.Color(255, 0, 0));
 
+        btnVer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/32bkver.png"))); // NOI18N
+        btnVer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnVer.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnVerMouseClicked(evt);
+            }
+        });
+
+        btnOcultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/32bkoculto.png"))); // NOI18N
+        btnOcultar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnOcultar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnOcultarMouseClicked(evt);
+            }
+        });
+
+        txtNuevaContra.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        txtNuevaContra.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2), javax.swing.BorderFactory.createEmptyBorder(1, 5, 5, 1)));
+        txtNuevaContra.setEchoChar('●');
+        txtNuevaContra.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNuevaContraKeyTyped(evt);
+            }
+        });
+
+        txtConfirmar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        txtConfirmar.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2), javax.swing.BorderFactory.createEmptyBorder(1, 5, 5, 1)));
+        txtConfirmar.setEchoChar('●');
+        txtConfirmar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtConfirmarKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtConfirmarKeyTyped(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlCambiarContraLayout = new javax.swing.GroupLayout(pnlCambiarContra);
         pnlCambiarContra.setLayout(pnlCambiarContraLayout);
         pnlCambiarContraLayout.setHorizontalGroup(
             pnlCambiarContraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlCambiarContraLayout.createSequentialGroup()
                 .addGroup(pnlCambiarContraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlCambiarContraLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnGuardarContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnlCambiarContraLayout.createSequentialGroup()
-                        .addGap(47, 47, 47)
-                        .addComponent(jLabel24))
-                    .addGroup(pnlCambiarContraLayout.createSequentialGroup()
-                        .addGap(72, 72, 72)
-                        .addGroup(pnlCambiarContraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtContraseñaActual, javax.swing.GroupLayout.DEFAULT_SIZE, 289, Short.MAX_VALUE)
-                            .addComponent(jLabel22)
-                            .addComponent(jLabel23)
-                            .addComponent(jLabel21)
-                            .addComponent(txtNuevaContra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtConfirmar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lbldesigualdad, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(409, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlCambiarContraLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(btnGuardarContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(pnlCambiarContraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlCambiarContraLayout.createSequentialGroup()
+                                .addGap(47, 47, 47)
+                                .addComponent(jLabel24))
+                            .addGroup(pnlCambiarContraLayout.createSequentialGroup()
+                                .addGap(72, 72, 72)
+                                .addGroup(pnlCambiarContraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtContraseñaActual, javax.swing.GroupLayout.DEFAULT_SIZE, 289, Short.MAX_VALUE)
+                                    .addComponent(jLabel22)
+                                    .addComponent(jLabel23)
+                                    .addComponent(jLabel21)
+                                    .addComponent(lbldesigualdad, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(txtNuevaContra)
+                                    .addComponent(txtConfirmar))
+                                .addGap(18, 18, 18)
+                                .addGroup(pnlCambiarContraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnOcultar)
+                                    .addComponent(btnVer))))
+                        .addGap(0, 349, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         pnlCambiarContraLayout.setVerticalGroup(
             pnlCambiarContraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -432,14 +454,19 @@ public class pnlPerfiles extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel23)
                 .addGap(4, 4, 4)
-                .addComponent(txtNuevaContra, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel21)
-                .addGap(4, 4, 4)
-                .addComponent(txtConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGroup(pnlCambiarContraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlCambiarContraLayout.createSequentialGroup()
+                        .addGap(60, 60, 60)
+                        .addComponent(jLabel21))
+                    .addComponent(txtNuevaContra, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlCambiarContraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnOcultar)
+                    .addComponent(btnVer))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lbldesigualdad, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
                 .addComponent(btnGuardarContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -746,16 +773,15 @@ public class pnlPerfiles extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(pnlSlider, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(38, 38, 38)
-                        .addComponent(btnCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap()
+                .addComponent(pnlSlider, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(38, 38, 38)
+                .addComponent(btnCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(21, 21, 21))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -799,7 +825,8 @@ public class pnlPerfiles extends javax.swing.JPanel {
             && !txtNuevaContra.getText().isEmpty()){
             try {
                 if(validarContraseña()){      
-                    servicio.actualizarContraseña(contraseñaNueva,user.getDni());                    
+                    servicio.actualizarContraseña(contraseñaNueva,user.getDni()
+                            ,"");                    
                     ServicioDeAgua.mensaje.cargarDatos("Cambiar Contraseña"
                     ,"Se cambio la contraseña correctamente", 1);
                     btnVolver.doClick();                  
@@ -835,7 +862,14 @@ public class pnlPerfiles extends javax.swing.JPanel {
                 !txtNuevoTelefono.getText().isEmpty()&& 
                 !txtDireccion1.getText().isEmpty()){    
             try { 
-                user.setFoto(Foto.obtenerFotoLabel(lblFoto));
+                if(lblFoto.getIcon()!= null){     
+                    System.out.println("No null");
+                    user.setFoto(Foto.obtenerFotoLabel(lblFoto));
+                }
+                else {
+                    user.setFoto(null);
+                    System.out.println("null");
+                }
                 setDatosUsuario();
                 this.servicio.actualizarUsuario(user);
                 cargarPerfil();
@@ -854,12 +888,25 @@ public class pnlPerfiles extends javax.swing.JPanel {
         login.setVisible(true);
         padre.dispose();        
     }//GEN-LAST:event_btnCerrarSesionActionPerformed
-    private void txtConfirmarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtConfirmarKeyReleased
-        if(!txtNuevaContra.getText().equals(txtConfirmar.getText()))
-            lbldesigualdad.setText("Las contraseñas no son iguales.");
-        else
-            lbldesigualdad.setText("");
-    }//GEN-LAST:event_txtConfirmarKeyReleased
+
+    private void btnVerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVerMouseClicked
+        btnVer.setVisible(false);
+        btnOcultar.setVisible(true);       
+        txtConfirmar.setEchoChar((char)0);
+        txtNuevaContra.setEchoChar((char)0);
+
+    }//GEN-LAST:event_btnVerMouseClicked
+
+    private void btnOcultarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnOcultarMouseClicked
+        btnVer.setVisible(true);
+        btnOcultar.setVisible(false);
+        txtConfirmar.setEchoChar('●');
+        txtNuevaContra.setEchoChar('●');
+    }//GEN-LAST:event_btnOcultarMouseClicked
+
+    private void txtNuevaContraKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNuevaContraKeyTyped
+        lbldesigualdad.setText("");
+    }//GEN-LAST:event_txtNuevaContraKeyTyped
 
     private void txtConfirmarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtConfirmarKeyTyped
         if(!txtNuevaContra.getText().equals(txtConfirmar.getText()))
@@ -868,9 +915,12 @@ public class pnlPerfiles extends javax.swing.JPanel {
             lbldesigualdad.setText("");
     }//GEN-LAST:event_txtConfirmarKeyTyped
 
-    private void txtNuevaContraKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNuevaContraKeyTyped
-        lbldesigualdad.setText("");
-    }//GEN-LAST:event_txtNuevaContraKeyTyped
+    private void txtConfirmarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtConfirmarKeyReleased
+        if(!txtNuevaContra.getText().equals(txtConfirmar.getText()))
+            lbldesigualdad.setText("Las contraseñas no son iguales.");
+        else
+            lbldesigualdad.setText("");
+    }//GEN-LAST:event_txtConfirmarKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -880,6 +930,8 @@ public class pnlPerfiles extends javax.swing.JPanel {
     private RSMaterialComponent.RSButtonMaterialIconOne btnFoto;
     public RSMaterialComponent.RSButtonMaterialIconOne btnGuardar;
     private RSMaterialComponent.RSButtonMaterialIconOne btnGuardarContraseña;
+    private javax.swing.JLabel btnOcultar;
+    private javax.swing.JLabel btnVer;
     private RSMaterialComponent.RSButtonMaterialIconOne btnVolver;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
@@ -916,7 +968,7 @@ public class pnlPerfiles extends javax.swing.JPanel {
     private necesario.TextField txtApellidoMaterno;
     private necesario.TextField txtApellidoPaterno;
     private necesario.TextField txtApellidos;
-    private necesario.TextField txtConfirmar;
+    private javax.swing.JPasswordField txtConfirmar;
     private necesario.TextField txtContraseñaActual;
     private necesario.TextField txtCorreo;
     private javax.swing.JTextArea txtDireccion;
@@ -926,7 +978,7 @@ public class pnlPerfiles extends javax.swing.JPanel {
     private necesario.TextField txtIdUsuario1;
     private necesario.TextField txtNombre1;
     private necesario.TextField txtNombres;
-    private necesario.TextField txtNuevaContra;
+    private javax.swing.JPasswordField txtNuevaContra;
     private necesario.TextField txtNuevoCorreo;
     private necesario.TextField txtNuevoTelefono;
     private necesario.TextField txtSegundoNombre;
@@ -954,17 +1006,16 @@ public class pnlPerfiles extends javax.swing.JPanel {
             txtDireccion.setText(user.getDireccion());
             if(user.getFoto()!=null)
                 Foto.cargarFotoLabel(lblfotoP,user.getFoto());
+            else
+                lblfotoP.setIcon(null);            
+            
         } catch (IOException ex) {
             Logger.getLogger(pnlPerfiles.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    private boolean validarContraseña() { 
-        boolean valido = false;
-        if((txtContraseñaActual.getText().equals(user.getContraseña())                
-                && txtConfirmar.getText().equals(txtNuevaContra.getText())))
-            valido = true;
-        
-        return valido;
+    private boolean validarContraseña() {      
+        return (txtContraseñaActual.getText().equals(user.getContraseña())                
+                && txtConfirmar.getText().equals(txtNuevaContra.getText()));
     }    
     public void limpiarInputs() {
         txtNombre1.setText("");
@@ -979,20 +1030,15 @@ public class pnlPerfiles extends javax.swing.JPanel {
         txtConfirmar.setText("");
         lblFoto.setIcon(null);
     }
-    public void setDatosUsuario() {        
-        try {
-            user.setDni(user.getDni());
-            user.setNombres(txtNombre1.getText()
-                    , txtSegundoNombre.getText());
-            user.setApellidos(txtApellidoPaterno.getText()
-                    , txtApellidoMaterno.getText());
-            user.setCelular(txtNuevoTelefono.getText());
-            user.setCorreo(txtNuevoCorreo.getText());
-            user.setDireccion(txtDireccion1.getText());
-            user.setFechaNac(rsNuevaFecha.getDatoFecha());       
-            user.setFoto(Foto.obtenerFotoLabel(lblFoto));
-        } catch (IOException ex) {
-            Logger.getLogger(pnlPerfiles.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    public void setDatosUsuario() { 
+        user.setDni(user.getDni());
+        user.setNombres(txtNombre1.getText()
+                , txtSegundoNombre.getText());
+        user.setApellidos(txtApellidoPaterno.getText()
+                , txtApellidoMaterno.getText());
+        user.setCelular(txtNuevoTelefono.getText());
+        user.setCorreo(txtNuevoCorreo.getText());
+        user.setDireccion(txtDireccion1.getText());
+        user.setFechaNac(rsNuevaFecha.getDatoFecha());  
     }
 }

@@ -154,7 +154,6 @@ public class PrincipalSolicitante extends javax.swing.JFrame {
 
         lblFotoPrincipal.setBackground(new java.awt.Color(255, 255, 255));
         lblFotoPrincipal.setForeground(new java.awt.Color(255, 255, 255));
-        lblFotoPrincipal.setOpaque(true);
 
         javax.swing.GroupLayout rSPanelGradiente1Layout = new javax.swing.GroupLayout(rSPanelGradiente1);
         rSPanelGradiente1.setLayout(rSPanelGradiente1Layout);
@@ -303,7 +302,7 @@ public class PrincipalSolicitante extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnMinimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMinimizeMouseClicked
-        
+        this.setState(ICONIFIED);
     }//GEN-LAST:event_btnMinimizeMouseClicked
 
     private void btnCloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCloseMouseClicked
@@ -392,8 +391,13 @@ public class PrincipalSolicitante extends javax.swing.JFrame {
     public void cargarUsuario() {         
         try {
             lblnombres.setText(user.getNombres());
-            lblapellidos.setText(user.getApellidos());   
-            Foto.cargarFotoLabel(lblFotoPrincipal, user.getFoto());
+            lblapellidos.setText(user.getApellidos());      
+            if(user.getFoto()!=null)
+                Foto.cargarFotoLabel(lblFotoPrincipal, user.getFoto());
+            else{
+                lblFotoPrincipal.setIcon(null);
+            
+            }
         } catch (IOException ex) {
             ServicioDeAgua.mensaje.cargarDatos("Error al cargar foto"
                    ,"No ha sido posible cargar la foto del Usuario", 1);

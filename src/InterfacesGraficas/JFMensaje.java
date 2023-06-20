@@ -26,6 +26,7 @@ public class JFMensaje extends javax.swing.JFrame {
         respuesta = false;       
         RSUtilities.setOpaqueVentana(this, false);
         RSUtilities.setOpacityComponente(this.panel, 150);   
+        
     }
 
     /**
@@ -220,7 +221,7 @@ public class JFMensaje extends javax.swing.JFrame {
     private void btnCloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCloseMouseClicked
         if(btnCancelar.isVisible()){
             latch.countDown();
-            respuesta= false;            
+            respuesta= false;   
         }
         this.setVisible(false);    
     }//GEN-LAST:event_btnCloseMouseClicked
@@ -231,7 +232,9 @@ public class JFMensaje extends javax.swing.JFrame {
         System.out.println("cancelado en jfmensaje");
       
     }//GEN-LAST:event_btnCancelarActionPerformed
+    public  CountDownLatch latch = new CountDownLatch(1);
     public void cargarDatos(String titulo,String mensaje,int modo) { 
+        
         this.respuesta = false;
         this.lblTitulo.setText(titulo);
         this.txtMensaje.setText(mensaje);
@@ -243,6 +246,7 @@ public class JFMensaje extends javax.swing.JFrame {
         }else
         {       
             try {
+                latch = new CountDownLatch(1);
                 btnCancelar.setVisible(true);
                 this.setVisible(true);                
                 latch.await();
@@ -268,7 +272,7 @@ public class JFMensaje extends javax.swing.JFrame {
     private RSMaterialComponent.RSPanelBorder rSPanelBorder1;
     private javax.swing.JTextArea txtMensaje;
     // End of variables declaration//GEN-END:variables
-    public static CountDownLatch latch = new CountDownLatch(1);
+    
     public boolean getRespuesta(){        
         return respuesta;
     }

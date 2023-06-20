@@ -6,17 +6,15 @@
 package Utilidades;
 
 import Entidades.*;
-
-import RSMaterialComponent.RSTableMetroCustom;
+import java.util.List;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
-import java.util.List;
 import javax.swing.table.DefaultTableModel;
+import RSMaterialComponent.RSTableMetroCustom;
 
 /**
  *
- * @author chave
+ * @author Kelvin Vasquez
  */
 public class Tabla {
     public static int llenarTablaUsuarios(ResultSet rs,RSTableMetroCustom tabla
@@ -31,7 +29,7 @@ public class Tabla {
         
         while(rs.next()){
             user = new Usuario();
-            llenarDatos(user,rs);
+            ServiciosUsuario.inicializarUsuario(rs,user);
             datos[0] = rs.getString("idUsuario");
             datos[1] = rs.getString("nombre");
             datos[2] = rs.getString("apellidoPaterno");
@@ -47,7 +45,7 @@ public class Tabla {
         return contador;
         
     }
-    public static void llenarDatos(Usuario user,ResultSet result) 
+    /*public static void llenarDatos(Usuario user,ResultSet result) 
             throws SQLException{
             String Id = result.getString("idUsuario");
             String nombre1 = result.getString("nombre");
@@ -75,7 +73,7 @@ public class Tabla {
             user.setDireccion(direccion);
             user.setFoto(foto);
             
-    }
+    }*/
     public static int llenarTablaSolicitudes(ResultSet rs,RSTableMetroCustom tabla
         ,List<Solicitud> listaSolicitudes,String codigo) throws SQLException {
          int contador = 0;        
@@ -108,7 +106,6 @@ public class Tabla {
                 modeloTabla.addRow(datos);
             }
         }else{
-
             String datos []= new String[4];            
             while(rs.next()){
                 Solicitud solicitud = new Solicitud();                    
@@ -151,7 +148,6 @@ public class Tabla {
         }
             
     }
-
     static void llenarTablaAvisos(ResultSet rs, RSTableMetroCustom tabla
             , String buscar,List<Mensaje>lista)
             throws SQLException {
@@ -172,14 +168,13 @@ public class Tabla {
             modeloTabla.addRow(datos);        
         }          
     }
-
     static void llenarTablaRetroAlimentacion(ResultSet rs, RSTableMetroCustom tabla
             , String buscar, List<Mensaje> lista,String tipo,int modo) throws SQLException {
          DefaultTableModel modeloTabla = (DefaultTableModel) tabla.getModel();
         while(modeloTabla.getRowCount()>0){
             modeloTabla.removeRow(0);        
         }       
-        String [] datos= new String[3];   
+        String [] datos= new String[3]; 
         if(modo == 1){
             while(rs.next()){              
                 datos[0] = rs.getString("id"+tipo);
@@ -190,8 +185,7 @@ public class Tabla {
                 lista.add(comentario);
                 modeloTabla.addRow(datos);        
             }   
-        }else
-        {
+        }else {
             datos = new String[4]; 
             while(rs.next()){              
                 datos[0] = rs.getString("id"+tipo);
@@ -205,7 +199,5 @@ public class Tabla {
                 modeloTabla.addRow(datos);        
             }  
         }
-
-
     }
 }

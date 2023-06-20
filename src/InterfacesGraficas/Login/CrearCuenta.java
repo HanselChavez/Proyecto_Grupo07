@@ -7,14 +7,15 @@ package InterfacesGraficas.Login;
 
 
 import Entidades.Usuario;
+import Main.ServicioDeAgua;
 import static Main.ServicioDeAgua.mensaje;
 import Utilidades.Correo;
 import Utilidades.Dni;
+import Utilidades.Foto;
 import Utilidades.ServiciosUsuario;
 import java.awt.Color;
+import java.io.IOException;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.mail.MessagingException;
 import rojeru_san.efectos.ValoresEnum;
 
@@ -31,12 +32,19 @@ public class CrearCuenta extends javax.swing.JFrame {
     IniciarSesion login;
     String codigo ;
     ServiciosUsuario servicio;
+    boolean correoValidado ;
+    boolean usuarioValidado;
     public CrearCuenta(IniciarSesion login) {
         initComponents();
         this.login= login;
         user = null;
+        this.servicio = login.getServicioUsuario();
+         correoValidado = false;
+        usuarioValidado = false;
         lblverificarCodigo.setVisible(false);
         lblverificarUsername.setVisible(false);
+        lblErrorUser.setVisible(false);
+        lblErrorCodigo.setVisible(false);
         btnOcultar.setVisible(false);
     }
 
@@ -59,13 +67,11 @@ public class CrearCuenta extends javax.swing.JFrame {
         lblFechaNac = new javax.swing.JLabel();
         txtFechaNacimiento = new javax.swing.JTextField();
         lblDireccion = new javax.swing.JLabel();
-        txtDireccion = new javax.swing.JTextField();
         lblnombres = new javax.swing.JLabel();
         txtNombres = new javax.swing.JTextField();
         lblCodigo = new javax.swing.JLabel();
         txtDni = new javax.swing.JTextField();
         lblcontraseña = new javax.swing.JLabel();
-        txtCelular = new javax.swing.JTextField();
         lblCelular = new javax.swing.JLabel();
         txtContraseña = new javax.swing.JPasswordField();
         txtCodigo = new javax.swing.JTextField();
@@ -83,6 +89,11 @@ public class CrearCuenta extends javax.swing.JFrame {
         txtUsername = new javax.swing.JTextField();
         btnOcultar = new javax.swing.JLabel();
         btnVer = new javax.swing.JLabel();
+        txtTelefono = new necesario.TextField();
+        lblErrorUser = new javax.swing.JLabel();
+        lblErrorCodigo = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtdireccion = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -98,58 +109,52 @@ public class CrearCuenta extends javax.swing.JFrame {
         lblcorreo.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         lblcorreo.setForeground(new java.awt.Color(255, 255, 255));
         lblcorreo.setText("Correo");
-        jPanel1.add(lblcorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 160, -1, -1));
+        jPanel1.add(lblcorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 160, -1, -1));
 
         txtCorreo.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         txtCorreo.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 10, 2, 2));
         txtCorreo.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txtCorreo.setSelectionColor(new java.awt.Color(153, 153, 153));
-        jPanel1.add(txtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 190, 300, 32));
+        jPanel1.add(txtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 190, 300, 32));
 
         lbldni.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         lbldni.setForeground(new java.awt.Color(255, 255, 255));
         lbldni.setText("Ingrese Dni:");
-        jPanel1.add(lbldni, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 70, -1, -1));
+        jPanel1.add(lbldni, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 70, -1, -1));
 
         lblApellidos.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         lblApellidos.setForeground(new java.awt.Color(255, 255, 255));
         lblApellidos.setText("Apellidos");
-        jPanel1.add(lblApellidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 230, -1, -1));
+        jPanel1.add(lblApellidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, -1, -1));
 
         txtApellidos.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         txtApellidos.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 10, 2, 2));
         txtApellidos.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txtApellidos.setEnabled(false);
         txtApellidos.setSelectionColor(new java.awt.Color(153, 153, 153));
-        jPanel1.add(txtApellidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 260, 300, 32));
+        jPanel1.add(txtApellidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 250, 300, 32));
 
         lblFechaNac.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         lblFechaNac.setForeground(new java.awt.Color(255, 255, 255));
         lblFechaNac.setText("Fecha de Nacimiento");
-        jPanel1.add(lblFechaNac, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 310, -1, -1));
+        jPanel1.add(lblFechaNac, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 300, -1, -1));
 
         txtFechaNacimiento.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         txtFechaNacimiento.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 10, 2, 2));
         txtFechaNacimiento.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txtFechaNacimiento.setEnabled(false);
         txtFechaNacimiento.setSelectionColor(new java.awt.Color(153, 153, 153));
-        jPanel1.add(txtFechaNacimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 340, 300, 32));
+        jPanel1.add(txtFechaNacimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 330, 300, 32));
 
         lblDireccion.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         lblDireccion.setForeground(new java.awt.Color(255, 255, 255));
         lblDireccion.setText("Dirección");
-        jPanel1.add(lblDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 380, -1, -1));
-
-        txtDireccion.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        txtDireccion.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 10, 2, 2));
-        txtDireccion.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-        txtDireccion.setSelectionColor(new java.awt.Color(153, 153, 153));
-        jPanel1.add(txtDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 410, 300, 32));
+        jPanel1.add(lblDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 370, -1, -1));
 
         lblnombres.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         lblnombres.setForeground(new java.awt.Color(255, 255, 255));
         lblnombres.setText("Nombres ");
-        jPanel1.add(lblnombres, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 150, -1, -1));
+        jPanel1.add(lblnombres, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 150, -1, -1));
 
         txtNombres.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         txtNombres.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 10, 2, 2));
@@ -161,7 +166,7 @@ public class CrearCuenta extends javax.swing.JFrame {
         lblCodigo.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         lblCodigo.setForeground(new java.awt.Color(255, 255, 255));
         lblCodigo.setText("Ingrese Código");
-        jPanel1.add(lblCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 290, -1, 20));
+        jPanel1.add(lblCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 290, -1, 20));
 
         txtDni.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         txtDni.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 10, 2, 2));
@@ -172,25 +177,19 @@ public class CrearCuenta extends javax.swing.JFrame {
         lblcontraseña.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         lblcontraseña.setForeground(new java.awt.Color(255, 255, 255));
         lblcontraseña.setText("Contraseña");
-        jPanel1.add(lblcontraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 460, -1, -1));
-
-        txtCelular.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        txtCelular.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 10, 2, 2));
-        txtCelular.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-        txtCelular.setSelectionColor(new java.awt.Color(153, 153, 153));
-        jPanel1.add(txtCelular, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 480, 300, 32));
+        jPanel1.add(lblcontraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 460, -1, -1));
 
         lblCelular.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         lblCelular.setForeground(new java.awt.Color(255, 255, 255));
         lblCelular.setText("Celular");
-        jPanel1.add(lblCelular, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 450, -1, 20));
+        jPanel1.add(lblCelular, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 470, -1, 20));
 
         txtContraseña.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         txtContraseña.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 10, 2, 2));
         txtContraseña.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txtContraseña.setEchoChar('●');
         txtContraseña.setSelectionColor(new java.awt.Color(153, 153, 153));
-        jPanel1.add(txtContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 490, 260, 30));
+        jPanel1.add(txtContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 490, 260, 30));
 
         txtCodigo.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         txtCodigo.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 10, 2, 2));
@@ -201,12 +200,19 @@ public class CrearCuenta extends javax.swing.JFrame {
                 txtCodigoKeyReleased(evt);
             }
         });
-        jPanel1.add(txtCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 320, 260, 32));
+        jPanel1.add(txtCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 320, 260, 32));
 
         btnMinimize.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/32wtminimize-sign.png"))); // NOI18N
+        btnMinimize.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnMinimize.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnMinimizeMouseClicked(evt);
+            }
+        });
         jPanel1.add(btnMinimize, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 10, -1, -1));
 
         btnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/32wtclose.png"))); // NOI18N
+        btnClose.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnClose.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnCloseMouseClicked(evt);
@@ -215,6 +221,7 @@ public class CrearCuenta extends javax.swing.JFrame {
         jPanel1.add(btnClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 10, -1, -1));
 
         lblfoto.setBackground(new java.awt.Color(255, 255, 255));
+        lblfoto.setIcon(null);
         lblfoto.setOpaque(true);
         jPanel1.add(lblfoto, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 50, 100, 120));
 
@@ -224,7 +231,12 @@ public class CrearCuenta extends javax.swing.JFrame {
         btnSeleccionarFoto.setText("Seleccionar Foto");
         btnSeleccionarFoto.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 3));
         btnSeleccionarFoto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jPanel1.add(btnSeleccionarFoto, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 110, 180, 40));
+        btnSeleccionarFoto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnSeleccionarFotoMouseClicked(evt);
+            }
+        });
+        jPanel1.add(btnSeleccionarFoto, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 110, 180, 40));
 
         btnAceptar.setBackground(new java.awt.Color(0, 153, 0));
         btnAceptar.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
@@ -284,15 +296,31 @@ public class CrearCuenta extends javax.swing.JFrame {
         lblcontraseña1.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         lblcontraseña1.setForeground(new java.awt.Color(255, 255, 255));
         lblcontraseña1.setText("Nombre de Usuario");
-        jPanel1.add(lblcontraseña1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 370, -1, -1));
+        jPanel1.add(lblcontraseña1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 370, -1, -1));
 
         lblverificarUsername.setForeground(new java.awt.Color(204, 0, 0));
         lblverificarUsername.setIcons(rojeru_san.efectos.ValoresEnum.ICONS.ERROR);
-        jPanel1.add(lblverificarUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 400, 32, 32));
+        lblverificarUsername.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblverificarUsernameMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblverificarUsernameMouseExited(evt);
+            }
+        });
+        jPanel1.add(lblverificarUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 400, 32, 32));
 
         lblverificarCodigo.setForeground(new java.awt.Color(204, 0, 0));
         lblverificarCodigo.setIcons(rojeru_san.efectos.ValoresEnum.ICONS.ERROR);
-        jPanel1.add(lblverificarCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 320, 32, 32));
+        lblverificarCodigo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblverificarCodigoMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblverificarCodigoMouseExited(evt);
+            }
+        });
+        jPanel1.add(lblverificarCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 320, 32, 32));
 
         txtUsername.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         txtUsername.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 10, 2, 2));
@@ -303,7 +331,7 @@ public class CrearCuenta extends javax.swing.JFrame {
                 txtUsernameKeyReleased(evt);
             }
         });
-        jPanel1.add(txtUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 400, 260, 32));
+        jPanel1.add(txtUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 400, 260, 32));
 
         btnOcultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/32wthide.png"))); // NOI18N
         btnOcultar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -323,6 +351,42 @@ public class CrearCuenta extends javax.swing.JFrame {
         });
         jPanel1.add(btnVer, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 490, -1, -1));
 
+        txtTelefono.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 10, 2, 2));
+        txtTelefono.setForeground(new java.awt.Color(0, 0, 0));
+        txtTelefono.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        txtTelefono.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        txtTelefono.setMargin(new java.awt.Insets(3, 10, 3, 6));
+        txtTelefono.setName("txtTelefono"); // NOI18N
+        txtTelefono.setPlaceholder("");
+        txtTelefono.setSoloNumeros(true);
+        jPanel1.add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 500, 300, 30));
+
+        lblErrorUser.setBackground(new java.awt.Color(255, 255, 255));
+        lblErrorUser.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblErrorUser.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblErrorUser.setText("Este nombre ya esta en uso");
+        lblErrorUser.setOpaque(true);
+        jPanel1.add(lblErrorUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 370, 190, -1));
+
+        lblErrorCodigo.setBackground(new java.awt.Color(255, 255, 255));
+        lblErrorCodigo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblErrorCodigo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblErrorCodigo.setText("El codigo es incorrecto");
+        lblErrorCodigo.setOpaque(true);
+        jPanel1.add(lblErrorCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 290, 160, -1));
+
+        jScrollPane1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+
+        txtdireccion.setColumns(20);
+        txtdireccion.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        txtdireccion.setLineWrap(true);
+        txtdireccion.setRows(2);
+        txtdireccion.setWrapStyleWord(true);
+        txtdireccion.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        jScrollPane1.setViewportView(txtdireccion);
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 400, 300, 60));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -331,7 +395,7 @@ public class CrearCuenta extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 630, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 631, Short.MAX_VALUE)
         );
 
         pack();
@@ -343,67 +407,99 @@ public class CrearCuenta extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarMouseClicked
 
     private void btnAceptarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAceptarMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnAceptarMouseClicked
-
-    private void btnBuscarDniMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarDniMouseClicked
-        if(!txtDni.getText().isEmpty()){
-            user = Dni.getDatos(txtDni.getText().trim());
-            cargarDatos(user);
+        if(validarCampos()){
+            try {
+                cargarDatos();                
+                servicio.insertarCuenta(user);
+                login.setVisible(true); 
+                mensaje.cargarDatos("Crear Cuenta","La cuenta se creo "
+                        + "correctamente", 1);
+                this.dispose();
+            } catch (SQLException ex) {
+                mensaje.cargarDatos("Crear Cuenta", "No se pudo crear la cuenta."
+                        , 1);
+            }
         }else{
-            mensaje.cargarDatos("Verificar Edad","Ingresa el campo Dni",1);
+            mensaje.cargarDatos("Crear Cuenta"
+                    ,"Completa todos los campos.",1);
         }
+    }//GEN-LAST:event_btnAceptarMouseClicked
+    private void btnBuscarDniMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarDniMouseClicked
+        user= new Usuario();
+        String dni = txtDni.getText().trim();
+        if(dni.length()==8){
+            if(servicio.verificarCampo("idUsuario",dni)){                
+                mensaje.cargarDatos("Verificar Dni"
+                    ,"Ya existe una cuenta con el dni ingresado.",1);
+            }else {
+                user = Dni.getDatos(dni);
+                if(user!=null)
+                    cargarDatos(user);                   
+            }            
+        }else{
+            mensaje.cargarDatos("Verificar Edad"
+                    ,"El campo dni debe ser de longitud 8",1);
+        }  
     }//GEN-LAST:event_btnBuscarDniMouseClicked
 
     private void btbEnviarCodigoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btbEnviarCodigoMouseClicked
         if(!txtCorreo.getText().isEmpty())
         {
-            try {
-                codigo = Correo.enviarCorreoElectronico(txtCorreo.getText().trim());
-            } catch (MessagingException ex) {
-                mensaje.cargarDatos("Verificar Correo", "Correo invalido", 1);
+            String correo = txtCorreo.getText().trim();
+            if(servicio.verificarCampo("correo",correo)){
+                mensaje.cargarDatos("Verificar Correo"
+                    ,"Ya existe una cuenta con el correo ingresado.",1);
             }
+            else {
+              
+                try {
+                    codigo = Correo.enviarCorreoElectronico(correo);
+                } catch (MessagingException ex) {
+                    mensaje.cargarDatos("Verificar Correo"
+                    ,"No se pudo enviar el código.",1);
+                }                
+            }            
         }else{
-            mensaje.cargarDatos("Verificar Correo","Complete el campo correo",1);
-        
+            mensaje.cargarDatos("Verificar Correo"
+                    ,"Complete el campo correo",1);        
         }
     }//GEN-LAST:event_btbEnviarCodigoMouseClicked
 
     private void txtCodigoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoKeyReleased
         lblverificarCodigo.setVisible(true);
         if(txtCodigo.getText().equals(codigo)){
+            correoValidado = true;
             lblverificarCodigo.setForeground(Color.green);
             lblverificarCodigo.setIcons(ValoresEnum.ICONS.VERIFIED_USER);        
         }else{
+            correoValidado = false;
             lblverificarCodigo.setForeground(Color.red);
             lblverificarCodigo.setIcons(ValoresEnum.ICONS.ERROR); 
         }
     }//GEN-LAST:event_txtCodigoKeyReleased
 
     private void txtUsernameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsernameKeyReleased
-        try {
-            lblverificarUsername.setVisible(true);
-            if(servicio.validarUserName(txtUsername.getText())){
-                lblverificarUsername.setForeground(Color.green);
-                lblverificarUsername.setIcons(ValoresEnum.ICONS.VERIFIED_USER);
-            }else{
-                lblverificarUsername.setForeground(Color.red); 
-                lblverificarUsername.setIcons(ValoresEnum.ICONS.ERROR);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(CrearCuenta.class.getName()).log(Level.SEVERE, null, ex);
+        
+        lblverificarUsername.setVisible(true);
+        if(!servicio.verificarCampo("username", txtUsername.getText())){
+            usuarioValidado = true;
+            lblverificarUsername.setForeground(Color.green);
+            lblverificarUsername.setIcons(ValoresEnum.ICONS.VERIFIED_USER);
+        }else{
+            usuarioValidado = false;
+            lblverificarUsername.setForeground(Color.red); 
+            lblverificarUsername.setIcons(ValoresEnum.ICONS.ERROR);
         }
+       
     }//GEN-LAST:event_txtUsernameKeyReleased
 
     private void btnOcultarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnOcultarMouseClicked
-        // TODO add your handling code here:
         btnVer.setVisible(true);
         btnOcultar.setVisible(false);
         txtContraseña.setEchoChar('●');
     }//GEN-LAST:event_btnOcultarMouseClicked
 
     private void btnVerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVerMouseClicked
-        // TODO add your handling code here:
         btnVer.setVisible(false);
         btnOcultar.setVisible(true);
         txtContraseña.setEchoChar((char)0);
@@ -414,6 +510,40 @@ public class CrearCuenta extends javax.swing.JFrame {
         this.setVisible(false);
         this.dispose();
     }//GEN-LAST:event_btnCloseMouseClicked
+
+    private void btnSeleccionarFotoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSeleccionarFotoMouseClicked
+        try {      
+            lblfoto.setIcon(null);
+            Foto.subirFotoArchivo(lblfoto,jPanel1);           
+        } catch (IOException ex) {
+            ServicioDeAgua.mensaje.cargarDatos("Subir Foto"
+                        ,"No es posible subir la foto ", 1);
+        }
+    }//GEN-LAST:event_btnSeleccionarFotoMouseClicked
+
+    private void lblverificarUsernameMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblverificarUsernameMouseEntered
+        if(lblverificarUsername.getIcons().equals(ValoresEnum.ICONS.ERROR))
+            lblErrorUser.setVisible(true);
+    }//GEN-LAST:event_lblverificarUsernameMouseEntered
+
+    private void lblverificarUsernameMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblverificarUsernameMouseExited
+        if(lblverificarUsername.getIcons().equals(ValoresEnum.ICONS.ERROR))
+            lblErrorUser.setVisible(false);
+    }//GEN-LAST:event_lblverificarUsernameMouseExited
+
+    private void lblverificarCodigoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblverificarCodigoMouseEntered
+        if(lblverificarCodigo.getIcons().equals(ValoresEnum.ICONS.ERROR))
+            lblErrorCodigo.setVisible(true);
+    }//GEN-LAST:event_lblverificarCodigoMouseEntered
+
+    private void lblverificarCodigoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblverificarCodigoMouseExited
+        if(lblverificarCodigo.getIcons().equals(ValoresEnum.ICONS.ERROR))
+            lblErrorCodigo.setVisible(false);
+    }//GEN-LAST:event_lblverificarCodigoMouseExited
+
+    private void btnMinimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMinimizeMouseClicked
+        this.setState(ICONIFIED);
+    }//GEN-LAST:event_btnMinimizeMouseClicked
 
    
 
@@ -428,10 +558,13 @@ public class CrearCuenta extends javax.swing.JFrame {
     private javax.swing.JLabel btnSeleccionarFoto;
     private javax.swing.JLabel btnVer;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblApellidos;
     private javax.swing.JLabel lblCelular;
     private javax.swing.JLabel lblCodigo;
     private javax.swing.JLabel lblDireccion;
+    private javax.swing.JLabel lblErrorCodigo;
+    private javax.swing.JLabel lblErrorUser;
     private javax.swing.JLabel lblFechaNac;
     private javax.swing.JLabel lblcontraseña;
     private javax.swing.JLabel lblcontraseña1;
@@ -443,20 +576,17 @@ public class CrearCuenta extends javax.swing.JFrame {
     private necesario.LabelIcon lblverificarCodigo;
     private necesario.LabelIcon lblverificarUsername;
     private javax.swing.JTextField txtApellidos;
-    private javax.swing.JTextField txtCelular;
     private javax.swing.JTextField txtCodigo;
     private javax.swing.JPasswordField txtContraseña;
     private javax.swing.JTextField txtCorreo;
-    private javax.swing.JTextField txtDireccion;
     private javax.swing.JTextField txtDni;
     private javax.swing.JTextField txtFechaNacimiento;
     private javax.swing.JTextField txtNombres;
+    private necesario.TextField txtTelefono;
     private javax.swing.JTextField txtUsername;
+    private javax.swing.JTextArea txtdireccion;
     // End of variables declaration//GEN-END:variables
-    public void cargarServicio(ServiciosUsuario servicio){
-        this.servicio = servicio;
-    }
-    private void cargarDatos(Usuario user) {
+       private void cargarDatos(Usuario user) {
         if(user != null){
             txtNombres.setText(user.getNombres());
             txtApellidos.setText(user.getApellidos());
@@ -467,6 +597,32 @@ public class CrearCuenta extends javax.swing.JFrame {
             mensaje.cargarDatos("Verificar Edad", "El usuario es menor de edad"
                     + ", no es posible crear una cuenta.", 1);
         }
-
     }
+    private boolean validarCampos() {
+        boolean validado = false;
+        if(!txtNombres.getText().isEmpty()&&!txtCodigo.getText().isEmpty()
+            &&!txtdireccion.getText().isEmpty()&&!txtDni.getText().isEmpty()
+            &&!txtTelefono.getText().isEmpty()&&!txtCorreo.getText().isEmpty()
+            &&!txtUsername.getText().isEmpty()&& correoValidado == true
+            && usuarioValidado ==true)
+            validado = true;            
+        return validado;
+    }
+    
+    public void cargarDatos() {
+        try {
+            user.setNombreUsuario(txtUsername.getText());
+            user.setContraseña(txtContraseña.getText());
+            user.setDireccion(txtdireccion.getText());
+            user.setCelular(txtTelefono.getText());
+            user.setCorreo(txtCorreo.getText());
+            user.setRol(2);
+            if(lblfoto.getIcon()!=null)
+                user.setFoto(Foto.obtenerFotoLabel(lblfoto));
+        } catch (IOException ex) {
+            mensaje.cargarDatos("Crear Cuenta", "No se pudo guardar la "
+                        + "foto ingresada", 1);
+        }
+    }
+    
 }

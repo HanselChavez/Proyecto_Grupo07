@@ -5,6 +5,14 @@
  */
 package InterfacesGraficas.Login;
 
+import static Main.ServicioDeAgua.mensaje;
+import Utilidades.Correo;
+import Utilidades.ServiciosUsuario;
+import java.awt.Color;
+import java.sql.SQLException;
+import javax.mail.MessagingException;
+import rojeru_san.efectos.ValoresEnum;
+
 /**
  *
  * @author chave
@@ -14,10 +22,18 @@ public class RestablecerContraseña extends javax.swing.JFrame {
     /**
      * Creates new form RestablecerContraseña
      */
+    ServiciosUsuario servicio;
     IniciarSesion padre;
+    String codigo ;
+    boolean contraValidado;
+    boolean correoValidado;
     public RestablecerContraseña(IniciarSesion padre) {
         initComponents();
         this.padre = padre;
+        servicio = padre.getServicioUsuario();
+        btnOcultar.setVisible(false);
+        lblErrorCodigo.setVisible(false);
+        lblverificarCodigo.setVisible(false);
     }
 
     /**
@@ -41,10 +57,15 @@ public class RestablecerContraseña extends javax.swing.JFrame {
         txtCodigo = new javax.swing.JTextField();
         btnMinimize = new javax.swing.JLabel();
         btnClose = new javax.swing.JLabel();
-        txtContraseña2 = new javax.swing.JPasswordField();
+        txtConfirmar = new javax.swing.JPasswordField();
         btnEnviarCodigo = new javax.swing.JLabel();
         btnAceptar = new javax.swing.JLabel();
         btnCancelar = new javax.swing.JLabel();
+        btnVer = new javax.swing.JLabel();
+        btnOcultar = new javax.swing.JLabel();
+        lbldesigualdad = new javax.swing.JLabel();
+        lblverificarCodigo = new necesario.LabelIcon();
+        lblErrorCodigo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -55,16 +76,16 @@ public class RestablecerContraseña extends javax.swing.JFrame {
         lblcrearCuenta.setFont(new java.awt.Font("Arial", 1, 28)); // NOI18N
         lblcrearCuenta.setForeground(new java.awt.Color(30, 30, 30));
         lblcrearCuenta.setText("Restablecer Contraseña");
-        jPanel1.add(lblcrearCuenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 70, -1, -1));
+        jPanel1.add(lblcrearCuenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 70, -1, -1));
 
         lblcorreo.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         lblcorreo.setForeground(new java.awt.Color(255, 255, 255));
         lblcorreo.setText("Correo");
-        jPanel1.add(lblcorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 130, -1, -1));
+        jPanel1.add(lblcorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 130, -1, -1));
 
         txtCorreo.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         txtCorreo.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 10, 2, 2));
-        jPanel1.add(txtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 160, 300, 32));
+        jPanel1.add(txtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 160, 300, 32));
 
         jLabel1.setToolTipText("");
         jLabel1.setName("btnShow"); // NOI18N
@@ -73,33 +94,65 @@ public class RestablecerContraseña extends javax.swing.JFrame {
         lblCodigo.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         lblCodigo.setForeground(new java.awt.Color(255, 255, 255));
         lblCodigo.setText("Ingrese Código");
-        jPanel1.add(lblCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 270, -1, 20));
+        jPanel1.add(lblCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 270, -1, 20));
 
         lblcontraseña2.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         lblcontraseña2.setForeground(new java.awt.Color(255, 255, 255));
-        lblcontraseña2.setText("Contraseña");
-        jPanel1.add(lblcontraseña2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 430, -1, -1));
+        lblcontraseña2.setText("Confirmar Contraseña");
+        jPanel1.add(lblcontraseña2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 430, -1, -1));
 
         lblContraseña.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         lblContraseña.setForeground(new java.awt.Color(255, 255, 255));
         lblContraseña.setText("Ingrese Nueva Contraseña");
-        jPanel1.add(lblContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 350, -1, 20));
+        jPanel1.add(lblContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 350, -1, 20));
 
+        txtContraseña.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         txtContraseña.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 10, 2, 2));
-        jPanel1.add(txtContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 390, 300, 30));
+        txtContraseña.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtContraseñaKeyReleased(evt);
+            }
+        });
+        jPanel1.add(txtContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 390, 300, 30));
 
         txtCodigo.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         txtCodigo.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 10, 2, 2));
-        jPanel1.add(txtCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 300, 300, 32));
+        txtCodigo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCodigoKeyReleased(evt);
+            }
+        });
+        jPanel1.add(txtCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 300, 300, 32));
 
         btnMinimize.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/32wtminimize-sign.png"))); // NOI18N
-        jPanel1.add(btnMinimize, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 10, -1, -1));
+        btnMinimize.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnMinimize.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnMinimizeMouseClicked(evt);
+            }
+        });
+        jPanel1.add(btnMinimize, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 10, -1, -1));
 
         btnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/32wtclose.png"))); // NOI18N
-        jPanel1.add(btnClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 10, -1, -1));
+        btnClose.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnClose.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnCloseMouseClicked(evt);
+            }
+        });
+        jPanel1.add(btnClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 10, -1, -1));
 
-        txtContraseña2.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 10, 2, 2));
-        jPanel1.add(txtContraseña2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 460, 300, 30));
+        txtConfirmar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        txtConfirmar.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 10, 2, 2));
+        txtConfirmar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtConfirmarKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtConfirmarKeyTyped(evt);
+            }
+        });
+        jPanel1.add(txtConfirmar, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 460, 300, 30));
 
         btnEnviarCodigo.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         btnEnviarCodigo.setForeground(new java.awt.Color(255, 255, 255));
@@ -112,7 +165,7 @@ public class RestablecerContraseña extends javax.swing.JFrame {
                 btnEnviarCodigoMouseClicked(evt);
             }
         });
-        jPanel1.add(btnEnviarCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 210, 260, 40));
+        jPanel1.add(btnEnviarCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 210, 260, 40));
 
         btnAceptar.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         btnAceptar.setForeground(new java.awt.Color(255, 255, 255));
@@ -125,7 +178,7 @@ public class RestablecerContraseña extends javax.swing.JFrame {
                 btnAceptarMouseClicked(evt);
             }
         });
-        jPanel1.add(btnAceptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 540, 150, 40));
+        jPanel1.add(btnAceptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 540, 150, 40));
 
         btnCancelar.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         btnCancelar.setForeground(new java.awt.Color(255, 255, 255));
@@ -138,13 +191,56 @@ public class RestablecerContraseña extends javax.swing.JFrame {
                 btnCancelarMouseClicked(evt);
             }
         });
-        jPanel1.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 540, 150, 40));
+        jPanel1.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 540, 150, 40));
+
+        btnVer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/32wtshow.png"))); // NOI18N
+        btnVer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnVer.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnVerMouseClicked(evt);
+            }
+        });
+        jPanel1.add(btnVer, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 460, -1, -1));
+
+        btnOcultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/32wthide.png"))); // NOI18N
+        btnOcultar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnOcultar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnOcultarMouseClicked(evt);
+            }
+        });
+        jPanel1.add(btnOcultar, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 460, -1, -1));
+
+        lbldesigualdad.setBackground(new java.awt.Color(255, 0, 0));
+        lbldesigualdad.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lbldesigualdad.setForeground(new java.awt.Color(204, 0, 0));
+        lbldesigualdad.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPanel1.add(lbldesigualdad, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 500, 300, 20));
+
+        lblverificarCodigo.setForeground(new java.awt.Color(204, 0, 0));
+        lblverificarCodigo.setIcons(rojeru_san.efectos.ValoresEnum.ICONS.ERROR);
+        lblverificarCodigo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblverificarCodigoMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblverificarCodigoMouseExited(evt);
+            }
+        });
+        jPanel1.add(lblverificarCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 300, 32, 32));
+
+        lblErrorCodigo.setBackground(new java.awt.Color(255, 255, 255));
+        lblErrorCodigo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblErrorCodigo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblErrorCodigo.setText("El codigo es incorrecto");
+        lblErrorCodigo.setOpaque(true);
+        jPanel1.add(lblErrorCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 270, 160, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 477, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 511, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -155,17 +251,130 @@ public class RestablecerContraseña extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEnviarCodigoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEnviarCodigoMouseClicked
-       
+         if(!txtCorreo.getText().isEmpty())
+        {
+            String correo = txtCorreo.getText().trim();
+            if(servicio.verificarCampo("correo",correo)){
+                try {
+                    codigo = Correo.enviarCorreoElectronico(correo);
+                    
+                } catch (MessagingException ex) {
+                    mensaje.cargarDatos("Verificar Correo"
+                            ,"No se pudo enviar el codigo.",1);
+                }
+            }
+            else {  
+                mensaje.cargarDatos("Verificar Correo"
+                ,"No existe una cuenta con el correo ingresado.",1);                         
+            }            
+        }else{
+            mensaje.cargarDatos("Verificar Correo"
+                    ,"Complete el campo correo",1);        
+        }
     }//GEN-LAST:event_btnEnviarCodigoMouseClicked
 
     private void btnAceptarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAceptarMouseClicked
-        // TODO add your handling code here:
+        if(validarCampos()){
+            try {
+                String contraseña = txtContraseña.getText().trim();
+                String correo = txtCorreo.getText().trim();
+                servicio.actualizarContraseña(contraseña,"",correo);
+                padre.setVisible(true);
+                mensaje.cargarDatos("Recuperar Cuenta"
+                    ,"Se cambio la contraseña correctamente.",1); 
+                this.dispose();
+            } catch (SQLException ex) {
+                 mensaje.cargarDatos("Recuperar Cuenta"
+                    ,"No se pudo cambiar la contraseña.",1); 
+
+            }
+        }else{
+            mensaje.cargarDatos("Recuperar Cuenta"
+                    ,"Complete los campos vacios",1);        
+        }
+        
     }//GEN-LAST:event_btnAceptarMouseClicked
 
     private void btnCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMouseClicked
         this.dispose();
         padre.setVisible(true);
     }//GEN-LAST:event_btnCancelarMouseClicked
+
+    private void btnVerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVerMouseClicked
+        // TODO add your handling code here:
+        btnVer.setVisible(false);
+        btnOcultar.setVisible(true);
+        txtContraseña.setEchoChar((char)0);
+        txtConfirmar.setEchoChar((char)0);
+    }//GEN-LAST:event_btnVerMouseClicked
+
+    private void btnOcultarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnOcultarMouseClicked
+        // TODO add your handling code here:
+        btnVer.setVisible(true);
+        btnOcultar.setVisible(false);
+        txtContraseña.setEchoChar('●');
+        txtConfirmar.setEchoChar('●');
+    }//GEN-LAST:event_btnOcultarMouseClicked
+
+    private void txtConfirmarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtConfirmarKeyReleased
+        if(!txtContraseña.getText().trim().equals(txtConfirmar.getText()
+                .trim())){
+            lbldesigualdad.setText("Las contraseñas no son iguales.");
+            contraValidado = false;
+        }
+        else{
+            lbldesigualdad.setText("");
+            contraValidado = true;
+        }
+    }//GEN-LAST:event_txtConfirmarKeyReleased
+
+    private void txtConfirmarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtConfirmarKeyTyped
+        if(!txtContraseña.getText().trim().equals(txtConfirmar.getText()
+                .trim())){
+            lbldesigualdad.setText("Las contraseñas no son iguales.");
+            contraValidado = false;
+        }
+        else{
+            lbldesigualdad.setText("");
+            contraValidado = true;
+        }
+    }//GEN-LAST:event_txtConfirmarKeyTyped
+
+    private void txtContraseñaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtContraseñaKeyReleased
+        lbldesigualdad.setText("");
+    }//GEN-LAST:event_txtContraseñaKeyReleased
+
+    private void btnCloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCloseMouseClicked
+        padre.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnCloseMouseClicked
+
+    private void lblverificarCodigoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblverificarCodigoMouseEntered
+        if(lblverificarCodigo.getIcons().equals(ValoresEnum.ICONS.ERROR))
+        lblErrorCodigo.setVisible(true);
+    }//GEN-LAST:event_lblverificarCodigoMouseEntered
+
+    private void lblverificarCodigoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblverificarCodigoMouseExited
+        if(lblverificarCodigo.getIcons().equals(ValoresEnum.ICONS.ERROR))
+        lblErrorCodigo.setVisible(false);
+    }//GEN-LAST:event_lblverificarCodigoMouseExited
+
+    private void txtCodigoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoKeyReleased
+        lblverificarCodigo.setVisible(true);
+        if(txtCodigo.getText().equals(codigo)){
+            correoValidado = true;
+            lblverificarCodigo.setForeground(Color.green);
+            lblverificarCodigo.setIcons(ValoresEnum.ICONS.VERIFIED_USER);        
+        }else{
+            correoValidado = false;
+            lblverificarCodigo.setForeground(Color.red);
+            lblverificarCodigo.setIcons(ValoresEnum.ICONS.ERROR); 
+        }
+    }//GEN-LAST:event_txtCodigoKeyReleased
+
+    private void btnMinimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMinimizeMouseClicked
+        this.setState(ICONIFIED);
+    }//GEN-LAST:event_btnMinimizeMouseClicked
 
 
 
@@ -176,16 +385,25 @@ public class RestablecerContraseña extends javax.swing.JFrame {
     private javax.swing.JLabel btnClose;
     private javax.swing.JLabel btnEnviarCodigo;
     private javax.swing.JLabel btnMinimize;
+    private javax.swing.JLabel btnOcultar;
+    private javax.swing.JLabel btnVer;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblCodigo;
     private javax.swing.JLabel lblContraseña;
+    private javax.swing.JLabel lblErrorCodigo;
     private javax.swing.JLabel lblcontraseña2;
     private javax.swing.JLabel lblcorreo;
     private javax.swing.JLabel lblcrearCuenta;
+    private javax.swing.JLabel lbldesigualdad;
+    private necesario.LabelIcon lblverificarCodigo;
     private javax.swing.JTextField txtCodigo;
+    private javax.swing.JPasswordField txtConfirmar;
     private javax.swing.JPasswordField txtContraseña;
-    private javax.swing.JPasswordField txtContraseña2;
     private javax.swing.JTextField txtCorreo;
     // End of variables declaration//GEN-END:variables
+
+    private boolean validarCampos() {        
+        return correoValidado==true && contraValidado==true;
+    }
 }

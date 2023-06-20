@@ -6,9 +6,7 @@
 package InterfacesGraficas.Admin;
 import Entidades.*;
 import InterfacesGraficas.Login.IniciarSesion;
-import Main.ServicioDeAgua;
-import Utilidades.Foto;
-import java.io.IOException;
+import rojeru_san.complementos.RSEffectFade;
 /**
  *
  * @author Hansel Chavez
@@ -43,7 +41,6 @@ public class PrincipalAdmin extends javax.swing.JFrame {
         btnPerfil = new newscomponents.RSButtonGradientIcon_new();
         lblnombres = new javax.swing.JLabel();
         lblapellidos = new javax.swing.JLabel();
-        lblFotoPrincipal = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         btnMinimize = new javax.swing.JLabel();
         btnClose = new javax.swing.JLabel();
@@ -136,48 +133,34 @@ public class PrincipalAdmin extends javax.swing.JFrame {
         });
 
         lblnombres.setBackground(new java.awt.Color(255, 255, 255));
-        lblnombres.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        lblnombres.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         lblnombres.setForeground(new java.awt.Color(255, 255, 255));
         lblnombres.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         lblapellidos.setBackground(new java.awt.Color(255, 255, 255));
-        lblapellidos.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        lblapellidos.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         lblapellidos.setForeground(new java.awt.Color(255, 255, 255));
         lblapellidos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-
-        lblFotoPrincipal.setBackground(new java.awt.Color(255, 255, 255));
-        lblFotoPrincipal.setForeground(new java.awt.Color(255, 255, 255));
-        lblFotoPrincipal.setOpaque(true);
 
         javax.swing.GroupLayout rSPanelGradiente1Layout = new javax.swing.GroupLayout(rSPanelGradiente1);
         rSPanelGradiente1.setLayout(rSPanelGradiente1Layout);
         rSPanelGradiente1Layout.setHorizontalGroup(
             rSPanelGradiente1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, rSPanelGradiente1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(rSPanelGradiente1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lblapellidos, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
-                    .addComponent(lblnombres, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(25, 25, 25))
             .addGroup(rSPanelGradiente1Layout.createSequentialGroup()
-                .addGroup(rSPanelGradiente1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSolicitudes, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnPerfil, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(rSPanelGradiente1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(lblapellidos, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblnombres, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnSalir, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
+                    .addComponent(btnUsuarios, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
+                    .addComponent(btnSolicitudes, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
+                    .addComponent(btnPerfil, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE))
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(rSPanelGradiente1Layout.createSequentialGroup()
-                .addGap(52, 52, 52)
-                .addComponent(lblFotoPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         rSPanelGradiente1Layout.setVerticalGroup(
             rSPanelGradiente1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, rSPanelGradiente1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblFotoPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblnombres, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblapellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -293,7 +276,7 @@ public class PrincipalAdmin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnMinimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMinimizeMouseClicked
-
+        this.setState(ICONIFIED);
     }//GEN-LAST:event_btnMinimizeMouseClicked
 
     private void btnCloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCloseMouseClicked
@@ -305,8 +288,7 @@ public class PrincipalAdmin extends javax.swing.JFrame {
             btnUsuarios.setSelected(true);
             btnSolicitudes.setSelected(false);
             btnPerfil.setSelected(false);           
-            this.panslid.setPanelNormal(this.pnlUsuarios); 
-            //cargarUsuario();
+            this.panslid.setPanelNormal(this.pnlUsuarios);             
         }
     }//GEN-LAST:event_btnUsuariosActionPerformed
 
@@ -316,8 +298,7 @@ public class PrincipalAdmin extends javax.swing.JFrame {
             btnSolicitudes.setSelected(true);
             btnPerfil.setSelected(false);
             pnlEstadoSolicitud.cargarServicio(login.getServicioUsuario());
-            this.panslid.setPanelNormal(this.pnlEstadoSolicitud);  
-            //cargarUsuario();
+            this.panslid.setPanelNormal(this.pnlEstadoSolicitud);            
         }
     }//GEN-LAST:event_btnSolicitudesActionPerformed
 
@@ -332,7 +313,7 @@ public class PrincipalAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPerfilActionPerformed
    
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        System.exit(0);       
+        cerrarForm();
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void pnlPerfilMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlPerfilMouseMoved
@@ -349,7 +330,6 @@ public class PrincipalAdmin extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JLabel lblFotoPrincipal;
     private javax.swing.JLabel lblapellidos;
     private javax.swing.JLabel lblnombres;
     private newscomponents.RSPanelEffect panslid;
@@ -367,22 +347,16 @@ public class PrincipalAdmin extends javax.swing.JFrame {
     }   
     public void iniciarValores(Usuario user ,IniciarSesion login ) {
         this.setLocationRelativeTo(null);
-        this.login = login;        
+        this.login = login;
         PrincipalAdmin.user = user;
         cargarUsuario();
-        //RSEffectFade.setFadeWindowIn(this, 30,0.1f);
+        RSEffectFade.setFadeWindowIn(this, 30,0.1f);
         pnlUsuarios.cargarServicio(login.getServicioUsuario());
-        this.panslid.setPanelNormal(this.pnlUsuarios);
+        this.panslid.setPanelNormal(this.pnlUsuarios);       
     }
-    public  void cargarUsuario() {          
-       
+    public  void cargarUsuario() {  
         lblnombres.setText(user.getNombres());
         lblapellidos.setText(user.getApellidos());         
-         try {
-            Foto.cargarFotoLabel(lblFotoPrincipal, user.getFoto());
-        } catch (IOException ex) {
-            ServicioDeAgua.mensaje.cargarDatos("Error al cargar foto"
-                    ,"No ha sido posible cargar la foto del Usuario", 1);
-        }
+         
     }
 }

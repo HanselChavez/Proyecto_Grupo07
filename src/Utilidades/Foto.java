@@ -25,7 +25,7 @@ public class Foto {
         // Crear el JFileChooser
         JFileChooser fileChooser = new JFileChooser();
         FileNameExtensionFilter filtro = new FileNameExtensionFilter
-        ("JPG y PNG","jpg","png");
+        ("JPG","jpg");
         // Mostrar el cuadro de diálogo para seleccionar la imagen
         fileChooser.setFileFilter(filtro);
         int seleccion = fileChooser.showOpenDialog(padre);
@@ -66,7 +66,8 @@ public class Foto {
             byte[] imageBytes = baos.toByteArray();
             
             // Hacer lo que necesites con el arreglo de bytes
-            
+            if(imageBytes.length<=1)
+                return null;
             // Cerrar el flujo de salida
             baos.close();
             return imageBytes;
@@ -76,7 +77,10 @@ public class Foto {
         if(imagen!=null){        
             BufferedImage image = convertByteArrayToImage(imagen);
             lblfoto.setIcon(redimensionarImagen(image, lblfoto));       
-        }        
+        }else{
+            lblfoto.setIcon(null);
+        }
+       
     }
     private static BufferedImage convertByteArrayToImage(byte[] imageBytes) 
              throws IOException {

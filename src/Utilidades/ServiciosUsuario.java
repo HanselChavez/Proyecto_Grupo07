@@ -20,8 +20,6 @@ import java.util.logging.Logger;
  * @author Hansel Chavez
  */
 public class ServiciosUsuario {
- 
-
     private final Connection conexion;
     private final Statement bdSelect;
     private PreparedStatement bdUpdate;
@@ -33,8 +31,22 @@ public class ServiciosUsuario {
         bdSelect = conexion.createStatement();
         bdUpdate = conexion.prepareStatement(sqlQuery);    
     }
+    
+    public  boolean verificarCampo(String campo,String valor) {
+        try {
+            this.sqlQuery = "select count("+campo+") cantidad"
+                    + " from Usuario where "+campo+"='"+valor+"'";
+            ResultSet rs = bdSelect.executeQuery(sqlQuery);
+            rs.next();
+            return rs.getInt("cantidad")==1;
+                
+        } catch (SQLException ex) {
+            System.out.println("Error: "+ex.getMessage());
+        }
+        return false;
+    }
     //Obtener datos de Usuario por su username
-    private ResultSet getUsuario( String username) throws SQLException{   
+    private ResultSet getUsuario(String username) throws SQLException{   
         this.sqlQuery = "select * from Usuario Us where Us.username "
                 + "='".concat(username)+"'";
         ResultSet rs = bdSelect.executeQuery(sqlQuery);    
@@ -138,6 +150,19 @@ public class ServiciosUsuario {
         this.sqlQuery = "delete from Aviso where idAviso ="+cod;
         bdUpdate = conexion.prepareStatement(sqlQuery);
         bdUpdate.execute();
+    }
+    public void insertarCuenta(Usuario user) throws SQLException {
+        Object [] datos = user.toArrayString();
+        byte [] foto = (byte[]) datos[12];
+        this.sqlQuery = "insert into Usuario(idUsuario,nombre,segundoNombre"
+                + ",apellidoPaterno,apellidoMaterno,fechaNac,username,correo,"
+                + "contraseña,telefono,direccion,idRol,foto) values('"+datos[0]
+                +"','"+datos[1]+"','"+datos[2]+"','"+datos[3]+"','"+datos[4]
+                +"','"+datos[5]+"','"+datos[6]+"','"+datos[7]+"','"+datos[8]
+                +"','"+datos[9]+"','"+datos[10]+"',"+datos[11]+",?)";                     
+        bdUpdate = conexion.prepareStatement(sqlQuery);
+        bdUpdate.setBytes(1, foto);
+        bdUpdate.execute();    
     }
     public void insertarRetroalimentacion(int cod,String tipo
             ,String contenido,String dni) 
@@ -243,12 +268,12 @@ public class ServiciosUsuario {
         bdUpdate = conexion.prepareStatement(sqlQuery);
         bdUpdate.execute();
     }
-     public void actualizarUsuario(Usuario user) throws SQLException {
+    public void actualizarUsuario(Usuario user) throws SQLException {
         Object [] datos = user.toArrayString();
         byte [] foto = (byte[]) datos[12];
         this.sqlQuery = "update Usuario set idUsuario='"+datos[0]+"', "
                 + "nombre='"+datos[1]+"', segundoNombre='"+datos[2]
-                + "', apellidoPaterno='"+datos[3]+"', apellidoMaterno='"
+                + "', apellidoPaterno='"+datos[3]+"',apellidoMaterno='"
                 +datos[4]+"',fechaNac='"+datos[5]+"',correo='"
                 +datos[7]+"',telefono='"+datos[9]+"',direccion='"
                 +datos[10]+"',foto = ? Where idUsuario='".concat(user.getDni())
@@ -273,15 +298,20 @@ public class ServiciosUsuario {
         bdUpdate = conexion.prepareStatement(sqlQuery);
         bdUpdate.execute();
     }
-    public void actualizarContraseña(String contraseñaNueva, String dni) 
+    public void actualizarContraseña(String contraseñaNueva, String dni
+            ,String correo) 
             throws SQLException {
         this.sqlQuery = "update Usuario set contraseña = '"+contraseñaNueva+"'"
-                + " where idUsuario = '".concat(dni)+"'";
+            + " where" ;
+            if(!dni.isEmpty())
+                sqlQuery+=" idUsuario ='".concat(dni)+"'";
+            else
+                sqlQuery+=" correo ='"+correo+"'";
              
         bdUpdate = conexion.prepareStatement(sqlQuery);
         bdUpdate.execute();
     } 
-    public void inicializarUsuario(ResultSet result, Usuario user)   {
+    public static void inicializarUsuario(ResultSet result, Usuario user)   {
         try {
             String Id = result.getString("idUsuario");
             String nombre1 = result.getString("nombre");
@@ -313,13 +343,8 @@ public class ServiciosUsuario {
         }
     }   
 
-    public boolean validarUserName(String text) throws SQLException {
-        this.sqlQuery = "select Count(username) as 'Cantidad' "
-                + "from Usuario where username = '"+text+"'";
-        ResultSet rs = bdSelect.executeQuery(this.sqlQuery); 
-        rs.next();
-        int i =rs.getInt("Cantidad");
-        return i < 1;
-    }
+   
+
+   
    
 }

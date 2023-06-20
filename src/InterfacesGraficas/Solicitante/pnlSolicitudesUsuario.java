@@ -8,14 +8,10 @@ package InterfacesGraficas.Solicitante;
 import Entidades.HistorialSolicitudes;
 import Entidades.Solicitud;
 import Entidades.Usuario;
-import Main.ServicioDeAgua;
 import static Main.ServicioDeAgua.mensaje;
 import Utilidades.ServiciosUsuario;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.concurrent.CountDownLatch;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import rojeru_san.efectos.ValoresEnum;
 
@@ -423,13 +419,18 @@ public class pnlSolicitudesUsuario extends javax.swing.JPanel {
         }           
     }//GEN-LAST:event_btnEditarSolicitudActionPerformed
 
-  
+   
     private void btnEliminarHistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarHistActionPerformed
-        Thread t1= new Thread(() -> {
+        Thread t1 = null;
+        if (t1 != null && t1.isAlive()) {
+            t1.interrupt();
+        }
+        t1 = new Thread(() -> {
             if(hSolicitudes.getListaDeSolicitudes().size()>0){
                 mensaje.cargarDatos("Confirmacion","¿Estas seguro de "
                         + "continuar?", 2);
                 boolean respuesta = mensaje.getRespuesta();
+                System.out.println("rpta"+respuesta);
                 if (respuesta) {
                     try {
                         servicio.eliminarSolicitudesUsuario(user.getDni());
@@ -443,8 +444,9 @@ public class pnlSolicitudesUsuario extends javax.swing.JPanel {
                                 "No ha sido posible borrar el historial.",1);
                     }
                 }else{
-                    mensaje.cargarDatos("Eliminar Historial",
-                            "Se canceló la acción de borrar el historial.",1);
+                     System.out.println("cancelado");
+                    //mensaje.cargarDatos("Eliminar Historial",
+                    //      "Se canceló la acción de borrar el historial.",1);
                 }
             }
             else{
@@ -452,7 +454,10 @@ public class pnlSolicitudesUsuario extends javax.swing.JPanel {
                         ,"El historial de solicitudes se encuentra vacio.", 1);
             }
         });
-        t1.start();        
+        
+        t1.start();
+        //t1.start();   
+       
     }//GEN-LAST:event_btnEliminarHistActionPerformed
 
     private void btnCancelarSolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarSolActionPerformed

@@ -6,6 +6,7 @@
 package Utilidades;
 
 
+import Main.ServicioDeAgua;
 import javax.mail.Authenticator;
 
 import java.util.Properties;
@@ -19,31 +20,42 @@ import javax.mail.internet.MimeMessage;
  * @author Kelvin Vasquez
  */
 public class Correo {
-    private static String generarCodigoAleatorio() {
+    
+    private static final int MIN_CODIGO = 100000;
+    private static final int MAX_CODIGO = 999999;
+    private static final Random random = new Random();
+
+    private static int generarCodigoAleatorio() {
+        return MIN_CODIGO + random.nextInt(MAX_CODIGO - MIN_CODIGO + 1);
+    }
+
+   /* private static String generarCodigoAleatorio() {
         // Generar un código aleatorio de 6 dígitos
         Random random = new Random();
         int codigo = 100000 + random.nextInt(900000);
         return String.valueOf(codigo);
-    }
+    }*/
     public static String enviarCorreoElectronico(String destinatario ) 
             throws MessagingException  {
-        String codigo = generarCodigoAleatorio();
+        String codigo =String.valueOf(generarCodigoAleatorio());
      
         // Configurar las propiedades del servidor de correo
         Properties properties = new Properties();
         properties.put("mail.smtp.host", "smtp.gmail.com");
         properties.setProperty("mail.smtp.starttls.enable", "true");
         properties.setProperty("mail.smtp.port", "587");
-        properties.setProperty("mail.smtp.user","chavezhansel2901@gmail.com");
+        properties.setProperty("mail.smtp.user","servicioaguapotable970@gmail.com");
         properties.setProperty("mail.smtp.auth", "true");
 
         // Configurar las credenciales del remitente
-        final String remitente = "chavezhansel2901@gmail.com";
-        final String password = "xrduhdsfnnbkblex";
+        final String remitente = "servicioaguapotable970@gmail.com";
+        final String password = "pwnjobfgqzddbfaq";
 
-        // Obtener la sesión de correo
+        // Crear una instancia de Session utilizando properties y
         Session session = Session.getInstance(properties, new Authenticator() {
             @Override
+            //sobrescribe dentro de la instancia Authenticator 
+            //para proporcionar las credenciales del remitente.
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication(remitente, password);
             }
@@ -52,12 +64,15 @@ public class Correo {
         // Crear el mensaje de correo
         Message message = new MimeMessage(session);
         message.setFrom(new InternetAddress(remitente));
-        message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(destinatario));
-        message.setSubject("Verificación de código");
+        message.setRecipients(Message.RecipientType.TO, InternetAddress
+                .parse(destinatario));
+        message.setSubject("Verificación de correo");
         message.setText("Tu código de verificación es: " + codigo);
         // Enviar el mensaje de correo
         Transport.send(message);
-        System.out.println("Correo electrónico enviado correctamente.");           
+        System.out.println(codigo);
+        ServicioDeAgua.mensaje.cargarDatos("Verificar Correro"
+                ,"Codigo de Verificación enviado correctamente.", 1);           
        
         return codigo;
     }  
