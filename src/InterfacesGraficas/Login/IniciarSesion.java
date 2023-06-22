@@ -100,7 +100,7 @@ public class IniciarSesion extends javax.swing.JFrame {
 
         txtContraseña.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         txtContraseña.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 10, 2, 2));
-        txtContraseña.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        txtContraseña.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         txtContraseña.setEchoChar('●');
         txtContraseña.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -110,6 +110,7 @@ public class IniciarSesion extends javax.swing.JFrame {
 
         btnCrearCuenta.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         btnCrearCuenta.setForeground(new java.awt.Color(255, 255, 255));
+        btnCrearCuenta.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnCrearCuenta.setText("Crear Cuenta");
         btnCrearCuenta.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCrearCuenta.setName("btnCrearCuenta"); // NOI18N
@@ -127,11 +128,18 @@ public class IniciarSesion extends javax.swing.JFrame {
 
         btnRecuperarContraseña.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         btnRecuperarContraseña.setForeground(new java.awt.Color(255, 255, 255));
+        btnRecuperarContraseña.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnRecuperarContraseña.setText("Olvidaste tu Contraseña?");
         btnRecuperarContraseña.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnRecuperarContraseña.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnRecuperarContraseñaMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnRecuperarContraseñaMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnRecuperarContraseñaMouseExited(evt);
             }
         });
 
@@ -201,39 +209,31 @@ public class IniciarSesion extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(46, 46, 46)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblUser)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(46, 46, 46)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtContraseña, javax.swing.GroupLayout.DEFAULT_SIZE, 261, Short.MAX_VALUE)
+                            .addComponent(lblfaltacontra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblUser)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtContraseña, javax.swing.GroupLayout.DEFAULT_SIZE, 261, Short.MAX_VALUE)
-                                    .addComponent(lblfaltacontra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnOcultar)
-                                    .addComponent(btnVer)))
-                            .addComponent(lblContraseña)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(lblfaltauser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtUsuario))
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lblestado, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(131, 131, 131)
-                        .addComponent(btnCrearCuenta)))
+                            .addComponent(btnOcultar)
+                            .addComponent(btnVer)))
+                    .addComponent(lblContraseña)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(lblfaltauser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblestado, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(btnCrearCuenta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(113, 113, 113))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(btnRecuperarContraseña)
-                        .addGap(95, 95, 95))))
+                .addComponent(jLabel2)
+                .addGap(113, 113, 113))
+            .addComponent(btnRecuperarContraseña, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jPanel2Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {txtContraseña, txtUsuario});
@@ -246,7 +246,7 @@ public class IniciarSesion extends javax.swing.JFrame {
                 .addGap(27, 27, 27)
                 .addComponent(lblUser)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblfaltauser, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(13, 13, 13)
@@ -314,17 +314,13 @@ public class IniciarSesion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVerMouseClicked
-        // TODO add your handling code here:
         btnVer.setVisible(false);
         btnOcultar.setVisible(true);
         txtContraseña.setEchoChar((char)0);
     }//GEN-LAST:event_btnVerMouseClicked
 
     private void btnOcultarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnOcultarMouseClicked
-        // TODO add your handling code here:
-        btnVer.setVisible(true);
-        btnOcultar.setVisible(false);
-        txtContraseña.setEchoChar('●');
+        ocultarContra();
     }//GEN-LAST:event_btnOcultarMouseClicked
 
     private void btnCloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCloseMouseClicked
@@ -362,7 +358,7 @@ public class IniciarSesion extends javax.swing.JFrame {
     private void btnIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarActionPerformed
         Usuario user ;
         String username = txtUsuario.getText();
-        String password = txtContraseña.getText();
+        String password = new String(txtContraseña.getPassword()).trim();
         if(username.equals(""))
         {
         this.lblfaltauser.setText("Este campo es requerido.");
@@ -392,12 +388,20 @@ public class IniciarSesion extends javax.swing.JFrame {
     }//GEN-LAST:event_btnIniciarActionPerformed
 
     private void btnCrearCuentaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCrearCuentaMouseEntered
-        btnCrearCuenta.setForeground(Color.green);
+        btnCrearCuenta.setForeground(new Color(113,211,77));
     }//GEN-LAST:event_btnCrearCuentaMouseEntered
 
     private void btnCrearCuentaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCrearCuentaMouseExited
         btnCrearCuenta.setForeground(Color.white);
     }//GEN-LAST:event_btnCrearCuentaMouseExited
+
+    private void btnRecuperarContraseñaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRecuperarContraseñaMouseEntered
+        btnRecuperarContraseña.setForeground(new Color(113,211,77));
+    }//GEN-LAST:event_btnRecuperarContraseñaMouseEntered
+
+    private void btnRecuperarContraseñaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRecuperarContraseñaMouseExited
+         btnRecuperarContraseña.setForeground(Color.white);
+    }//GEN-LAST:event_btnRecuperarContraseñaMouseExited
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -420,9 +424,7 @@ public class IniciarSesion extends javax.swing.JFrame {
     private javax.swing.JPasswordField txtContraseña;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
-   
-    //Funciones 
-   
+
     public void abrirForms(Usuario user) {
                 
         switch (user.getRol()) {
@@ -461,13 +463,18 @@ public class IniciarSesion extends javax.swing.JFrame {
     public void inicializarVariable() throws ClassNotFoundException, SQLException {            
         this.userService = new ServiciosUsuario();        
     } 
-    private void initControlls() {
+    private void initControlls( ) {
         this.setLocationRelativeTo(null);
-        btnOcultar.setVisible(false);
+        ocultarContra();   
         lblfaltacontra.setText(null);
         lblfaltauser.setText(null);
         txtContraseña.setText(null);
         txtUsuario.setText(null);
         lblestado.setText(null);
     } 
+    public void ocultarContra() {
+        btnVer.setVisible(true);
+        btnOcultar.setVisible(false);
+        txtContraseña.setEchoChar('●');
+    }
 }

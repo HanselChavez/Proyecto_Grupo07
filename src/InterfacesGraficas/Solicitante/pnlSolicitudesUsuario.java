@@ -12,7 +12,7 @@ import static Main.ServicioDeAgua.mensaje;
 import Utilidades.ServiciosUsuario;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
+import java.util.Date;
 import rojeru_san.efectos.ValoresEnum;
 
 /**
@@ -385,13 +385,19 @@ public class pnlSolicitudesUsuario extends javax.swing.JPanel {
     }//GEN-LAST:event_btnVolverActionPerformed
 
     private void btnNuevaSolicitudActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaSolicitudActionPerformed
-        lblTitulo.setText("Nueva Solicitud");
-        lblmotivo.setText("Ingrese movito de Solicitud.");
-        btnAceptarEditar.setText("Aceptar");
-        btnAceptarEditar.setIcons(ValoresEnum.ICONS.CHECK);
-        btnVolver.setVisible(true);
-        txtdireccion.setText(user.getDireccion());
-        this.pnlSliderSolicitud.setPanelNormal(pnlNuevaSolicitud);        
+        
+        if(verificarHorario()){
+            lblTitulo.setText("Nueva Solicitud");
+            lblmotivo.setText("Ingrese movito de Solicitud.");
+            btnAceptarEditar.setText("Aceptar");
+            btnAceptarEditar.setIcons(ValoresEnum.ICONS.CHECK);
+            btnVolver.setVisible(true);
+            txtdireccion.setText(user.getDireccion());
+            this.pnlSliderSolicitud.setPanelNormal(pnlNuevaSolicitud);  
+        }  else{
+            mensaje.cargarDatos("Nueva Solicitud","El horario para hacer"
+                    + " solicitudes es de 8 am a 5 pm",1);
+        }    
     }//GEN-LAST:event_btnNuevaSolicitudActionPerformed
 
     private void btnEditarSolicitudActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarSolicitudActionPerformed
@@ -409,28 +415,26 @@ public class pnlSolicitudesUsuario extends javax.swing.JPanel {
                 btnVolver.setVisible(true);
                 this.pnlSliderSolicitud.setPanelNormal(pnlNuevaSolicitud);
             }
-            else{
-                 JOptionPane.showMessageDialog(null,"La solicitud ya ha sido "
-                         + "procesada, no es posible modificarla");
+            else{                 
+                mensaje.cargarDatos("Editar Solicitud",
+                                "La solicitud ya ha sido "
+                         + "procesada, no es posible modificarla.",1);
             }
         }else{
-            JOptionPane.showMessageDialog(null,"Seleccione una solicitud de la"
-                    + " lista para editarla.");
+            mensaje.cargarDatos("Editar Solicitud",
+                               "Seleccione una solicitud de la"
+                   + " lista para editarla.",1);
         }           
     }//GEN-LAST:event_btnEditarSolicitudActionPerformed
 
    
     private void btnEliminarHistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarHistActionPerformed
-        Thread t1 = null;
-        if (t1 != null && t1.isAlive()) {
-            t1.interrupt();
-        }
+        Thread t1 = null;        
         t1 = new Thread(() -> {
             if(hSolicitudes.getListaDeSolicitudes().size()>0){
                 mensaje.cargarDatos("Confirmacion","¿Estas seguro de "
                         + "continuar?", 2);
                 boolean respuesta = mensaje.getRespuesta();
-                System.out.println("rpta"+respuesta);
                 if (respuesta) {
                     try {
                         servicio.eliminarSolicitudesUsuario(user.getDni());
@@ -443,10 +447,6 @@ public class pnlSolicitudesUsuario extends javax.swing.JPanel {
                         mensaje.cargarDatos("Error al eliminar Historial",
                                 "No ha sido posible borrar el historial.",1);
                     }
-                }else{
-                     System.out.println("cancelado");
-                    //mensaje.cargarDatos("Eliminar Historial",
-                    //      "Se canceló la acción de borrar el historial.",1);
                 }
             }
             else{
@@ -456,8 +456,6 @@ public class pnlSolicitudesUsuario extends javax.swing.JPanel {
         });
         
         t1.start();
-        //t1.start();   
-       
     }//GEN-LAST:event_btnEliminarHistActionPerformed
 
     private void btnCancelarSolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarSolActionPerformed
@@ -580,6 +578,7 @@ public class pnlSolicitudesUsuario extends javax.swing.JPanel {
 
     private void actualizarLista(String buscar) { 
         try {
+            
             hSolicitudes.setListaDeSolicitudes(new ArrayList<>());
             this.servicio.listarSolicitudes(tablaSolicitudes, "", ""   
                     , buscar,user.getDni(),hSolicitudes.getListaDeSolicitudes());
@@ -587,8 +586,11 @@ public class pnlSolicitudesUsuario extends javax.swing.JPanel {
             mensaje.cargarDatos("Error al Actualizar Lista",
                 "No ha sido posible cargar los registros.",1);        
         }
-   
-
+    }
+    private static boolean verificarHorario() {
+        int hora = new Date().getHours();
+         System.out.println(hora);
+        return hora >= 8 && hora <= 17;
     }
  
 }

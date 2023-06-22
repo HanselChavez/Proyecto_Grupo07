@@ -8,8 +8,6 @@ package Config;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -17,25 +15,26 @@ import java.util.logging.Logger;
  */
 public class ConexionBaseDeDatos {
     private static Connection conexion ;
-    private static String url = 
-            "jdbc:sqlserver://localhost:1433;databaseName=WaterService";
-    private static String usuario = "sa";
-    private static String contraseña = "CARLOS3231234";
+    private static String url;
+    private static String usuario;
+    private static String contraseña;
     public static Connection getConexion(){
          
         try {
-            /*url = "jdbc:sqlserver://grupo07tecpoo.database.windows.net:1433;"
+            url = "jdbc:sqlserver://grupo07tecpoo.database.windows.net:1433;"
             + "database=WaterService;user=grupo07@grupo07tecpoo;password=Grupo7TecPoo"
             + ";encrypt=true;trustServerCertificate=false;hostNameInCertificate=*"
             + ".database.windows.net;loginTimeout=30;";
             usuario = "grupo07";
-            contraseña = "Grupo7TecPoo";*/
+            contraseña = "Grupo7TecPoo";
+            //Solicitando al cargador de clases que busque y cargue  la clase 
+            //SQLServerDriver 
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            //Establecer y obtener la conexion
             conexion= DriverManager.getConnection(url,usuario,contraseña);     
             return conexion;
-        } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(ConexionBaseDeDatos.class
-                    .getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException | ClassNotFoundException ex) {
+            System.out.println("Error: "+ ex.getMessage());
         }
         return null;
     }    

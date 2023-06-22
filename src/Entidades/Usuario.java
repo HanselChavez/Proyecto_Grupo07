@@ -12,44 +12,32 @@ public class Usuario extends Persona{
    
     private String correo;
     private String nombreUsuario;
-    private String celular;
-    private String contraseña;
+    private String contraseña;    
     private byte[] fotoBytes;
     private int rol;
+    
     public Usuario(){
         fotoBytes = null;
     }
     public int getRol() {
         return rol;
     }
-
     public void setRol(int rol) {
         this.rol = rol;
     }
-
     public byte[] getFoto() {
         return fotoBytes;
     }
-
     public void setFoto(byte[] foto) {
         this.fotoBytes = foto;
-    }   
+    }  
 
     public String getCorreo() {
         return correo;
     }
-
     public void setCorreo(String correo) {
         this.correo = correo;
-    }
-
-    public String getCelular() {
-        return celular;
-    }
-
-    public void setCelular(String celular) {
-        this.celular = celular;
-    }
+    } 
 
     public String getContraseña() {
         return contraseña;

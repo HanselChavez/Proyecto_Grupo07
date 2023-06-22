@@ -7,7 +7,7 @@ package InterfacesGraficas.Solicitante;
 
 import Entidades.Mensaje;
 import Entidades.Usuario;
-import Main.ServicioDeAgua;
+import static Main.ServicioDeAgua.mensaje;
 import Utilidades.ServiciosUsuario;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -376,7 +376,7 @@ public class pnlComentariosSolicitantes extends javax.swing.JPanel {
             btnVolver.setVisible(true);
         }
         else{  
-            ServicioDeAgua.mensaje.cargarDatos("Visualizar "+tipo
+            mensaje.cargarDatos("Visualizar "+tipo
                    ,"Seleccione un registro de la lista", 1);  
         }
     }//GEN-LAST:event_btnVisualizarRetroActionPerformed
@@ -391,17 +391,17 @@ public class pnlComentariosSolicitantes extends javax.swing.JPanel {
                         ,user.getDni());
                 
                 actualizarLista("");
-                ServicioDeAgua.mensaje.cargarDatos("Generar "+tipo
+                mensaje.cargarDatos("Generar "+tipo
                    ,"Se ha generado el comentario correctamente.", 1);  
                 btnVolver.doClick();
             }
             else{
-               ServicioDeAgua.mensaje.cargarDatos("Generar "+tipo
+               mensaje.cargarDatos("Generar "+tipo
                    ,"Completa el campo vacio.", 1);  
             }
            
         } catch (SQLException ex) {
-            ServicioDeAgua.mensaje.cargarDatos("Error al generar "+tipo
+            mensaje.cargarDatos("Error al generar "+tipo
                    ,"No se pudo genera el comentario.", 1);  
         }
     }//GEN-LAST:event_btnAceptarGenerarActionPerformed
@@ -450,7 +450,7 @@ public class pnlComentariosSolicitantes extends javax.swing.JPanel {
             this.servicio.listarRetroAlimentacion(tablaRetro,user.getDni(),buscar
                     ,this.tipo,listaRetro,1);
         } catch (SQLException ex) {
-            ServicioDeAgua.mensaje.cargarDatos("Error al Actualizar Lista "
+            mensaje.cargarDatos("Error al Actualizar Lista "
                    ,"No se pudo actualizar los registros de la lista.", 1);  
         }
     }
@@ -463,14 +463,14 @@ public class pnlComentariosSolicitantes extends javax.swing.JPanel {
         lblFecha2.setVisible(false);
         btnAceptarGenerar.setVisible(true);
     }
-    private void llenarDatos(Mensaje mensaje) {
+    private void llenarDatos(Mensaje aviso) {
         lblestado.setText("Ver Comentario");
-        cbxTipo.setSelectedItem(mensaje.getTipo());
+        cbxTipo.setSelectedItem(aviso.getTipo());
         txtcontenidoRetro.setEnabled(false);
-        txtcontenidoRetro.setText(mensaje.getContenido());
+        txtcontenidoRetro.setText(aviso.getContenido());
         lblFecha.setVisible(false);
         lblFecha2.setVisible(true);
-        lblFecha2.setText(mensaje.getFecha().toString());
+        lblFecha2.setText(aviso.getFecha().toString());
         btnAceptarGenerar.setVisible(false);
     }
 

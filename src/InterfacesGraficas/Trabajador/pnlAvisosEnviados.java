@@ -7,15 +7,11 @@ package InterfacesGraficas.Trabajador;
  */
 
 import Entidades.*;
-import InterfacesGraficas.Solicitante.pnlSolicitudesUsuario;
 import static Main.ServicioDeAgua.mensaje;
 import Utilidades.ServiciosUsuario;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 import rojeru_san.efectos.ValoresEnum;
 
 /**
@@ -494,7 +490,7 @@ public class pnlAvisosEnviados extends javax.swing.JPanel {
         this.pnlSliderAviso.setPanelNormal(pnlListaAvisos);
         btnVolver.setVisible(false);
     }
-    public void modificarPantallaNuevo(){
+    private void modificarPantallaNuevo(){
         btnVolver.setVisible(true);
         lblCodigo.setVisible(false);
         lbltitulocod.setVisible(false);
@@ -510,7 +506,7 @@ public class pnlAvisosEnviados extends javax.swing.JPanel {
         txtcontenidoAviso.setEnabled(true);       
                
     }
-     public void modificarPantallaEditar(Mensaje aviso){
+    private void modificarPantallaEditar(Mensaje aviso){
         btnVolver.setVisible(true);
         lblCodigo.setVisible(true);
         lbltitulocod.setVisible(true);
@@ -520,13 +516,10 @@ public class pnlAvisosEnviados extends javax.swing.JPanel {
         btnGuardar.setIcons(ValoresEnum.ICONS.SAVE);
         btnGuardar.setVisible(true);
         lblTitulo.setText("Editar Aviso");     
-        lblCodigo.setText(aviso.getCod());
-        txtfecha.setText(aviso.getFecha().toString());
-        txtnombreT.setText(aviso.getNombreUsuario());
-        txtcontenidoAviso.setText(aviso.getContenido());
+        llenarCampos(aviso);
         btnGuardar.setText("Guardar cambios");  
     }
-     public void modificarPantallaVisualizar(Mensaje aviso){
+    private void modificarPantallaVisualizar(Mensaje aviso){
         btnVolver.setVisible(true);
         btnGuardar.setVisible(false);
         lblCodigo.setVisible(true);
@@ -536,6 +529,10 @@ public class pnlAvisosEnviados extends javax.swing.JPanel {
         btnGuardar.setVisible(false);
         txtcontenidoAviso.setEnabled(false);   
         lblTitulo.setText("Visualizar Aviso");
+        llenarCampos(aviso);
+    }
+
+    private void llenarCampos(Mensaje aviso) {
         lblCodigo.setText(aviso.getCod());
         txtfecha.setText(aviso.getFecha().toString());
         txtnombreT.setText(aviso.getNombreUsuario());
@@ -551,13 +548,7 @@ public class pnlAvisosEnviados extends javax.swing.JPanel {
                ,"No es posible cargar los registros.", 1);
         }
     }
-    public void llenarCampos(Mensaje aviso){
-        txtcontenidoAviso.setText(aviso.getContenido());
-        lblCodigo.setText(aviso.getCod());
-        txtnombreT.setText(aviso.getNombreUsuario());
-        txtfecha.setText(aviso.getFecha().toString());        
-    }
-    public void limpiarCampos(){
+    private void limpiarCampos(){
         txtcontenidoAviso.setText("");
         lblCodigo.setText("");
         txtnombreT.setText("");

@@ -599,20 +599,17 @@ public class CrearCuenta extends javax.swing.JFrame {
         }
     }
     private boolean validarCampos() {
-        boolean validado = false;
-        if(!txtNombres.getText().isEmpty()&&!txtCodigo.getText().isEmpty()
-            &&!txtdireccion.getText().isEmpty()&&!txtDni.getText().isEmpty()
-            &&!txtTelefono.getText().isEmpty()&&!txtCorreo.getText().isEmpty()
-            &&!txtUsername.getText().isEmpty()&& correoValidado == true
-            && usuarioValidado ==true)
-            validado = true;            
-        return validado;
+        return !txtNombres.getText().isEmpty()&&!txtCodigo.getText().isEmpty()
+                &&!txtdireccion.getText().isEmpty()&&!txtDni.getText().isEmpty()
+                &&!txtTelefono.getText().isEmpty()&&!txtCorreo.getText().isEmpty()
+                &&!txtUsername.getText().isEmpty()&& correoValidado == true
+                && usuarioValidado ==true;
     }
     
     public void cargarDatos() {
         try {
             user.setNombreUsuario(txtUsername.getText());
-            user.setContraseña(txtContraseña.getText());
+            user.setContraseña(new String(txtContraseña.getPassword()).trim());
             user.setDireccion(txtdireccion.getText());
             user.setCelular(txtTelefono.getText());
             user.setCorreo(txtCorreo.getText());

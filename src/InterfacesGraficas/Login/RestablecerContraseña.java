@@ -276,7 +276,7 @@ public class RestablecerContraseña extends javax.swing.JFrame {
     private void btnAceptarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAceptarMouseClicked
         if(validarCampos()){
             try {
-                String contraseña = txtContraseña.getText().trim();
+                String contraseña=new String(txtContraseña.getPassword()).trim();
                 String correo = txtCorreo.getText().trim();
                 servicio.actualizarContraseña(contraseña,"",correo);
                 padre.setVisible(true);
@@ -317,27 +317,11 @@ public class RestablecerContraseña extends javax.swing.JFrame {
     }//GEN-LAST:event_btnOcultarMouseClicked
 
     private void txtConfirmarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtConfirmarKeyReleased
-        if(!txtContraseña.getText().trim().equals(txtConfirmar.getText()
-                .trim())){
-            lbldesigualdad.setText("Las contraseñas no son iguales.");
-            contraValidado = false;
-        }
-        else{
-            lbldesigualdad.setText("");
-            contraValidado = true;
-        }
+        compararContraseñas();
     }//GEN-LAST:event_txtConfirmarKeyReleased
 
     private void txtConfirmarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtConfirmarKeyTyped
-        if(!txtContraseña.getText().trim().equals(txtConfirmar.getText()
-                .trim())){
-            lbldesigualdad.setText("Las contraseñas no son iguales.");
-            contraValidado = false;
-        }
-        else{
-            lbldesigualdad.setText("");
-            contraValidado = true;
-        }
+        compararContraseñas();
     }//GEN-LAST:event_txtConfirmarKeyTyped
 
     private void txtContraseñaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtContraseñaKeyReleased
@@ -405,5 +389,16 @@ public class RestablecerContraseña extends javax.swing.JFrame {
 
     private boolean validarCampos() {        
         return correoValidado==true && contraValidado==true;
+    }
+    public void compararContraseñas() {
+        if(!new String(txtContraseña.getPassword()).trim().equals(
+                new String(txtConfirmar.getPassword()).trim())){
+            lbldesigualdad.setText("Las contraseñas no son iguales.");
+            contraValidado = false;
+        }
+        else{
+            lbldesigualdad.setText("");
+            contraValidado = true;
+        }
     }
 }

@@ -18,10 +18,7 @@ public class Solicitud {
     private EstadoSolicitud estado;
     private String idUsuario;
     private String nombre;
-    public Solicitud(){
-    
-    }
-
+   
     public String getNombreUser() {
         return nombre;
     }
@@ -43,32 +40,19 @@ public class Solicitud {
     public String getDescripcion() {
         return descripcion;
     }
-
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
-
     public Date getFecha() {
         return fecha;
     }
-
     public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
-
     public EstadoSolicitud getEstado() {
         return estado;
     }
-
     public void setEstado(EstadoSolicitud estado) {
         this.estado = estado;
-    }
-
-    @Override
-    public String toString() {
-        return "Estado" +estado.getNombre();
-    }
-    
-    
-    
+    }    
 }

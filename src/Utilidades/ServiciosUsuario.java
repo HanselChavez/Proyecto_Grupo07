@@ -341,10 +341,5 @@ public class ServiciosUsuario {
             Logger.getLogger(ServiciosUsuario.class.getName())
                     .log(Level.SEVERE, null, ex);
         }
-    }   
-
-   
-
-   
-   
+    }      
 }

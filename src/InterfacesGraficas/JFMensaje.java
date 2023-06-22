@@ -213,26 +213,27 @@ public class JFMensaje extends javax.swing.JFrame {
         this.setVisible(false);
         if(btnCancelar.isVisible()){
             respuesta = true;
-            latch.countDown();
+            responder.countDown();
         }
      
     }//GEN-LAST:event_btnAceptarActionPerformed
 
     private void btnCloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCloseMouseClicked
         if(btnCancelar.isVisible()){
-            latch.countDown();
+            responder.countDown();
             respuesta= false;   
         }
         this.setVisible(false);    
     }//GEN-LAST:event_btnCloseMouseClicked
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        respuesta = false;
-        this.setVisible(false);    
-        latch.countDown();
-        System.out.println("cancelado en jfmensaje");
-      
+        if(btnCancelar.isVisible()){
+            respuesta = false;
+            responder.countDown();
+        }
+        this.setVisible(false); 
     }//GEN-LAST:event_btnCancelarActionPerformed
-    public  CountDownLatch latch = new CountDownLatch(1);
+    // Crear un CountDownLatch con un valor inicial de 1 para sincronización
+    private  CountDownLatch responder = new CountDownLatch(1);
     public void cargarDatos(String titulo,String mensaje,int modo) { 
         
         this.respuesta = false;
@@ -246,10 +247,12 @@ public class JFMensaje extends javax.swing.JFrame {
         }else
         {       
             try {
-                latch = new CountDownLatch(1);
+                //dandole un nuevo contador
+                responder = new CountDownLatch(1);
                 btnCancelar.setVisible(true);
-                this.setVisible(true);                
-                latch.await();
+                this.setVisible(true);   
+                //Bloquear hilo
+                responder.await();
             } catch (InterruptedException ex) {
                 Logger.getLogger(JFMensaje.class.getName())
                         .log(Level.SEVERE, null, ex);

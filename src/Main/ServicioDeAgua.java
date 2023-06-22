@@ -9,6 +9,7 @@ import InterfacesGraficas.JFMensaje;
 import InterfacesGraficas.Login.IniciarSesion;
 import java.sql.SQLException;
 
+
 /**
  *
  * @author Hansel Chavez
@@ -16,17 +17,19 @@ import java.sql.SQLException;
 public class ServicioDeAgua {
 
     /**     
-     * @throws java.lang.ClassNotFoundException
-     * @throws java.sql.SQLException
+     
      */
-    public static final JFMensaje mensaje= new JFMensaje();
-    public static void main(String args[]) throws ClassNotFoundException
-       , SQLException {  
+    public static final JFMensaje mensaje = new JFMensaje();
+    public static void main(String args[]) {  
        
-        mensaje.setVisible(true);
-        mensaje.setVisible(false);
-        IniciarSesion login = new IniciarSesion();
-        login.setVisible(true);
+        try {
+            mensaje.setVisible(true);
+            mensaje.setVisible(false);
+            IniciarSesion login = new IniciarSesion();
+            login.setVisible(true);
+        } catch (ClassNotFoundException | SQLException ex) {
+            mensaje.cargarDatos("Error","No se puede abrir el programa",1);
+        }
        
 
     }  

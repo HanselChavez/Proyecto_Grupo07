@@ -5,7 +5,7 @@
  */
 package InterfacesGraficas.Solicitante;
 import Entidades.*;
-import Main.ServicioDeAgua;
+import static Main.ServicioDeAgua.mensaje;
 import Utilidades.ServiciosUsuario;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -331,7 +331,7 @@ public class pnlAvisosRecibidos extends javax.swing.JPanel {
         }
         else
         {
-            ServicioDeAgua.mensaje.cargarDatos("Visualizar Aviso"
+            mensaje.cargarDatos("Visualizar Aviso"
                    ,"Seleccione un registro de la lista", 1);           
         }
     }//GEN-LAST:event_btnVisualizarActionPerformed
@@ -368,7 +368,7 @@ public class pnlAvisosRecibidos extends javax.swing.JPanel {
             this.listaAviso = new ArrayList<>();
             servicio.listarAvisos(tablaAvisos,buscar,listaAviso);
         } catch (SQLException ex) {
-            ServicioDeAgua.mensaje.cargarDatos("Actualizar Lista"
+            mensaje.cargarDatos("Actualizar Lista"
                    ,"No ha sido posible cargar los registros a la lista.", 1);     
         }
     }

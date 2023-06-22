@@ -450,16 +450,6 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.DesignCardLayout"/>
           <SubComponents>
-            <Component class="InterfacesGraficas.Trabajador.pnSolicitantes" name="pnlSolicitantes">
-              <Properties>
-                <Property name="name" type="java.lang.String" value="pnlSolicitantes" noResource="true"/>
-              </Properties>
-              <Constraints>
-                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
-                  <CardConstraints cardName="card2"/>
-                </Constraint>
-              </Constraints>
-            </Component>
             <Component class="InterfacesGraficas.Trabajador.pnlAvisosEnviados" name="pnlAvisosEnviados">
               <Properties>
                 <Property name="name" type="java.lang.String" value="pnlAvisosEnviados" noResource="true"/>
@@ -484,6 +474,9 @@
               <Properties>
                 <Property name="name" type="java.lang.String" value="pnlPerfil" noResource="true"/>
               </Properties>
+              <Events>
+                <EventHandler event="mouseMoved" listener="java.awt.event.MouseMotionListener" parameters="java.awt.event.MouseEvent" handler="pnlPerfilMouseMoved"/>
+              </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
                   <CardConstraints cardName="card6"/>
@@ -493,6 +486,16 @@
             <Component class="InterfacesGraficas.Trabajador.pnlSolicitudes" name="pnlSolicitudes">
               <Properties>
                 <Property name="name" type="java.lang.String" value="pnlSolicitudes" noResource="true"/>
+              </Properties>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
+                  <CardConstraints cardName="card6"/>
+                </Constraint>
+              </Constraints>
+            </Component>
+            <Component class="InterfacesGraficas.Trabajador.pnlSolicitantes" name="pnlSolicitantes">
+              <Properties>
+                <Property name="name" type="java.lang.String" value="pnlSolicitantes" noResource="true"/>
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">

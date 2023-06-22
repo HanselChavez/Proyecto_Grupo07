@@ -16,7 +16,7 @@ public class PrincipalAdmin extends javax.swing.JFrame {
     /**
      * Creates new form PrincipalAdmin
      */
-    static Usuario user = new Usuario();
+    Usuario user = new Usuario();
     IniciarSesion login;
    
     public PrincipalAdmin(Usuario user,IniciarSesion login){       
@@ -338,8 +338,8 @@ public class PrincipalAdmin extends javax.swing.JFrame {
     private InterfacesGraficas.Admin.pnlUsuarios pnlUsuarios;
     private rspanelgradiente.RSPanelGradiente rSPanelGradiente1;
     // End of variables declaration//GEN-END:variables
-    public static Usuario getUsuario(){
-        return PrincipalAdmin.user;
+    public  Usuario getUsuario(){
+        return this.user;
     }
     
     private void cerrarForm() {
@@ -348,7 +348,7 @@ public class PrincipalAdmin extends javax.swing.JFrame {
     public void iniciarValores(Usuario user ,IniciarSesion login ) {
         this.setLocationRelativeTo(null);
         this.login = login;
-        PrincipalAdmin.user = user;
+        this.user = user;
         cargarUsuario();
         RSEffectFade.setFadeWindowIn(this, 30,0.1f);
         pnlUsuarios.cargarServicio(login.getServicioUsuario());

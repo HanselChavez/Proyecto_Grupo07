@@ -17,8 +17,8 @@ public class PrincipalTrabajador extends javax.swing.JFrame {
     /**
      * Creates new form PrincipalTrabajador
      */
-    Usuario user;
-    IniciarSesion padre;
+    private Usuario user;
+    private IniciarSesion padre;
   
     public PrincipalTrabajador(Usuario user,IniciarSesion padre) {       
         initComponents();
@@ -49,11 +49,11 @@ public class PrincipalTrabajador extends javax.swing.JFrame {
         btnClose = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         pnlslider = new newscomponents.RSPanelEffect();
-        pnlSolicitantes = new InterfacesGraficas.Trabajador.pnSolicitantes();
         pnlAvisosEnviados = new InterfacesGraficas.Trabajador.pnlAvisosEnviados();
         pnlComentarios = new InterfacesGraficas.Trabajador.pnlComentarios();
         pnlPerfil = new InterfacesGraficas.Perfil.pnlPerfiles();
         pnlSolicitudes = new InterfacesGraficas.Trabajador.pnlSolicitudes();
+        pnlSolicitantes = new InterfacesGraficas.Trabajador.pnlSolicitantes();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -276,9 +276,6 @@ public class PrincipalTrabajador extends javax.swing.JFrame {
 
         pnlslider.setBackground(new java.awt.Color(255, 255, 255));
 
-        pnlSolicitantes.setName("pnlSolicitantes"); // NOI18N
-        pnlslider.add(pnlSolicitantes, "card2");
-
         pnlAvisosEnviados.setName("pnlAvisosEnviados"); // NOI18N
         pnlslider.add(pnlAvisosEnviados, "card3");
 
@@ -286,10 +283,18 @@ public class PrincipalTrabajador extends javax.swing.JFrame {
         pnlslider.add(pnlComentarios, "card4");
 
         pnlPerfil.setName("pnlPerfil"); // NOI18N
+        pnlPerfil.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                pnlPerfilMouseMoved(evt);
+            }
+        });
         pnlslider.add(pnlPerfil, "card6");
 
         pnlSolicitudes.setName("pnlSolicitudes"); // NOI18N
         pnlslider.add(pnlSolicitudes, "card6");
+
+        pnlSolicitantes.setName("pnlSolicitantes"); // NOI18N
+        pnlslider.add(pnlSolicitantes, "card6");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -395,6 +400,11 @@ public class PrincipalTrabajador extends javax.swing.JFrame {
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         System.exit(0);
     }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void pnlPerfilMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlPerfilMouseMoved
+        cargarNombre();
+    }//GEN-LAST:event_pnlPerfilMouseMoved
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private newscomponents.RSButtonGradientIcon_new btnAvisos;
     private javax.swing.JLabel btnClose;
@@ -413,7 +423,7 @@ public class PrincipalTrabajador extends javax.swing.JFrame {
     private InterfacesGraficas.Trabajador.pnlAvisosEnviados pnlAvisosEnviados;
     private InterfacesGraficas.Trabajador.pnlComentarios pnlComentarios;
     private InterfacesGraficas.Perfil.pnlPerfiles pnlPerfil;
-    private InterfacesGraficas.Trabajador.pnSolicitantes pnlSolicitantes;
+    private InterfacesGraficas.Trabajador.pnlSolicitantes pnlSolicitantes;
     private InterfacesGraficas.Trabajador.pnlSolicitudes pnlSolicitudes;
     private newscomponents.RSPanelEffect pnlslider;
     private rspanelgradiente.RSPanelGradiente rSPanelGradiente1;
@@ -422,10 +432,14 @@ public class PrincipalTrabajador extends javax.swing.JFrame {
         this.user = user1;
         this.padre = padre1;
         this.setLocationRelativeTo(null);
-        lblnombres.setText(user.getNombres());
-        lblapellidos.setText(user.getApellidos());    
+        cargarNombre();    
         pnlSolicitantes.cargarServicio(padre1.getServicioUsuario());
         this.pnlslider.setPanelNormal(pnlSolicitantes);
+    }
+
+    private void cargarNombre() {
+        lblnombres.setText(user.getNombres());
+        lblapellidos.setText(user.getApellidos());
     }
     
     private void cerrarForm() {

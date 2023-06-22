@@ -818,11 +818,11 @@ public class pnlPerfiles extends javax.swing.JPanel {
     }//GEN-LAST:event_btnCambiarContraActionPerformed
 
     private void btnGuardarContraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarContraseñaActionPerformed
-   
-        String contraseñaNueva =txtNuevaContra.getText();
+        
+        String contraseñaNueva =new String(txtNuevaContra.getPassword());
         if(!txtContraseñaActual.getText().isEmpty()
-            && !txtConfirmar.getText().isEmpty()
-            && !txtNuevaContra.getText().isEmpty()){
+            && !new String(txtConfirmar.getPassword()).isEmpty()
+            && !new String(txtNuevaContra.getPassword()).isEmpty()){
             try {
                 if(validarContraseña()){      
                     servicio.actualizarContraseña(contraseñaNueva,user.getDni()
@@ -909,17 +909,10 @@ public class pnlPerfiles extends javax.swing.JPanel {
     }//GEN-LAST:event_txtNuevaContraKeyTyped
 
     private void txtConfirmarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtConfirmarKeyTyped
-        if(!txtNuevaContra.getText().equals(txtConfirmar.getText()))
-            lbldesigualdad.setText("Las contraseñas no son iguales.");
-        else
-            lbldesigualdad.setText("");
+        compararContraseña();
     }//GEN-LAST:event_txtConfirmarKeyTyped
-
     private void txtConfirmarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtConfirmarKeyReleased
-        if(!txtNuevaContra.getText().equals(txtConfirmar.getText()))
-            lbldesigualdad.setText("Las contraseñas no son iguales.");
-        else
-            lbldesigualdad.setText("");
+        compararContraseña();
     }//GEN-LAST:event_txtConfirmarKeyReleased
 
 
@@ -984,17 +977,13 @@ public class pnlPerfiles extends javax.swing.JPanel {
     private necesario.TextField txtSegundoNombre;
     private necesario.TextField txtTelefono;
     // End of variables declaration//GEN-END:variables
-
     public void cargarDatos(Usuario user,JFrame padre,IniciarSesion login) {
         this.user = user;
         this.login = login;
         this.padre = padre;
         this.servicio = login.getServicioUsuario();
         cargarPerfil();
-    }      
-    public Usuario getUsuario(){
-        return this.user;
-    }   
+    }  
     public void cargarPerfil() {    
         try {
             txtNombres.setText(user.getNombres());
@@ -1013,11 +1002,19 @@ public class pnlPerfiles extends javax.swing.JPanel {
             Logger.getLogger(pnlPerfiles.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+     private void compararContraseña() {
+        if(!new String(txtNuevaContra.getPassword())
+                .equals(new String(txtConfirmar.getPassword())))
+            lbldesigualdad.setText("Las contraseñas no son iguales.");
+        else
+            lbldesigualdad.setText("");
+    }
     private boolean validarContraseña() {      
         return (txtContraseñaActual.getText().equals(user.getContraseña())                
-                && txtConfirmar.getText().equals(txtNuevaContra.getText()));
+                && new String(txtConfirmar.getPassword()).trim()
+                        .equals(new String(txtNuevaContra.getPassword())));
     }    
-    public void limpiarInputs() {
+    private void limpiarInputs() {
         txtNombre1.setText("");
         txtSegundoNombre.setText("");
         txtApellidoPaterno.setText("");
@@ -1030,7 +1027,7 @@ public class pnlPerfiles extends javax.swing.JPanel {
         txtConfirmar.setText("");
         lblFoto.setIcon(null);
     }
-    public void setDatosUsuario() { 
+    private void setDatosUsuario() { 
         user.setDni(user.getDni());
         user.setNombres(txtNombre1.getText()
                 , txtSegundoNombre.getText());

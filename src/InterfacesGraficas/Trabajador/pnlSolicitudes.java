@@ -26,9 +26,7 @@ public class pnlSolicitudes extends javax.swing.JPanel {
     private String nombre;
     private Color color;
     /**
-     * Creates new form principal
-     * @throws java.lang.ClassNotFoundException
-     * @throws java.sql.SQLException
+     * Creates new form principal     * 
      */
     List<Solicitud> listaSolicitudes;
     public pnlSolicitudes(){
@@ -57,7 +55,7 @@ public class pnlSolicitudes extends javax.swing.JPanel {
         btnVerInfo = new RSMaterialComponent.RSButtonMaterialIconOne();
         pnlVerProcesar = new javax.swing.JPanel();
         cbxEstado = new RSMaterialComponent.RSComboBoxMaterial();
-        lblEstaVP = new javax.swing.JLabel();
+        lblEstadoVizuProce = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -282,8 +280,8 @@ public class pnlSolicitudes extends javax.swing.JPanel {
 
         cbxEstado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Pendiente", "En Proceso", "Aprobado", "Rechazado", "Cancelado", "Entregada" }));
 
-        lblEstaVP.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
-        lblEstaVP.setText("Procesar Solicitud");
+        lblEstadoVizuProce.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
+        lblEstadoVizuProce.setText("Procesar Solicitud");
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(37, 45, 223));
@@ -357,7 +355,7 @@ public class pnlSolicitudes extends javax.swing.JPanel {
                 .addGap(51, 51, 51)
                 .addGroup(pnlVerProcesarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlVerProcesarLayout.createSequentialGroup()
-                        .addComponent(lblEstaVP, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblEstadoVizuProce, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(pnlVerProcesarLayout.createSequentialGroup()
                         .addGroup(pnlVerProcesarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -394,8 +392,8 @@ public class pnlSolicitudes extends javax.swing.JPanel {
             pnlVerProcesarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlVerProcesarLayout.createSequentialGroup()
                 .addGap(28, 28, 28)
-                .addComponent(lblEstaVP)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                .addComponent(lblEstadoVizuProce)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addGroup(pnlVerProcesarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlVerProcesarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(lblIdSolicitud, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -534,28 +532,30 @@ public class pnlSolicitudes extends javax.swing.JPanel {
     }//GEN-LAST:event_txtBuscarsolicitudKeyReleased
 
     private void btnVerInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerInfoActionPerformed
-       int indice = tablaSolicitudes.getSelectedRow();       
-       if(indice != -1)
+        //Obtener indice seleccionado
+        int indice = tablaSolicitudes.getSelectedRow();       
+        if(indice != -1)
         {
             Solicitud solicitud = listaSolicitudes.get(indice);
             llenarDatos(solicitud);
-            lblEstaVP.setText("Visualizar Solicitud");
+            lblEstadoVizuProce.setText("Visualizar Solicitud");
             cbxEstado.setEnabled(false);
             btnGuardar.setVisible(false);
             btnProcesar.setVisible(false);
             btnVolver.setVisible(true);
+            //sobrepone el panel y lo muestra 
             this.pnlSlider.setPanelNormal(pnlVerProcesar);
         }
         else{      
             mensaje.cargarDatos("Visualizar Informacion"
                ,"Seleccione un registro de la lista", 1);  
         }
-       
-
     }//GEN-LAST:event_btnVerInfoActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-        lblEstaVP.setText("Procesar Solicitud");
+        
+        lblEstadoVizuProce.setText("Procesar Solicitud");        
+        //sobrepone el panel y lo muestra 
         this.pnlSlider.setPanelNormal(pnlTablaSolcitudes);
         btnVolver.setVisible(false);
         btnProcesar.setVisible(true);
@@ -563,8 +563,10 @@ public class pnlSolicitudes extends javax.swing.JPanel {
     }//GEN-LAST:event_btnVolverActionPerformed
 
     private void btnProcesarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcesarActionPerformed
-        int indice = tablaSolicitudes.getSelectedRow();       
-       if(indice != -1)
+        //Obtener indice seleccionado
+        int indice = tablaSolicitudes.getSelectedRow();   
+        
+        if(indice != -1)
         {            
             Solicitud solicitud = listaSolicitudes.get(indice);
             if(!solicitud.getEstado().getNombre().equals("Cancelado")){
@@ -622,7 +624,7 @@ public class pnlSolicitudes extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JLabel lblEstaVP;
+    private javax.swing.JLabel lblEstadoVizuProce;
     private javax.swing.JLabel lblFecha2;
     private javax.swing.JLabel lblIdSolicitud;
     private javax.swing.JLabel lblIdUser;
@@ -635,13 +637,14 @@ public class pnlSolicitudes extends javax.swing.JPanel {
     private RSMaterialComponent.RSTextFieldMaterialIcon txtBuscarsolicitud;
     private javax.swing.JTextArea txtmotivo;
     // End of variables declaration//GEN-END:variables
-  
+    //Cargando servicio y darle valores iniciales a las variables
     public void cargarServicio(ServiciosUsuario servicio){
         this.servicio = servicio;
         reemplazarVariables("1","","Pendientes ",Color.BLACK);
         btnVolver.setVisible(false);   
         listarSolicitudes("",nombre,estado,color);
     }
+    //Darle valor de no seleccionado a todos los botones de estado
     public void seleccionarFalse(){
         btnEnProceso.setSelected(false);
         btnPendiente.setSelected(false);
@@ -649,10 +652,8 @@ public class pnlSolicitudes extends javax.swing.JPanel {
         btnAprobadas.setSelected(false);
         btnSoliTodas.setSelected(false);   
     }
-    public void labelColorTexto(String texto,Color color){
-        lblestado.setText(texto);
-        lblestado.setForeground(color);
-    }
+  
+    //reemplzar variables de estado, nombre y color del label
     public void reemplazarVariables(String estado,String negado
             ,String nombre,Color color) {
         this.estado = estado;
@@ -660,19 +661,27 @@ public class pnlSolicitudes extends javax.swing.JPanel {
         this.nombre = nombre;
         this.color = color;
     }
-    public void listarSolicitudes(String buscar,String texto,String estate,Color color)
+    //Listar solicitudes 
+    public void listarSolicitudes(String buscar,String nombreEstado
+            ,String estado,Color color)
       {   
-        try {
+        try {            
             listaSolicitudes = new ArrayList<>();
-            cantidad = this.servicio.listarSolicitudes(tablaSolicitudes,estate,negado
-                    ,buscar,"",listaSolicitudes);
-            labelColorTexto(texto+"("+cantidad+")",color);
+            //listar las solicitudes en la tabla segun su estado y busqueda
+            cantidad = this.servicio.listarSolicitudes(tablaSolicitudes,estado
+                    ,negado,buscar,"",listaSolicitudes);            
+            labelColorTexto(nombreEstado+"("+cantidad+")",color);
         } catch (SQLException ex) {
             mensaje.cargarDatos("Error al actualizar lista"
               ,"No ha sido posible mostrar los registros.", 1); 
         }
     }
-    
+    //Metodo para darle color y texto al label
+    public void labelColorTexto(String texto,Color color){
+        lblestado.setText(texto);
+        lblestado.setForeground(color);
+    }
+    //Llenar datos para visualizar o procesar
     private void llenarDatos(Solicitud solicitud) {
         lblIdSolicitud.setText(solicitud.getCodigo());
         lblIdUser.setText(solicitud.getIdUsuario());

@@ -21,6 +21,7 @@ public class Persona {
     protected String apellidoPaterno;
     protected String apellidoMaterno;
     protected String direccion;
+    protected String celular;
     protected Date fechaNac;
     public String getDni() {
         return dni;
@@ -47,10 +48,7 @@ public class Persona {
         this.apellidoPaterno = apellidoP;
         this.apellidoMaterno = apellidoM;
     }
-
-    public Date getFechaNac() {        
-        return this.fechaNac;
-    }
+    
     public String getFechaString(){
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String dateString = dateFormat.format(this.fechaNac);
@@ -65,7 +63,7 @@ public class Persona {
             DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");   
             this.fechaNac = dateFormat.parse(fecha);
         } catch (ParseException ex) {
-            System.out.println("No se pudo convertir el string en fecha");
+            System.out.println("No se pudo convertir el string en date");
         }
     }
 
@@ -75,5 +73,12 @@ public class Persona {
 
     public void setDireccion(String direccion) {
         this.direccion = direccion;
+    }
+    public String getCelular() {
+        return celular;
+    }
+
+    public void setCelular(String celular) {
+        this.celular = celular;
     }
 }
