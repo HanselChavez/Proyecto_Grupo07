@@ -15,18 +15,21 @@ import java.sql.SQLException;
  */
 public class ConexionBaseDeDatos {
     private static Connection conexion ;
-    private static String url;
+    private static String url = "jdbc:sqlserver://localhost:1433;"
+                                    + "databaseName=WaterService";;
+    
     private static String usuario;
     private static String contraseña;
     public static Connection getConexion(){
          
         try {
-            url = "jdbc:sqlserver://grupo07tecpoo.database.windows.net:1433;"
+            
+            /*url = "jdbc:sqlserver://grupo07tecpoo.database.windows.net:1433;"
             + "database=WaterService;user=grupo07@grupo07tecpoo;password=Grupo7TecPoo"
             + ";encrypt=true;trustServerCertificate=false;hostNameInCertificate=*"
-            + ".database.windows.net;loginTimeout=30;";
-            usuario = "grupo07";
-            contraseña = "Grupo7TecPoo";
+            + ".database.windows.net;loginTimeout=30;";*/
+            usuario = "SAA";
+            contraseña = "123456";
             //Solicitando al cargador de clases que busque y cargue  la clase 
             //SQLServerDriver 
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");

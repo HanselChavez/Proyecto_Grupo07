@@ -28,6 +28,7 @@ public class CrearCuenta extends javax.swing.JFrame {
     /**
      * Creates new form CrearCuenta
      */
+    //variables de instancia
     Usuario user ;
     IniciarSesion login;
     String codigo ;

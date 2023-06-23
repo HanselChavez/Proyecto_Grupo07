@@ -20,7 +20,7 @@ import java.util.Date;
 
 /**
  *
- * @author chave
+ * @author Kelvin Vasquez
  */
 public class Dni {
     private static DateFormat dateFormat;
